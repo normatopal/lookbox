@@ -1,0 +1,13 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: lookbox
+  pool: 5
+  username: root
+  password: ubuntu
+  host: localhost
+
+test:
+
+production:
