@@ -1,0 +1,145 @@
+body
+  font-family: 'laCartoonerie'
+
+a
+  color: #7E57C2
+  &:hover
+    color: darken(#7E57C2, 20%)
+
+.form-inline
+  .btn
+    width: 84px
+  &+.form-inline
+    margin-top: 6px
+  .form-group
+    .form-control
+      display: inline-block
+    &:first-of-type
+      input
+        font-family: Helvetica, Arial, Sans-Serif
+        &::-webkit-input-placeholder
+          font-family: 'laCartoonerie'
+
+        &:-moz-placeholder
+          font-family: 'laCartoonerie'
+
+        &::-moz-placeholder
+          font-family: 'laCartoonerie'
+
+        &:-ms-input-placeholder
+          font-family: 'laCartoonerie'
+
+#content
+  .checkbox
+    input
+      margin-left: 0
+  //.row
+  //  &>div
+  //    float: none
+  //    margin-left: auto
+  //    margin-right: auto
+
+header
+  background: #D1C4E9
+  font-weight: bold
+  font-style: normal
+  height: 80px
+  margin-bottom: 130px
+  .row
+    margin-left: 0
+    margin-right: 0
+
+.form-inline
+  input.form-control
+    width: 290px !important
+    
+#form
+  margin: 10px auto 100px
+  
+#errors
+  margin-top: -20px
+  margin-bottom: 20px
+  li
+    list-style-type: none
+    color: #F06292
+
+#recently_shortened, #your_links
+  .table
+    table-layout: fixed
+    td
+      border: none
+      &:first-of-type
+        text-align: right
+        padding-right: 0
+      &:nth-of-type(2)
+        text-align: center
+        padding-right: 0
+        padding-left: 0
+      &:nth-of-type(3)
+        text-align: right
+        padding-left: 0
+      &:last-of-type
+        text-align: left
+
+.btn-custom
+  background-color: #B39DDB
+  border-color: #B39DDB
+
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active,
+.btn-custom.active
+  background-color: #a58ad4
+  border-color: #9678cd
+
+.btn-custom.disabled:hover,
+.btn-custom.disabled:focus,
+.btn-custom.disabled:active,
+.btn-custom.disabled.active,
+.btn-custom[disabled]:hover,
+.btn-custom[disabled]:focus,
+.btn-custom[disabled]:active,
+.btn-custom[disabled].active,
+fieldset[disabled] .btn-custom:hover,
+fieldset[disabled] .btn-custom:focus,
+fieldset[disabled] .btn-custom:active,
+fieldset[disabled] .btn-custom.active
+  background-color: #B39DDB
+  border-color: #B39DDB
+
+.btn-copy
+  background-color: #EDE7F6
+  border-color: #EDE7F6
+
+.btn-copy:hover,
+.btn-copy:focus,
+.btn-copy:active,
+.btn-copy.active
+  background-color: #dfd4ef
+  border-color: #d1c2e8
+
+.btn-copy.disabled:hover,
+.btn-copy.disabled:focus,
+.btn-copy.disabled:active,
+.btn-copy.disabled.active,
+.btn-copy[disabled]:hover,
+.btn-copy[disabled]:focus,
+.btn-copy[disabled]:active,
+.btn-copy[disabled].active,
+fieldset[disabled] .btn-copy:hover,
+fieldset[disabled] .btn-copy:focus,
+fieldset[disabled] .btn-copy:active,
+fieldset[disabled] .btn-copy.active
+  background-color: #EDE7F6
+  border-color: #EDE7F6
+
+.tooltip.right
+  .tooltip-arrow
+    top: 50% !important
+  .tooltip-inner
+    min-width: 90px
+
+.auth_wrapper
+  max-width: 575px
+  margin-left: auto
+  margin-right: auto

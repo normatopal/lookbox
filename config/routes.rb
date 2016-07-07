@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :pictures
-  root to: redirect('/about.html')
+  get 'users/profile', as: 'user_root'
+  root to: 'home#index'
 end
 
 

@@ -15,3 +15,13 @@
 /log/*
 !/log/.keep
 /tmp
+*.orig
+.idea/
+
+config/database.yml
+
+#Ignore Backup files
+*.html.haml.BACKUP.*.haml
+*.html.haml.LOCAL.*.haml
+*.html.haml.BASE.*.haml
+*.html.haml.REMOTE.*.haml
