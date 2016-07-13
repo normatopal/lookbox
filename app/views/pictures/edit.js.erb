@@ -1,0 +1,5 @@
+$( "div[id^='picture-modal']" ).modal('hide');
+$("#modal-form .modal-body").html("<%= escape_javascript (render 'form') %>");
+$("#modal-form .modal-footer").html("<%= escape_javascript (render(partial: 'pictures/btns_modal_footer', :locals => { picture: @picture } )) %>");
+$("#modal-label").html("Edit Picture");
+$("#modal-form").modal('show');

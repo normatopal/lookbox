@@ -1,0 +1,14 @@
+%p
+  .row
+    %strong Title:
+    = @picture.title
+  - @picture.description.present?
+  .row
+    %strong Description:
+    = @picture.description
+
+  %strong Image:
+  = image_tag @picture.image.thumb.url
+
+= link_to 'Edit', edit_picture_path(@picture)
+= link_to 'Pictures', pictures_path

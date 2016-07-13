@@ -16,7 +16,14 @@
 !/log/.keep
 /tmp
 *.orig
-.idea/
+
+#Ignore idea settings
+.idea/*
+bin
+
+tags
+uploads
+public/uploads
 
 config/database.yml
 

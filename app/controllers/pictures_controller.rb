@@ -24,19 +24,23 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /pictures
   # POST /pictures.json
   def create
     @picture = current_user.pictures.new(picture_params)
-    byebug
     respond_to do |format|
       if @picture.valid?
+        format.html { redirect_to pictures_path, notice: 'Picture was successfully created.' }
+        -#format.js { render :show }
         format.js { redirect_to pictures_path, notice: 'Picture was successfully created.' }
-        #format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
-        #format.json { render :show, status: :created, location: @picture }
       else
+        format.html { render :new }
         format.js { render :new }
       end
     end
@@ -49,10 +53,10 @@ class PicturesController < ApplicationController
     respond_to do |format|
       if @picture.update(picture_params)
         format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
-        format.json { render :show, status: :ok, location: @picture }
+        format.js { render :show }
       else
         format.html { render :edit }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
+        format.js { render :edit }
       end
     end
   end

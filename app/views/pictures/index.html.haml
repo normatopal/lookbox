@@ -1,0 +1,23 @@
+#content
+  %h2 Pictures
+
+  -#= link_to 'Add New Picture', new_picture_path, class: 'btn-add-new'
+  = link_to 'Add New Picture', new_picture_path, data: {class: "btn btn-add-new", remote: true}
+
+  - @pictures.each do |picture|
+    - next if picture.image.url.nil?
+    .picture-block
+      %div{class: "modal fade", id: "picture-modal-#{picture.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
+        = render "show_modal", picture: picture
+      = image_tag picture.image.thumb, class: "image-space"
+      %br
+      .picture-action-links
+        = link_to 'Show', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#picture-modal-#{picture.id}"}
+        = link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' }
+
+= render 'form_modal'
+
+
+
+
+
