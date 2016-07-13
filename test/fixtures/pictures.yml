@@ -4,10 +4,10 @@ one:
   title: 
   description: 
   user_id: MyString
-  bigint: MyString
+  image: MyString
 
 two:
   title: 
   description: 
   user_id: MyString
-  bigint: MyString
+  image: MyString

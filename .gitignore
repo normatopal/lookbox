@@ -25,3 +25,5 @@ config/database.yml
 *.html.haml.LOCAL.*.haml
 *.html.haml.BASE.*.haml
 *.html.haml.REMOTE.*.haml
+
+.byebug_history

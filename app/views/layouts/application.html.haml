@@ -7,8 +7,15 @@
     = csrf_meta_tags
   %body
   = render 'shared/header'
-
-  = yield
+  .container
+    #content
+      - if notice
+        .alert.alert-success
+          = notice
+      - if alert
+        .alert.alert-danger
+          = alert
+      = yield
 
 
 
