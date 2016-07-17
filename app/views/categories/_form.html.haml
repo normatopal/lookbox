@@ -1,0 +1,29 @@
+-#= form_for(@category, remote: true, authenticity_token: true, format: :js, :html => {:multipart => true}) do |f|
+= form_for(@category, authenticity_token: true, :html => {:multipart => true}) do |f|
+  = render "shared/error_message", entity: @category
+
+  .form-group
+    .row
+      = f.label :name, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :name
+
+  .form-group
+    .row
+      = f.label :description, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :description
+
+  .form-group
+    .row
+      = f.label :parent_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.select :parent_id, nested_set_options(Category, @category) {|i| "#{'-' * i.level} #{i.name}" }
+
+  .form-group
+    .row
+      .col-sm-offset-2.col-sm-10
+        .actions
+          = f.submit
+
+  = render 'pictures_list'

@@ -1,0 +1,4 @@
+- @category.pictures.each do |picture|
+  - next if picture.image.url.nil?
+  .picture-block
+    = image_tag picture.image.thumb, class: "image-space"

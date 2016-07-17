@@ -41,6 +41,7 @@ gem 'kaminari'
 
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 4.3'
+gem 'awesome_nested_set'
 
 group :development, :test do
   gem 'pry-byebug'
