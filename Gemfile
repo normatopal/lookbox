@@ -38,10 +38,13 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'devise'
 
 gem 'kaminari'
+gem 'ransack'
 
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 4.3'
 gem 'awesome_nested_set'
+gem 'jquery-ui-rails'
+gem 'bootbox-rails'
 
 group :development, :test do
   gem 'pry-byebug'

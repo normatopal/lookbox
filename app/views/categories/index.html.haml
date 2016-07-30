@@ -1,6 +1,8 @@
 #content
   %h2 Categories
 
-  = select_tag 'parent_id', options_for_select(nested_set_options(Category) {|i| "#{'-' * i.depth} #{i.name}" })
+  -#= select_tag 'parent_id', options_for_select(nested_set_options(@categories) {|i| "#{'-' * i.depth} #{i.name}" })
 
   = link_to 'Add New Category', new_category_path, data: {class: "btn btn-add-new"  } #, remote: true}
+
+  = render 'children_categories', categories: @categories.main

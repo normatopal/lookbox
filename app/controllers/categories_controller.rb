@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
 
+  before_action :set_category, only: [:show, :edit, :update, :destroy]
+
   def index
     @categories = current_user.categories
   end
@@ -44,11 +46,19 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def destroy
+    #@picture.destroy
+    @category.valid?
+    redirect_to categories_path, notice: 'Category was successfully destroyed.'
+  end
 
   private
+  def set_category
+    @category = current_user.categories.find(params[:id])
+  end
 
   def category_params
-    params.require(:category).permit(:name, :description, :user_id, :parent_id)
+    #params.require(:category).permit(:name, :description, :user_id, :parent_id, :delete_with_sub)
   end
 
 end
