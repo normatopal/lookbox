@@ -1,0 +1,7 @@
+- categories.each do |cat|
+  %p
+    = '-' * cat.depth
+    = link_to cat.name, edit_category_path(cat)
+    = link_to category_path(cat), method: :delete, 'data-confirm': "Are you sure about removing category?", class: 'link-delete-with-confirm'   do
+      %i.glyphicon.glyphicon-remove
+    = render 'children_categories', categories: cat.children

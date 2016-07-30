@@ -1,21 +1,25 @@
 #content
   %h2 Pictures
+  .filters
+    = search_form_for @search, enforce_utf8: false, html: { class: 'form-inline' } do |f|
+      Sort:
+      = sort_link @search, :name, "By name", {class: "btn"}, {remote: true}
+      = sort_link @search, :created_at, "By date", {class: "btn"}, { remote: true }
+      Category:
+      -#= select_tag 'category_id', options_for_select(nested_set_options(current_user.categories) {|i| "#{'-' * i.depth} #{i.name}" }), { :prompt => "All" }
+      -#= f.select :uncategorized_search, options_for_select(nested_set_options(current_user.categories) {|i| "#{'-' * i.depth} #{i.name}" }), { include_blank: "All" }, { onChange: "this.form.submit()" }
+      -#= f.collection_select(:uncategorized_search, current_user.categories, :id, :name_with_depth, {include_blank: "All" }, { onChange: "this.form.submit()"} )
+      -#= f.select :uncategorized_search, current_user.categories.map{ |cat| [cat.name, cat.id]}.insert(0, ['Uncategorized', '-1']), { include_blank: 'All' }, { onChange: "this.form.submit()"}
 
-  -#= link_to 'Add New Picture', new_picture_path, class: 'btn-add-new'
+      = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: 'All' }, { onChange: "this.form.submit()"}
+
   = link_to 'Add New Picture', new_picture_path, data: {class: "btn btn-add-new", remote: true}
+  = render 'form_modal'
 
-  - @pictures.each do |picture|
-    - next if picture.image.url.nil?
-    .picture-block
-      %div{class: "modal fade", id: "picture-modal-#{picture.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
-        = render "show_modal", picture: picture
-      = image_tag picture.image.thumb, class: "image-space"
-      %br
-      .picture-action-links
-        = link_to 'Show', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#picture-modal-#{picture.id}"}
-        = link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' }
+  #pictures-container
+    = render 'index'
 
-= render 'form_modal'
+
 
 
 

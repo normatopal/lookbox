@@ -34,3 +34,6 @@ config/database.yml
 *.html.haml.REMOTE.*.haml
 
 .byebug_history
+
+db/schema.rb
+db/structure.sql

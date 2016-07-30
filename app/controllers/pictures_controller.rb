@@ -1,16 +1,25 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery except: :index
   #respond_to :html, :js
 
   # GET /pictures
-  # GET /pictures.json
   def index
-    @pictures = current_user.pictures
+    search_pictures
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def search_pictures
+    @search = current_user.pictures.search(params[:q])
+    @pictures = @search.result.page(params[:page]) #.per(10)
   end
 
   # GET /pictures/1
-  # GET /pictures/1.json
   def show
+
   end
 
   # GET /pictures/new
@@ -24,26 +33,18 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
-    respond_to do |format|
-      format.html
-      format.js
-    end
+
   end
 
   # POST /pictures
   # POST /pictures.json
   def create
     @picture = current_user.pictures.new(picture_params)
-    respond_to do |format|
-      if @picture.save
-        format.html { redirect_to pictures_path, notice: 'Picture was successfully created.' }
-        format.js { render :show }
+      if @picture.valid?
+        redirect_to pictures_path, notice: 'Picture was successfully added.'
       else
-        format.html { render :new }
-        format.js { render :new }
+        render :new
       end
-    end
-
   end
 
   # PATCH/PUT /pictures/1
