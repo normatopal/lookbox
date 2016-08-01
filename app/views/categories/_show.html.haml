@@ -1,0 +1,23 @@
+%p
+  .row
+    %strong Name:
+    = @category.name
+  - if @category.description.present?
+    .row
+      %strong Description:
+      = @category.description
+  - if @category.parent.present?
+    .row
+      %strong Parent category:
+      = link_to @category.name, category_path(@category.parent)
+
+  .row
+    %strong Created:
+    = @category.created_at
+  .row
+    %strong Last Modified:
+    = @category.updated_at
+
+
+= link_to 'Edit', edit_category_path(@category)
+= link_to 'Categories', categories_path

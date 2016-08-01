@@ -11,7 +11,13 @@ class CategoryDecorator < Draper::Decorator
   #   end
 
   def parent_categories
-    object.user.categories.where.not(id: [object.id])
+    object.user.categories.where.not(id: object.id)
+  end
+
+  def categories_set
+    nested_options(object.user.categories.where.not(id: object.id)) do |i|
+      "#{'-' * i.level} #{i.name}"
+    end
   end
 
 end

@@ -2,10 +2,10 @@
   .row
     %strong Title:
     = @picture.title
-  - @picture.description.present?
-  .row
-    %strong Description:
-    = @picture.description
+  - if @picture.description.present?
+    .row
+      %strong Description:
+      = @picture.description
 
   %strong Image:
   = image_tag @picture.image.thumb.url

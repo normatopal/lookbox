@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  #include TheSortableTree::Scopes
+  include TheSortableTree::Scopes
   acts_as_nested_set
 
   belongs_to :user
@@ -20,7 +20,7 @@ class Category < ActiveRecord::Base
    cat.user = cat.parent.user if cat.parent.present?
   end
 
-  def delete_node_keep_sub_nodes
+  def move_subcategories
     self.children.each do |cat_child|
       if cat_child.depth > 1
         cat_child.move_to_child_of(cat_child.parent.parent)

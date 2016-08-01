@@ -1,0 +1,3 @@
+$("#modal-form").modal('hide');
+$("#category-modal").html("<%= escape_javascript (render(partial: 'categories/show_modal', :locals => { category: @category } )) %>");
+$("#category-modal").modal('show');

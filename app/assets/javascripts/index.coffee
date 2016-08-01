@@ -1,8 +1,9 @@
 ready = ->
+  $(".sortable_tree a:not('.edit, .delete')").attr('data-remote', true)
+
   window.myCustomConfirmBox = (message,callback) ->
-    chbox = "<label for='delete-with-sub'> Destroy with subcategories </label>  <input type='checkbox' name='delete_with_sub' value='destroy'> "
     bootbox.dialog
-      message: message + chbox
+      message: message
       class: 'class-confirm-box'
       className: "my-modal"
       value: "makeusabrew"
@@ -18,18 +19,19 @@ ready = ->
 
   $.rails.allowAction = (element) ->
     message = element.data("confirm")
-    return true  unless message
+    return true unless message
 
+    message = "Are you sure about removing? "
     answer = false
     callback = undefined
 
-
-
     if $.rails.fire(element, "confirm")
+      if element.closest('li').find('.nested_set').length > 0
+        message += "<label for='delete_with_sub'> Destroy with subcategories </label>  <input type='checkbox' name='delete_with_sub' value='destroy'> "
       myCustomConfirmBox message, ->
         callback = $.rails.fire(element, "confirm:complete", [answer])
         if $("input[name='delete_with_sub']").is(':checked')
-          element[0].attributes['href'].value += "?delete_with_sub=true"
+          element[0].attributes['href'].value += "?delete_with_sub=destroy"
         if callback
           oldAllowAction = $.rails.allowAction
           $.rails.allowAction = ->
@@ -37,7 +39,6 @@ ready = ->
 
           element.trigger "click"
           $.rails.allowAction = oldAllowAction
-          #alert($("input[name='delete_with_sub']:checked").val())
 
     false
 

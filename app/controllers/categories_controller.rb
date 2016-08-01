@@ -4,16 +4,20 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search = current_user.categories.search(params[:q])
-    @categories = @search.result.nested_set #.select('id, name, description, parent_id, depth').all
+    @search = current_user.categories.nested_set.search(params[:q])
+    @categories = @search.result #.select('id, name, description, parent_id, depth').all
   end
 
   def new
-    @category = current_user.categories.new
+    @category = current_user.categories.new.decorate
     respond_to do |format|
       format.html
       format.js
     end
+  end
+
+  def show
+    @category = current_user.categories.find(params[:id])
   end
 
   def edit
@@ -49,9 +53,8 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category.delete_node_keep_sub_nodes if params[:delete_with_sub].present?
+    @category.move_subcategories unless params[:delete_with_sub].present?
     #@category.destroy
-    #@category.valid?
     redirect_to categories_path, notice: 'Category was successfully destroyed.'
   end
 

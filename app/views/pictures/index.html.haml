@@ -3,8 +3,8 @@
   .filters
     = search_form_for @search, enforce_utf8: false, html: { class: 'form-inline' } do |f|
       Sort:
-      = sort_link @search, :name, "By name", {class: "btn"}, {remote: true}
-      = sort_link @search, :created_at, "By date", {class: "btn"}, { remote: true }
+      = sort_link @search, :title, "By title", {}, { class: "" }
+      = sort_link @search, :created_at, "By date", {}, { class: "" }
       Category:
       -#= select_tag 'category_id', options_for_select(nested_set_options(current_user.categories) {|i| "#{'-' * i.depth} #{i.name}" }), { :prompt => "All" }
       -#= f.select :uncategorized_search, options_for_select(nested_set_options(current_user.categories) {|i| "#{'-' * i.depth} #{i.name}" }), { include_blank: "All" }, { onChange: "this.form.submit()" }
