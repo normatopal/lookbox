@@ -16,7 +16,14 @@
 !/log/.keep
 /tmp
 *.orig
-.idea/
+
+#Ignore idea settings
+.idea/*
+bin
+
+tags
+uploads
+public/uploads
 
 config/database.yml
 
@@ -25,3 +32,8 @@ config/database.yml
 *.html.haml.LOCAL.*.haml
 *.html.haml.BASE.*.haml
 *.html.haml.REMOTE.*.haml
+
+.byebug_history
+
+db/schema.rb
+db/structure.sql
