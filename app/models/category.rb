@@ -7,6 +7,8 @@ class Category < ActiveRecord::Base
   has_many :pictures, :through => :category_pictures
 
   attr_accessor :name_with_depth
+  accepts_nested_attributes_for :category_pictures
+  accepts_nested_attributes_for :pictures
 
   # has_many :subcategories, :class_name => "Category", :foreign_key => "parent_id", :dependent => :destroy
   # belongs_to :parent, :class_name => "Category"

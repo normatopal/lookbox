@@ -14,7 +14,7 @@
       = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: 'All' }, { onChange: "this.form.submit()"}
 
   = link_to 'Add New Picture', new_picture_path, data: {class: "btn btn-add-new", remote: true}
-  = render 'form_modal'
+  = render 'pictures/modals/form'
 
   #pictures-container
     = render 'index'

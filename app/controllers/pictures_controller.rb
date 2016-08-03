@@ -37,10 +37,9 @@ class PicturesController < ApplicationController
   end
 
   # POST /pictures
-  # POST /pictures.json
   def create
     @picture = current_user.pictures.new(picture_params)
-      if @picture.valid?
+      if @picture.save
         redirect_to pictures_path, notice: 'Picture was successfully added.'
       else
         render :new
@@ -48,7 +47,6 @@ class PicturesController < ApplicationController
   end
 
   # PATCH/PUT /pictures/1
-  # PATCH/PUT /pictures/1.json
   def update
     respond_to do |format|
       if @picture.update(picture_params)
@@ -62,12 +60,10 @@ class PicturesController < ApplicationController
   end
 
   # DELETE /pictures/1
-  # DELETE /pictures/1.json
   def destroy
     @picture.destroy
     respond_to do |format|
       format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

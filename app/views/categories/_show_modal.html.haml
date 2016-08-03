@@ -20,5 +20,5 @@
         %strong Last Modified:
         = @category.updated_at
     .modal-footer
-      = link_to 'Edit', edit_category_path(category),  {class: "btn btn-primary", remote: true}
+      = link_to 'Edit', edit_category_path(category),  { class: "btn btn-primary" }
       = link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }

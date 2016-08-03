@@ -27,4 +27,10 @@
         .actions
           = f.submit
 
-  = render 'pictures_list'
+  #pictures-block
+    - @category.pictures.each do |picture|
+      .picture-block
+        = check_box_tag :picture_ids, picture.id, true, name: 'category[picture_ids][]', class: "category-picture-chbox"
+        = image_tag picture.image.thumb, class: "image-space remove-picture"
+        .picture-action
+          %i.glyphicon.glyphicon-remove

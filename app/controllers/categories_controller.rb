@@ -42,7 +42,7 @@ class CategoriesController < ApplicationController
     @category = current_user.categories.find(params[:id])
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to 'index', notice: 'Category was successfully updated.' }
+        format.html { redirect_to categories_path, notice: 'Category was successfully updated.' }
         format.js { render :show }
       else
         format.html { render :edit }
@@ -53,7 +53,7 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category.move_subcategories unless params[:delete_with_sub].present?
-    #@category.destroy
+    @category.destroy
     redirect_to categories_path, notice: 'Category was successfully destroyed.'
   end
 
@@ -63,7 +63,7 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:name, :description, :user_id, :parent_id)
+    params.require(:category).permit(:name, :description, :user_id, :parent_id, picture_ids: [])
   end
 
 end
