@@ -1,5 +1,7 @@
 ready = ->
   $(".sortable_tree a:not('.edit, .delete')").attr('data-remote', true)
+  $("div[id^='flash_']").fadeOut(5000);
+
 
   window.myCustomConfirmBox = (message,callback) ->
     bootbox.dialog
@@ -21,7 +23,7 @@ ready = ->
     message = element.data("confirm")
     return true unless message
 
-    message = "Are you sure about removing? "
+    #message = "Are you sure about removing? "
     answer = false
     callback = undefined
 

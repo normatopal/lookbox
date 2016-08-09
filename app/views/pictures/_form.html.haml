@@ -1,5 +1,5 @@
 = form_for(@picture, remote: true, authenticity_token: true, format: :js, html: { multipart: true}) do |f|
-  = render "shared/error_message", entity: @picture
+  = render 'shared/error_message', entity: @picture
 
   .form-group
     .row

@@ -3,14 +3,14 @@
 
   = link_to 'Add New Category', new_category_path, data: {class: "btn"}
 
-  = search_form_for @search, enforce_utf8: false, html: { class: 'form-inline' } do |f|
+  = search_form_for @search, enforce_utf8: false, html: { class: "form-inline" } do |f|
     Sort:
-    = sort_link @search, :name, "By name", {}, { class: '' }
-    = sort_link @search, :created_at, "By date", {}, { class: '' }
+    = sort_link @search, :name, 'By name', {}, { class: '' }
+    = sort_link @search, :created_at, 'By date', {}, { class: '' }
 
   .category-block
     %div{class: "modal fade", id: "category-modal", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
 
   -#= render 'children_categories', categories: @categories.main
   %ol.sortable_tree{  data: { rebuild_url: categories_path } }
-    = sortable_tree(@categories, {type: :sortable, id: 'categories-set'})
+    = sortable_tree(@categories, {type: :sortable, id: "categories-set"})

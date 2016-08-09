@@ -1,0 +1,10 @@
+%div{class: "modal-dialog", role: "document"}
+  .modal-content
+    .modal-header
+      = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
+      %h4.modal-title#modal-label= category.name
+    .modal-body
+      = render 'categories/show'
+    .modal-footer
+      = link_to 'Edit', edit_category_path(category),  { class: "btn btn-primary" }
+      = link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }

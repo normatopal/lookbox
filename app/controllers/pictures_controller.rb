@@ -50,8 +50,9 @@ class PicturesController < ApplicationController
   def update
     respond_to do |format|
       if @picture.update(picture_params)
+        flash[:notice] = "You have successfully !!!"
         format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
-        format.js { render :show }
+        format.js { redirect_to pictures_path, notice: 'Picture was successfully updated.' }
       else
         format.html { render :edit }
         format.js { render :edit }
@@ -68,7 +69,6 @@ class PicturesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_picture
       @picture = current_user.pictures.find(params[:id])
     end

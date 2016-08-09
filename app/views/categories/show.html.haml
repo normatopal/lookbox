@@ -1,1 +1,8 @@
-= render "show"
+%p
+  .row
+    %strong Name:
+    = @category.name
+  = render 'show'
+
+= link_to 'Edit', edit_category_path(@category)
+= link_to 'Categories', categories_path

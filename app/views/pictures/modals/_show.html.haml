@@ -3,7 +3,7 @@
     .modal-header
       = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
       %h4.modal-title#modal-label= picture.title
-    .modal-body
+    .modal-body.picture-show
       = picture.description
       = image_tag picture.image.url, { class: "show-picture-image"}
     .modal-footer

@@ -1,23 +1,22 @@
-%p
+- if @category.description.present?
   .row
-    %strong Name:
-    = @category.name
-  - if @category.description.present?
-    .row
-      %strong Description:
-      = @category.description
-  - if @category.parent.present?
-    .row
-      %strong Parent category:
-      = link_to @category.name, category_path(@category.parent)
+    %strong Description:
+    = @category.description
 
+- if @category.parent.present?
   .row
-    %strong Created:
-    = @category.created_at
-  .row
-    %strong Last Modified:
-    = @category.updated_at
+    %strong Parent category:
+    = link_to @category.name, category_path(@category.parent)
 
+- if @category.descendants.any?
+  #category-descendants.row
+    %strong Subcategories count:
+    = @category.descendants.count
 
-= link_to 'Edit', edit_category_path(@category)
-= link_to 'Categories', categories_path
+.row
+  %strong Created:
+  = @category.created_at
+.row
+  %strong Last Modified:
+  = @category.updated_at
+

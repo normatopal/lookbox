@@ -1,18 +1,18 @@
 #content
   %h2 Pictures
   .filters
-    = search_form_for @search, enforce_utf8: false, html: { class: 'form-inline' } do |f|
+    = search_form_for @search, enforce_utf8: false, html: { class: "form-inline" } do |f|
       Sort:
-      = sort_link @search, :title, "By title", {}, { class: '' }
-      = sort_link @search, :created_at, "By date", {}, { class: '' }
+      = sort_link @search, :title, 'By title', {}, { class: '' }
+      = sort_link @search, :created_at, 'By date', {}, { class: '' }
       Category:
-      -#= select_tag 'category_id', options_for_select(nested_set_options(current_user.categories) {|i| "#{'-' * i.depth} #{i.name}" }), { :prompt => "All" }
-      -#= f.select :uncategorized_search, options_for_select(nested_set_options(current_user.categories) {|i| "#{'-' * i.depth} #{i.name}" }), { include_blank: "All" }, { onChange: "this.form.submit()" }
-      -#= f.collection_select(:uncategorized_search, current_user.categories, :id, :name_with_depth, {include_blank: "All" }, { onChange: "this.form.submit()"} )
-      -#= f.select :uncategorized_search, current_user.categories.map{ |cat| [cat.name, cat.id]}.insert(0, ['Uncategorized', '-1']), { include_blank: 'All' }, { onChange: "this.form.submit()"}
-
       = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: 'All' }, { onChange: "this.form.submit()"}
-
+      Title:
+      = f.text_field :title_cont, :class =>"search-query span4", "placeholder" => 'Type title or part..'
+      = f.submit 'Search', :class => "btn"
+      = link_to pictures_path, class: "btn" do
+        Refresh
+        %i.glyphicon.glyphicon-refresh
   = link_to 'Add New Picture', new_picture_path, data: {class: "btn btn-add-new", remote: true}
   = render 'pictures/modals/form'
 

@@ -11,3 +11,4 @@ $(document).on('mouseenter', '.picture-block', ->
 ).on 'click', '.image-space', ->
   $(this).parent().find('.modal').modal 'show'
   return
+

@@ -1,5 +1,5 @@
-$(document).on('click', '.image-space.remove-picture', ->
-  chbox = $(this).siblings('.category-picture-chbox')
+$(document).on('click', '.picture-block', ->
+  chbox = $(this).find('.category-picture-chbox')
   image_opacity = 1
   is_checked = chbox.is(':checked')
   $('.picture-action .glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-remove')

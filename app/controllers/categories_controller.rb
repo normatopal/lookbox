@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
 
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show, :edit, :update, :destroy, :available_pictures]
 
   def index
     @search = current_user.categories.nested_set.search(params[:q])
@@ -55,6 +55,10 @@ class CategoriesController < ApplicationController
     @category.move_subcategories unless params[:delete_with_sub].present?
     @category.destroy
     redirect_to categories_path, notice: 'Category was successfully destroyed.'
+  end
+
+  def available_pictures
+    @available_pictures = current_user.pictures.available_for_category(params[:id])
   end
 
   private

@@ -9,12 +9,13 @@
   = render 'shared/header'
   .container
     #content
-      - if notice
-        .alert.alert-success
-          = notice
-      - if alert
-        .alert.alert-danger
-          = alert
+      #flash_notice
+        - if notice
+          .alert.alert-success
+            = notice
+        - if alert
+          .alert.alert-danger
+            = alert
       = yield
 
 

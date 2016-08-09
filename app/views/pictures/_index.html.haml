@@ -2,7 +2,7 @@
   - next if picture.image.url.nil?
   .picture-block
     %div{class: "modal fade", id: "picture-modal-#{picture.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
-      = render "pictures/modals/show", picture: picture
+      = render 'pictures/modals/show', picture: picture
     = image_tag picture.image.thumb, class: "image-space"
     %br
     .picture-action

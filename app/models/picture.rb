@@ -11,6 +11,7 @@ class Picture < ActiveRecord::Base
   validates :image, presence: true
 
   scope :uncategorized, -> { includes(:categories).where( categories: { id: nil } ) }
+  scope :available_for_category, -> (id) { includes(:categories).where.not( categories: { id: id } ) }
 
   class << self
     # define scope
