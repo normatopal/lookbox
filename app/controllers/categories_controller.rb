@@ -9,6 +9,7 @@ class CategoriesController < ApplicationController
 
   def new
     @category = current_user.categories.new.decorate
+    @available_pictures = current_user.pictures
     respond_to do |format|
       format.html
       format.js
@@ -21,6 +22,7 @@ class CategoriesController < ApplicationController
 
   def edit
     @category = current_user.categories.find(params[:id]).decorate
+    @available_pictures = current_user.pictures.available_for_category(params[:id])
     respond_to do |format|
       format.html
       format.js
@@ -57,11 +59,8 @@ class CategoriesController < ApplicationController
     redirect_to categories_path, notice: 'Category was successfully destroyed.'
   end
 
-  def available_pictures
-    @available_pictures = current_user.pictures.available_for_category(params[:id])
-  end
-
   private
+
   def set_category
     @category = current_user.categories.find(params[:id])
   end

@@ -1,0 +1,9 @@
+%div{class: "modal-dialog", role: "document"}
+  .modal-content
+    .modal-header
+      = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
+      %h4.modal-title#modal-label= @category.name
+    .modal-body
+      - @available_pictures.each do |picture|
+        = picture.title
+    .modal-footer

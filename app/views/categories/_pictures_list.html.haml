@@ -6,8 +6,9 @@
       .picture-action
         %i.glyphicon.glyphicon-remove
 
--#= link_to 'Add Picture', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#picture-modal"}
-= link_to 'Add Picture', available_pictures_category_path(@category), remote: true
+= link_to 'Add Picture', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#pictures-modal"}
+
 
 %div{class: "modal fade", id: "pictures-modal", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
+  = render 'categories/modals/available_pictures'
 
