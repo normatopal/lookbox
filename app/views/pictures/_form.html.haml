@@ -23,7 +23,9 @@
     .row
       = f.label 'Category', class: "col-sm-2 control-label"
       .col-sm-10
-        = collection_select(:picture, :category_ids, current_user.categories, :id, :name, {:selected => @picture.categories.map(&:id), :include_blank => true}, {:multiple => true})
+        -#= collection_select(:picture, :category_ids, current_user.categories, :id, :name, {:selected => @picture.categories.map(&:id), :include_blank => true}, {:multiple => true})
+        = select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true})
+        -#= f.select :category_ids, nested_options(current_user.categories), { include_blank: true }, { multiple: true, class: "nested_options" } # multiple selected not work
 
   .form-group
     .row

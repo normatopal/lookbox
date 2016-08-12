@@ -6,6 +6,9 @@ class Category < ActiveRecord::Base
   has_many :category_pictures
   has_many :pictures, :through => :category_pictures
 
+  validates :name, presence: true
+  validates_length_of :name, :minimum => 3, :if => proc{|p| p.name.present?}
+
   attr_accessor :name_with_depth
   accepts_nested_attributes_for :category_pictures
   accepts_nested_attributes_for :pictures
@@ -14,7 +17,6 @@ class Category < ActiveRecord::Base
   # belongs_to :parent, :class_name => "Category"
 
   scope :main, -> { where(parent: nil)}
-  #default_scope { order('depth, name') }
   scope :name_order, -> { reorder('name DESC') }
   scope :created_order, -> { reorder('created_at, name') }
 
