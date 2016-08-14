@@ -1,0 +1,40 @@
+main:
+  name: Main folder
+  description:
+  user: john_doe
+  parent_id:
+  lft: 1
+  rgt: 4
+  depth: 0
+
+travel:
+  name: Travalling
+  description: My impressions
+  user: john_doe
+  parent: main
+  lft: 2
+  rgt: 3
+  depth: 1
+
+
+common:
+  name: Common folder
+  description:
+  user: john_doe
+  parent_id:
+  lft: 5
+  rgt: 8
+  depth: 0
+
+
+oh:
+  name: Oh
+  description: short story
+  user: john_doe
+  parent: common
+  lft: 6
+  rgt: 7
+  depth: 1
+
+
+

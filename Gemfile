@@ -60,3 +60,7 @@ group :development, :test do
   gem 'spring'
 end
 
+group :test do
+  gem 'minitest-spec-rails'
+end
+

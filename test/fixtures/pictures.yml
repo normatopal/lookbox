@@ -1,13 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: 
-  description: 
-  user_id: MyString
-  image: MyString
+right:
+  title: Red cat
+  description: My favourite pet
+  user: rick_grames
 
-two:
-  title: 
-  description: 
-  user_id: MyString
-  image: MyString
+wrong:
+  title: John
+  description:
+  user: john_doe
+
+empty:
+  title:
+  description:
+  user_id:
+
+my_selfie:
+  title: It's me!
+  description:
+  user: john_doe
+
+best_friend:
+  title: Jimmy
+  description:
+  user: john_doe
+
+sunset:
+  title: Sea sunset
+  description:
+  user: john_doe

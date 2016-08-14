@@ -9,5 +9,13 @@ development:
   host: localhost
 
 test:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: lookbox_test
+  pool: 5
+  username: root
+  password: ubuntu
+  host: localhost
 
 production:

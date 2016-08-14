@@ -3,12 +3,12 @@ class Picture < ActiveRecord::Base
   acts_as_paranoid
 
   belongs_to :user
-  has_many :category_pictures, inverse_of: :picture
+  has_many :category_pictures
   has_many :categories, :through => :category_pictures
 
   validates :title, presence: true
   validates_length_of :title, :minimum => 5, :if => proc{|p| p.title.present?}
-  validates :image, presence: true
+  validates :user, presence: true
 
   scope :uncategorized, -> { includes(:categories).where( categories: { id: nil } ) }
   scope :available_for_category, -> (id) { includes(:categories).where.not( categories: { id: id } ) }

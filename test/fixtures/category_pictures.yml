@@ -1,0 +1,6 @@
+main_my_selfie:
+  category: main
+  picture: my_selfie
+main_best_friend:
+  category: main
+  picture: best_friend
