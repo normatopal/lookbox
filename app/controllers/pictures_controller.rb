@@ -24,7 +24,7 @@ class PicturesController < ApplicationController
 
   # GET /pictures/new
   def new
-    @picture = current_user.pictures.new
+    @picture = current_user.pictures.new.decorate
     respond_to do |format|
       format.html
       format.js
@@ -71,7 +71,7 @@ class PicturesController < ApplicationController
   private
   
     def set_picture
-      @picture = current_user.pictures.find(params[:id])
+      @picture = current_user.pictures.find(params[:id]).decorate
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

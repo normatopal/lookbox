@@ -18,8 +18,7 @@
     .row
       = f.label :parent_id, class: "col-sm-2 control-label"
       .col-sm-10
-        -#= f.select :parent_id, categories_set, { include_blank: true}
-        = f.select :parent_id, nested_options(@category.parent_categories), { include_blank: true }, { class: "nested_options" }
+        = f.select :parent_id, nested_options(@category.available_categories_as_parent, selected: @category.parent), { include_blank: true }, { class: "nested_options" }
 
   .form-group
     .row
