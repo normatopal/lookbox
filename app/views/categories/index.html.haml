@@ -1,7 +1,7 @@
 #content
   %h2 Categories
 
-  = link_to 'Add New Category', new_category_path, data: {class: "btn"}
+  = link_to 'Add New Category', new_category_path, class: "btn-new"
 
   = search_form_for @search, enforce_utf8: false, html: { class: "form-inline" } do |f|
     Sort:
