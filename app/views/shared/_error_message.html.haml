@@ -1,6 +1,6 @@
 - if entity.errors.any?
   %section#errors
-    %h4= "#{entity.errors.count} #{entity.errors.count > 1 ? "errors" : "error"} prohibited this link from being shortened"
+    %h4= "#{entity.errors.count} #{entity.errors.count > 1 ? "errors" : "error"} prohibited this object from being saved"
     %ul
       - entity.errors.full_messages.each do |msg|
         %li= msg

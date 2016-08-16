@@ -12,7 +12,11 @@ class CategoryDecorator < Draper::Decorator
 
 
   def available_categories_as_parent
-    object.user.categories - object.descendants
+    object.user.categories - object.self_and_descendants
+  end
+
+  def available_pictures
+    object.user.pictures - object.pictures
   end
 
 end

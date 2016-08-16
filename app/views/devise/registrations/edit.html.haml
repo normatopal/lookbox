@@ -1,56 +1,57 @@
-.row.auth-wrapper
-  .col-sm-10.col-sm-offset-1
-    %h2.text-center
-      = "Edit #{resource_name.to_s.humanize}"
+-#.row.auth-wrapper
+-#  .col-sm-10.col-sm-offset-1
+#content
+  %h2
+    = "My Profile"
 
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {:class => "form-horizontal", method: :put }) do |f|
-      = devise_error_messages!
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {:class => "form-horizontal", method: :put }) do |f|
+    = devise_error_messages!
+
+    .form-group
+      .row
+        = f.label :email, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.email_field :email, autofocus: true
+
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      Currently waiting confirmation for: <%= resource.unconfirmed_email
 
       .form-group
         .row
-          = f.label :email, class: "col-sm-2 control-label"
+          = f.label :password
+          %i (leave blank if you don't want to change it)
           .col-sm-10
-            = f.email_field :email, autofocus: true
-
-      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        Currently waiting confirmation for: <%= resource.unconfirmed_email
-
-        .form-group
-          .row
-            = f.label :password
-            %i (leave blank if you don't want to change it)
+            = f.password_field :password, autocomplete: "off"
+          - if @minimum_password_length
             .col-sm-10
-              = f.password_field :password, autocomplete: "off"
-            - if @minimum_password_length
-              .col-sm-10
-                %em
-                  = "#{@minimum_password_length} characters minimum"
-
-        .form-group
-          .row
-            = f.label :password_confirmation, class: "col-sm-2 control-label"
-            .col-sm-10
-              = f.password_field :password_confirmation, autocomplete: "off"
+              %em
+                = "#{@minimum_password_length} characters minimum"
 
       .form-group
         .row
-          = f.label :current_password, class: "col-sm-2 control-label"
-          %i
-            (we need your current password to confirm your changes)
+          = f.label :password_confirmation, class: "col-sm-2 control-label"
           .col-sm-10
-            = f.password_field :current_password, autocomplete: "off"
+            = f.password_field :password_confirmation, autocomplete: "off"
 
-      .form-group
-        .row
-          .col-sm-offset-2.col-sm-10
-            .actions
-              = f.submit "Update"
+    .form-group
+      .row
+        = f.label :current_password, class: "col-sm-2 control-label"
+        %i
+          (we need your current password to confirm your changes)
+        .col-sm-10
+          = f.password_field :current_password, autocomplete: "off"
 
-    %h3
-      Cancel my account
+    .form-group
+      .row
+        .col-sm-offset-2.col-sm-10
+          .actions
+            = f.submit "Update"
 
-    %p
-      Unhappy?
-      = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
+  %h3
+    Cancel my account
 
-    = link_to "Back", :back
+  %p
+    Unhappy?
+    = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
+
+  = link_to "Back", :back

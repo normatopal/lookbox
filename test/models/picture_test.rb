@@ -27,11 +27,11 @@ describe Picture do
   end
 
   it "select uncategorized pictures" do
-    Picture.uncategorized.count == 4
+    Picture.uncategorized.count.must_equal 4
   end
 
-  it "select available list for category" do
-    Picture.available_for_category(categories(:main)).count == 4
+  it "finds pictures list by category" do
+    Picture.category_search(categories(:main).id).count.must_equal 2
   end
 
 end

@@ -37,3 +37,5 @@ config/database.yml
 
 db/schema.rb
 db/structure.sql
+
+.test_class.rb

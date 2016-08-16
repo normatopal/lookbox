@@ -9,4 +9,23 @@ class User < ActiveRecord::Base
   has_many :pictures
   has_many :categories
 
+  validates :email, presence: true
+
+  def update_password_with_new(params)
+    current_password = params.delete(:current_password)
+
+    result =
+      if valid_password?(current_password)
+        update_attributes(params)
+      else
+        self.assign_attributes(params)
+        self.valid?
+        self.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+        false
+      end
+
+    #clean_up_passwords
+    result
+  end
+
 end

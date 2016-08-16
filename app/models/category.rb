@@ -8,17 +8,15 @@ class Category < ActiveRecord::Base
 
   validates :name, presence: true
   validates_length_of :name, :minimum => 3, :if => proc{|p| p.name.present?}
-
-  attr_accessor :name_with_depth
-  accepts_nested_attributes_for :category_pictures
-  accepts_nested_attributes_for :pictures
-
-  # has_many :subcategories, :class_name => "Category", :foreign_key => "parent_id", :dependent => :destroy
-  # belongs_to :parent, :class_name => "Category"
+  validates :user_id, presence: true
 
   scope :main, -> { where(parent: nil)}
   scope :name_order, -> { reorder('name DESC') }
   scope :created_order, -> { reorder('created_at, name') }
+
+  attr_accessor :name_with_depth
+  accepts_nested_attributes_for :category_pictures
+  accepts_nested_attributes_for :pictures
 
   before_save do |cat|
    cat.user = cat.parent.user if cat.parent.present?

@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
 
-  before_action :set_category, only: [:show, :edit, :update, :destroy, :available_pictures]
+  before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
     @search = current_user.categories.nested_set.search(params[:q])
@@ -9,7 +9,6 @@ class CategoriesController < ApplicationController
 
   def new
     @category = current_user.categories.new.decorate
-    @available_pictures = current_user.pictures
     respond_to do |format|
       format.html
       format.js
@@ -17,12 +16,13 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = current_user.categories.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def edit
-    @category = current_user.categories.find(params[:id]).decorate
-    @available_pictures = current_user.pictures.available_for_category(params[:id])
     respond_to do |format|
       format.html
       format.js
@@ -30,7 +30,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = current_user.categories.new(category_params)
+    @category = current_user.categories.new(category_params).decorate
     respond_to do |format|
       if @category.save
         format.html { redirect_to categories_path, notice: 'Category was successfully created.' }
@@ -41,7 +41,6 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    @category = current_user.categories.find(params[:id])
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to categories_path, notice: 'Category was successfully updated.' }

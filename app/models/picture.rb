@@ -11,7 +11,7 @@ class Picture < ActiveRecord::Base
   validates :user, presence: true
 
   scope :uncategorized, -> { includes(:categories).where( categories: { id: nil } ) }
-  scope :available_for_category, -> (id) { includes(:categories).where.not( categories: { id: id } ) }
+  #scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) } # a bit odd, but of many-to-many category and picture
 
   class << self
     # define scope
