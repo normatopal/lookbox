@@ -4,16 +4,14 @@ class CategoryDecoratorTest < Draper::TestCase
 
   describe CategoryDecorator do
 
-    before do
-      @category = categories(:main).decorate
-    end
+    let(:category) { categories(:main).decorate }
 
     it "returns list of possible parent categories" do
-      @category.available_categories_as_parent.count.must_equal 3
+      category.available_categories_as_parent.count.must_equal 2
     end
 
     it "selects available picture list for category" do
-      @category.available_pictures.count.must_equal 2
+      category.available_pictures.count.must_equal 2
     end
 
   end

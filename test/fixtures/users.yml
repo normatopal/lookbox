@@ -7,8 +7,10 @@
 
 john_doe:
   email: john_doe@gmail.com
+  encrypted_password: "$2a$11$1PBkmABLsX55u8JW/ualM.ctTOd8DhUGpR2flXlS../andgVzYhG2" # 123456
 
 rick_grames:
   email: rick_grames@gmail.com
+  encrypted_password: "$2a$11$1PBkmABLsX55u8JW/ualM.ctTOd8DhUGpR2flXlS../andgVzYhG2"
 
 
