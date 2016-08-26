@@ -11,6 +11,7 @@
   .category-block
     %div{class: "modal fade", id: "category-modal", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
 
-  -#= render 'children_categories', categories: @categories.main
   %ol.sortable_tree{  data: { rebuild_url: categories_path } }
     = sortable_tree(@categories, {type: :sortable, id: "categories-set"})
+
+  #pictures-modal.modal.fade{ tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}

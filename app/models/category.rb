@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
 
   belongs_to :user
   has_many :category_pictures
-  has_many :pictures, :through => :category_pictures
+  has_many :pictures, -> { uniq }, :through => :category_pictures
 
   validates :name, presence: true
   validates_length_of :name, :minimum => 3, :if => proc{|p| p.name.present?}

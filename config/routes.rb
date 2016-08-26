@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   put 'users/save_password' => 'users#save_password'
 
   resources :pictures
-  resources :categories
+  resources :categories do
+    get 'available_pictures' => 'categories#available_pictures', on: :member
+    post 'add_pictures' => 'categories#add_pictures', on: :member
+  end
 
   get 'users/profile', as: 'user_root'
   root to: 'home#index'

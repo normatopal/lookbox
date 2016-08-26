@@ -4,14 +4,14 @@ class Picture < ActiveRecord::Base
 
   belongs_to :user
   has_many :category_pictures
-  has_many :categories, :through => :category_pictures
+  has_many :categories, -> { uniq }, :through => :category_pictures
 
   validates :title, presence: true
   validates_length_of :title, :minimum => 5, :if => proc{|p| p.title.present?}
   validates :user, presence: true
 
   scope :uncategorized, -> { includes(:categories).where( categories: { id: nil } ) }
-  #scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) } # a bit odd, but of many-to-many category and picture
+  scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) } # a bit odd, but of many-to-many category and picture
 
   class << self
     # define scope

@@ -20,16 +20,3 @@ test:
 
 production:
 
-
-#require "pry"
-#class Dog
-#  attr_accessor :name, :age
-#  def initialize(*params)
-#    binding.pry
-#    @name = params.first
-#    @age = params.last
-#  end
-#end
-#
-#d = Dog.new("Jim", 12)
-#puts d.name + " - " + d.age

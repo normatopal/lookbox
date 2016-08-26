@@ -1,14 +1,10 @@
-#pictures-block
-  - @category.pictures.each do |picture|
-    .picture-block
-      = check_box_tag :picture_ids, picture.id, true, name: 'category[picture_ids][]', class: "category-picture-chbox"
-      = image_tag picture.image.thumb, class: "image-space remove-picture"
-      .picture-action
-        %i.glyphicon.glyphicon-remove
-
-= link_to 'Add Picture', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#pictures-modal"}
+- pictures.each do |picture|
+  .picture-block
+    = check_box_tag :picture_ids, picture.id, true, name: 'category[picture_ids][]', class: "category-picture-chbox"
+    = image_tag picture.image.thumb, class: "image-space remove-picture", 'data-toggle': "tooltip", title: "Click to select/diselect"
+    .picture-action
+      %i.glyphicon.glyphicon-remove
 
 
-%div{class: "modal fade", id: "pictures-modal", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
-  = render 'categories/modals/available_pictures'
+
 

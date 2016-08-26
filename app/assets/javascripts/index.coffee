@@ -2,6 +2,7 @@ ready = ->
   $(".sortable_tree a:not('.edit, .delete')").attr('data-remote', true)
   $("div[id^='flash_']").fadeOut(5000);
 
+  $('[data-toggle="tooltip"]').tooltip();
 
   window.myCustomConfirmBox = (message,callback) ->
     bootbox.dialog
