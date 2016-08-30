@@ -2,6 +2,8 @@ require_relative '../test_helper'
 
 describe Category do
 
+  let(:main_category) { categories(:main) }
+
   describe "validation" do
 
     it "not not valid with too short name" do
@@ -18,25 +20,27 @@ describe Category do
     end
 
     it "is valid with correct attributes" do
-      categories(:main).valid?.must_equal true
+      main_category.valid?.must_equal true
     end
 
   end
 
-  it "has pictures collection" do
-    category = categories(:main)
-    category.pictures.count.must_equal 2
-  end
+  describe "check class and instance methods" do
 
-  it "returns categories without parent" do
-    Category.main.count.must_equal 3
-  end
+    it "has pictures collection" do
+      main_category.pictures.count.must_equal 2
+    end
 
-  it "moves subcategories during parent destroy" do
-    category = categories(:main)
-    category.children.count.must_equal 1
-    category.move_subcategories
-    category.children.count.must_equal 0
+    it "returns categories without parent" do
+      Category.main.count.must_equal 3
+    end
+
+    it "moves subcategories during parent destroy" do
+      main_category.children.count.must_equal 1
+      main_category.move_subcategories
+      main_category.children.count.must_equal 0
+    end
+
   end
 
 end

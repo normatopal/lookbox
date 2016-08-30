@@ -4,3 +4,6 @@ main_my_selfie:
 main_best_friend:
   category: main
   picture: best_friend
+travel_sunset:
+  category: travel
+  picture: sunset

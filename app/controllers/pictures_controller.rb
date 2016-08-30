@@ -1,20 +1,15 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  before_action :search_pictures, only: [:index]
   protect_from_forgery except: :index
   #respond_to :html, :js
 
   # GET /pictures
   def index
-    search_pictures
     respond_to do |format|
       format.html
       format.js
     end
-  end
-
-  def search_pictures
-    @search = current_user.pictures.search(params[:q])
-    @pictures = @search.result.page(params[:page]) #.per(10)
   end
 
   # GET /pictures/1
@@ -74,8 +69,19 @@ class PicturesController < ApplicationController
       @picture = current_user.pictures.find(params[:id]).decorate
     end
 
+    def search_pictures
+      switch_subcategories_flag
+      @search = current_user.pictures.search(params[:q])
+      @pictures = @search.result.page(params[:page]) #.per(10)
+    end
+
+    def switch_subcategories_flag
+      Picture.with_subcategories = params[:q].present? && params[:q]['include_subcategories'] == '1'
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
       params.require(:picture).permit(:title, :description, :user_id, :image, category_ids: [])
     end
+
 end
