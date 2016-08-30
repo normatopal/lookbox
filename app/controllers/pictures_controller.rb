@@ -45,7 +45,7 @@ class PicturesController < ApplicationController
   def update
     respond_to do |format|
       if @picture.update(picture_params)
-        flash[:notice] = "You have successfully !!!"
+        flash[:notice] = 'You have successfully updated the picture'
         format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
         format.js { redirect_to pictures_path, notice: 'Picture was successfully updated.' }
       else

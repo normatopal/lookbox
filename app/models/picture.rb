@@ -29,5 +29,4 @@ class Picture < ActiveRecord::Base
     [:category_search, :include_subcategories]
   end
 
-
 end

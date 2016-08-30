@@ -6,7 +6,7 @@
 - if @category.parent.present?
   .row
     %strong Parent category:
-    = link_to @category.name, category_path(@category.parent)
+    = link_to @category.parent.name, category_path(@category.parent), remote: true
 
 - if @category.descendants.any?
   #category-descendants.row
