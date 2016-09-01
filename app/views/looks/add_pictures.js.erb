@@ -1,0 +1,2 @@
+$("#extra-pictures-list").html("<%= escape_javascript (render(partial: 'pictures_list', :locals => { pictures: @extra_pictures } )) %>");
+$("#pictures-modal").modal('hide');

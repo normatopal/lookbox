@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731144136) do
+ActiveRecord::Schema.define(version: 20160830141535) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
-    t.text     "description", limit: 65535
+    t.text     "description", limit: 16777215
     t.integer  "user_id",     limit: 4
     t.integer  "parent_id",   limit: 4
-    t.integer  "lft",         limit: 4,                 null: false
-    t.integer  "rgt",         limit: 4,                 null: false
-    t.integer  "depth",       limit: 4,     default: 0, null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.integer  "lft",         limit: 4,                    null: false
+    t.integer  "rgt",         limit: 4,                    null: false
+    t.integer  "depth",       limit: 4,        default: 0, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "categories", ["lft"], name: "index_categories_on_lft", using: :btree
@@ -38,12 +38,37 @@ ActiveRecord::Schema.define(version: 20160731144136) do
 
   add_index "category_pictures", ["category_id", "picture_id"], name: "index_category_pictures_on_category_id_and_picture_id", using: :btree
 
-  create_table "pictures", force: :cascade do |t|
-    t.string   "title",       limit: 255
+  create_table "look_pictures", force: :cascade do |t|
+    t.integer  "look_id",    limit: 4
+    t.integer  "picture_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "look_pictures", ["look_id", "picture_id"], name: "index_look_pictures_on_look_id_and_picture_id", using: :btree
+
+  create_table "looks", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.text     "description", limit: 65535
     t.integer  "user_id",     limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.datetime "deleted_at"
+  end
+
+  create_table "looks_pictures", force: :cascade do |t|
+    t.integer  "look_id",    limit: 4
+    t.integer  "picture_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 16777215
+    t.integer  "user_id",     limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "image",       limit: 255
     t.datetime "deleted_at"
   end

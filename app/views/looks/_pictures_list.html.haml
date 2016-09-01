@@ -1,0 +1,6 @@
+- pictures.each do |picture|
+  .picture-block
+    = check_box_tag :picture_ids, picture.id, true, name: 'look[picture_ids][]', class: "mark-picture-chbox"
+    = image_tag picture.image.thumb, class: "image-space remove-picture", 'data-toggle': "tooltip", title: ""
+    .picture-action
+      %i.glyphicon.glyphicon-remove

@@ -1,0 +1,29 @@
+= form_for(@look, authenticity_token: true, html: { multipart: true}) do |f|
+  = render 'shared/error_message', entity: @look
+
+  .form-group
+    .row
+      = f.label :name, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :name
+
+  .form-group
+    .row
+      = f.label :description, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :description
+
+  .form-group
+    .row
+      .col-sm-offset-2.col-sm-10
+        .actions
+          = f.submit "Save"
+  .form-group
+    .row
+      = link_to 'Add Picture', available_pictures_look_path(@look.id || 0), class: "btn", remote: true
+
+  #pictures-list
+    = render 'pictures_list', pictures: @look.pictures
+  #extra-pictures-list
+
+#pictures-modal.modal.fade{ tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}

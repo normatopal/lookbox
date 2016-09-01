@@ -5,6 +5,8 @@ class Picture < ActiveRecord::Base
   belongs_to :user
   has_many :category_pictures
   has_many :categories, -> { uniq }, :through => :category_pictures
+  has_many :look_pictures
+  has_many :looks, -> { uniq }, :through => :look_pictures
 
   cattr_accessor(:with_subcategories) { false }
 
@@ -16,9 +18,10 @@ class Picture < ActiveRecord::Base
 
   # a bit odd, but of many-to-many category and picture
   scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) }
+  scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
 
-  scope :category_search, -> (category_id = -1) do
-    ids = category_id.to_i < 1 ? nil : category_id
+  scope :category_search, -> (category_id = nil) do
+    ids = category_id
     ids = Category.find(category_id).self_and_descendants.ids if self.with_subcategories
     includes(:categories).where( categories: { id: ids })
   end

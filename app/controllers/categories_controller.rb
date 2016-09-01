@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy, :available_pictures, :add_pictures]
 
   def index
-    @search = current_user.categories.nested_set.search(params[:q])
+    @search = current_user.categories.eager_load(:pictures).nested_set.search(params[:q])
     @categories = @search.result #.select('id, name, description, parent_id, depth').all
   end
 

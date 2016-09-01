@@ -46,7 +46,7 @@ module RenderSortableTreeHelper
 
         "
           <div class='controls'>
-            <div class='category-pictures-count' id=#{pictures_count_id} title='Pictures count'>#{node.pictures.count}</div>
+            <div class='category-pictures-count' id=#{pictures_count_id} title='Pictures count'>#{node.pictures.length}</div>
             #{ h.link_to '', available_pictures_path, :title => "Add pictures", :class => :new, :remote => :true }
             #{ h.link_to '', edit_path, :class => :edit }
             #{ h.link_to '', destroy_path, :class => :delete, :method => :delete, :data => { :confirm => 'Are you sure?' } }

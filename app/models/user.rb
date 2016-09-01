@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :pictures
   has_many :categories
+  has_many :looks
 
   validates :email, presence: true
 

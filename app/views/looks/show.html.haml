@@ -1,0 +1,11 @@
+%p
+  .row
+    %strong Name:
+    = @look.name
+  - if @look.description.present?
+    .row
+      %strong Description:
+      = @look.description
+
+= link_to 'Edit', edit_look_path(@look)
+= link_to 'Looks', looks_path
