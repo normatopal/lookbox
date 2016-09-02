@@ -36,11 +36,12 @@
     .form-group
       .row
         = f.label :current_password, class: "col-sm-2 control-label"
-        %i
-          (we need your current password to confirm your changes)
+
         .col-sm-10
           = f.password_field :current_password, autocomplete: "off"
-
+        .col-sm-10
+          %i
+            (we need your current password to confirm your changes)
     .form-group
       .row
         .col-sm-offset-2.col-sm-10
