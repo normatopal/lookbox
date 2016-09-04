@@ -17,10 +17,12 @@
         = f.check_box :include_subcategories
         Include subcategories
   = link_to 'Add New Picture', new_picture_path, class: "btn btn-add-new", remote: true
-  = render 'pictures/modals/form'
+  -#= render 'pictures/modals/form'
 
   #pictures-container
     = render 'index'
+
+  %div{class: "modal fade", id: "modal-form", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
 
 
 

@@ -1,5 +1,6 @@
 $( "div[id^='picture-modal']" ).modal('hide');
-$("#modal-form .modal-body").html("<%= escape_javascript (render('form').force_encoding("utf-8")) %>");
+//$("#modal-form .modal-body").html("<%= escape_javascript (render('form').force_encoding("utf-8")) %>");
+$("#modal-form").html("<%= escape_javascript (render('pictures/modals/form').force_encoding("utf-8")) %>");
 $("#modal-form .modal-footer").html("<%= escape_javascript (render(partial: 'pictures/modals/footer_btns', :locals => { picture: @picture } )) %>");
 $("#modal-label").html("Edit Picture");
 $("#modal-form").modal('show');

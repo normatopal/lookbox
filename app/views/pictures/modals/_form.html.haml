@@ -1,9 +1,40 @@
-%div{class: "modal fade", id: "modal-form", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
-  %div{class: "modal-dialog", role: "document"}
-    .modal-content
-      .modal-header
-        = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
-        %h4.modal-title#modal-label
-      .modal-body
+%div{class: "modal-dialog", role: "document"}
+  .modal-content
+    .modal-header
+      = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
+      %h4.modal-title#modal-label
+    .modal-body
+      = form_for(@picture, remote: true, authenticity_token: true, format: :js, html: { multipart: true}) do |f|
+        = render 'shared/error_message', entity: @picture
 
-      .modal-footer
+        .form-group
+          .row
+            = f.label :title, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :title
+
+        .form-group
+          .row
+            = f.label :description, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :description
+
+        .form-group
+          .row
+            = f.label :image, class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.file_field :image
+
+        .form-group
+          .row
+            = f.label 'Category', class: "col-sm-2 control-label"
+            .col-sm-10
+              = select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true})
+
+        .form-group
+          .row
+            .col-sm-offset-2.col-sm-10
+              .actions
+                = f.submit "Save"
+
+    .modal-footer
