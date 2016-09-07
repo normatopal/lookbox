@@ -22,8 +22,14 @@
     .row
       = link_to 'Add Picture', available_pictures_look_path(@look.id || 0), class: "btn", remote: true
 
+  = f.fields_for :look_pictures do |flp|
+    %div{id: "look-picture-#{flp.object.picture.id}-position"}
+      = flp.hidden_field :id
+      = flp.hidden_field :position_top
+      = flp.hidden_field :position_left
+
   #pictures-list
-    = render 'pictures_list', pictures: @look.pictures
+    = render 'pictures_list', pictures: @look.preloaded_pictures
   #extra-pictures-list
 
 #pictures-modal.modal.fade{ tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}

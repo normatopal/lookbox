@@ -7,7 +7,7 @@
       = form_for(@category, url: url_for(controller: :categories, action: :add_pictures), remote: true, authenticity_token: true, format: :js, :html => { :method => :post }) do |fp|
         - @available_pictures.each do |picture|
           .add-picture-block
-            = check_box_tag :picture_ids, picture.id, false, name: 'category[picture_ids][]', class: "category-picture-chbox"
+            = check_box_tag :picture_ids, picture.id, false, name: 'category[picture_ids][]', class: "mark-picture-chbox"
             = image_tag picture.image.thumb, class: "image-space", 'data-toggle': "tooltip", title: "Click to select/diselect"
             .picture-action
               .tick-mark-green

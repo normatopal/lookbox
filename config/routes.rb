@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get 'users/change_password'
   put 'users/save_password' => 'users#save_password'
 
-  resources :pictures
+  resources :pictures do
+    get 'refresh', on: :collection
+  end
   resources :looks do
      get 'available_pictures', on: :member
      post 'add_pictures', on: :member

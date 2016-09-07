@@ -5,7 +5,7 @@ class Picture < ActiveRecord::Base
   belongs_to :user
   has_many :category_pictures
   has_many :categories, -> { uniq }, :through => :category_pictures
-  has_many :look_pictures
+  has_many :look_pictures, dependent: :destroy
   has_many :looks, -> { uniq }, :through => :look_pictures
 
   cattr_accessor(:with_subcategories) { false }

@@ -9,13 +9,3 @@ $(document).on('click', '.picture-block', ->
   chbox.prop('checked', !is_checked)
   return
 )
-.on('click', '.add-picture-block', ->
-  chbox = $(this).find('.category-picture-chbox')
-  is_checked = chbox.is(':checked')
-  if is_checked
-    $(this).find('.picture-action').hide()
-  else
-    $(this).find('.picture-action').show()
-  chbox.prop('checked', !is_checked)
-  return
-)

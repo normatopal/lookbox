@@ -1,6 +1,7 @@
-- pictures.each do |picture|
-  .picture-block
-    = check_box_tag :picture_ids, picture.id, true, name: 'look[picture_ids][]', class: "mark-picture-chbox"
-    = image_tag picture.image.thumb, class: "image-space remove-picture", 'data-toggle': "tooltip", title: ""
-    .picture-action
-      %i.glyphicon.glyphicon-remove
+#look-canvas
+  - pictures.each do |picture|
+    - picture_position_top, picture_position_left = get_look_picture_position(picture)
+    .draggable.ui-widget-content{id: "look-picture-#{picture.id}", style: "position:relative; top: #{picture_position_top}px; left: #{picture_position_left}px;"  }
+      .look-picture-block
+        = check_box_tag :picture_ids, picture.id, true, name: 'look[picture_ids][]', class: "mark-picture-chbox"
+        = image_tag picture.image.look_small, class: "image-space", 'data-toggle': "tooltip", title: ""

@@ -63,6 +63,11 @@ class PicturesController < ApplicationController
     end
   end
 
+  def refresh
+    session.delete(:pictures_filter)
+    redirect_to pictures_path
+  end
+
   private
   
     def set_picture
@@ -70,13 +75,15 @@ class PicturesController < ApplicationController
     end
 
     def search_pictures
-      switch_subcategories_flag
-      @search = current_user.pictures.search(params[:q])
+      session[:pictures_filter] = params[:q] unless params[:q].blank?
+      search_params = session[:pictures_filter]
+      switch_subcategories_flag(search_params)
+      @search = current_user.pictures.search(search_params)
       @pictures = @search.result.page(params[:page]) #.per(10)
     end
 
-    def switch_subcategories_flag
-      Picture.with_subcategories = params[:q].present? && params[:q]['include_subcategories'] == '1'
+    def switch_subcategories_flag(search_params)
+      Picture.with_subcategories = search_params.present? && search_params['include_subcategories'] == '1'
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
