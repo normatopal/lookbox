@@ -1,0 +1,6 @@
+= f.fields_for :look_pictures, look_pictures, child_index: current_child_index do |flp|
+  %div{id: "look-picture-#{flp.object.picture.id}-position"}
+    = flp.hidden_field :id
+    = flp.hidden_field :picture_id
+    = flp.hidden_field :position_top
+    = flp.hidden_field :position_left

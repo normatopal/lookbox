@@ -6,7 +6,7 @@
     .modal-body
       = form_tag add_pictures_look_path(@look.id || 0), :remote => true, format: :js, :method => :post do
         - @available_pictures.each do |picture|
-          .add-picture-block
+          .add-picture-block{ disabled: @extra_picture_ids.include?(picture.id.to_s) ? "true" : "false"}
             = check_box_tag :picture_ids, picture.id, false, name: 'look[picture_ids][]', class: "mark-picture-chbox"
             = image_tag picture.image.thumb, class: "image-space", 'data-toggle': "tooltip", title: "Click to select/diselect"
             .picture-action

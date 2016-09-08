@@ -15,7 +15,7 @@ class LooksController < ApplicationController
   end
 
   def create
-    @look = current_user.looks.new(look_params)
+    @look = current_user.looks.new(look_params).decorate
     if @look.save
       redirect_to looks_path, notice: 'Look was successfully created.'
     else
@@ -46,10 +46,12 @@ class LooksController < ApplicationController
 
   def available_pictures
     @available_pictures = current_user.pictures.available_for_look(params[:id])
+    @extra_picture_ids = params[:extra_picture_ids].split(',')
   end
 
   def add_pictures
     @extra_pictures = current_user.pictures.where("id in (?)", look_params[:picture_ids])
+    @extra_look_pictures = @extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) }
   end
 
   private
@@ -59,7 +61,7 @@ class LooksController < ApplicationController
   end
 
   def look_params
-    params.require(:look).permit(:name, :description, picture_ids: [], look_pictures_attributes: [:position_top, :position_left, :id])
+    params.require(:look).permit(:name, :description, picture_ids: [], look_pictures_attributes: [:position_top, :position_left, :picture_id, :id])
   end
 
 end

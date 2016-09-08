@@ -1,0 +1,15 @@
+first_look:
+  name: My first look
+  description: Some text here
+  user: john_doe
+
+wrong:
+  name: RT
+  description:
+  user: john_doe
+
+empty:
+   name: RT
+   description:
+   user:
+

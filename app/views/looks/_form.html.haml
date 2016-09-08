@@ -18,18 +18,17 @@
       .col-sm-offset-2.col-sm-10
         .actions
           = f.submit "Save"
+
   .form-group
     .row
-      = link_to 'Add Picture', available_pictures_look_path(@look.id || 0), class: "btn", remote: true
+      #add-new-picture-btn
+        = render 'add_new_picture_btn', extra_picture_ids: ''
 
-  = f.fields_for :look_pictures do |flp|
-    %div{id: "look-picture-#{flp.object.picture.id}-position"}
-      = flp.hidden_field :id
-      = flp.hidden_field :position_top
-      = flp.hidden_field :position_left
+  #look-picture-positions-list
+    = render 'look_pictures_list', f: f, look_pictures: @look.look_pictures, current_child_index: 0
 
-  #pictures-list
-    = render 'pictures_list', pictures: @look.preloaded_pictures
-  #extra-pictures-list
+  #look-canvas
+    #pictures-list
+      = render 'pictures_list', pictures: @look.preloaded_pictures
 
 #pictures-modal.modal.fade{ tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
