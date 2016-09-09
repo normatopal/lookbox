@@ -1,0 +1,90 @@
+.btn-green {
+  background-color: #8BC34A;
+  border-color: #8BC34A;
+  color: #fff;
+}
+.btn-green:hover,
+.btn-green:focus,
+.btn-green:active,
+.btn-green.active {
+  background-color: #7eb73d;
+  border-color: #71a436;
+  color: #fff;
+}
+.btn-green.disabled:hover,
+.btn-green.disabled:focus,
+.btn-green.disabled:active,
+.btn-green.disabled.active,
+.btn-green[disabled]:hover,
+.btn-green[disabled]:focus,
+.btn-green[disabled]:active,
+.btn-green[disabled].active,
+fieldset[disabled] .btn-green:hover,
+fieldset[disabled] .btn-green:focus,
+fieldset[disabled] .btn-green:active,
+fieldset[disabled] .btn-green.active {
+  background-color: #8BC34A;
+  border-color: #8BC34A;
+  color: #fff;
+}
+
+.btn-red {
+  background-color: #FF5722;
+  border-color: #FF5722;
+  color: #fff;
+}
+.btn-red:hover,
+.btn-red:focus,
+.btn-red:active,
+.btn-red.active {
+  background-color: #ff4408;
+  border-color: #ee3900;
+  color: #fff;
+}
+.btn-red.disabled:hover,
+.btn-red.disabled:focus,
+.btn-red.disabled:active,
+.btn-red.disabled.active,
+.btn-red[disabled]:hover,
+.btn-red[disabled]:focus,
+.btn-red[disabled]:active,
+.btn-red[disabled].active,
+fieldset[disabled] .btn-red:hover,
+fieldset[disabled] .btn-red:focus,
+fieldset[disabled] .btn-red:active,
+fieldset[disabled] .btn-red.active {
+  background-color: #FF5722;
+  border-color: #FF5722;
+  color: #fff;
+}
+
+.btn-grey {
+  background-color: #EEEEEE;
+  border-color: #999;
+  color: #444;
+}
+.btn-grey:hover,
+.btn-grey:focus,
+.btn-grey:active,
+.btn-grey.active {
+  background-color: #e1e1e1;
+  border-color: #777777;
+  color: #444;
+}
+.btn-grey.disabled:hover,
+.btn-grey.disabled:focus,
+.btn-grey.disabled:active,
+.btn-grey.disabled.active,
+.btn-grey[disabled]:hover,
+.btn-grey[disabled]:focus,
+.btn-grey[disabled]:active,
+.btn-grey[disabled].active,
+fieldset[disabled] .btn-grey:hover,
+fieldset[disabled] .btn-grey:focus,
+fieldset[disabled] .btn-grey:active,
+fieldset[disabled] .btn-grey.active {
+  background-color: #EEEEEE;
+  border-color: #999;
+  color: #444;
+}
+

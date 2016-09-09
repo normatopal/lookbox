@@ -5,18 +5,21 @@
       Sort:
       = sort_link @search, :title, 'By title', {}, { class: '' }
       = sort_link @search, :created_at, 'By date', {}, { class: '' }
-      Title:
-      = f.text_field :title_cont, :class =>"search-query span4", "placeholder" => 'Type title or part..'
-      = f.submit 'Search', :class => "btn"
+      .form-group
+        %label Title:
+        = f.text_field :title_cont, :class =>"search-query form-control", "placeholder" => 'Type title or part..'
+      = f.submit 'Search', :class => "btn btn-grey"
       = link_to refresh_pictures_path, class: "btn" do
         Refresh
         %i.glyphicon.glyphicon-refresh
-      %div
-        Category:
-        = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: 'All' }, { onChange: "this.form.submit()"}
+      .form-group
+        %label Category:
+        = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: 'All' }, onChange: "this.form.submit()", class: 'form-control'
         = f.check_box :include_subcategories
         Include subcategories
-  = link_to 'Add New Picture', new_picture_path, class: "btn btn-add-new", remote: true
+  = link_to new_picture_path, class: "btn btn-add-new", remote: true do
+    %i.glyphicon.glyphicon-plus
+    New Picture
 
   #pictures-container
     = render 'index'
