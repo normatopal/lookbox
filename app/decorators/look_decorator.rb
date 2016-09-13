@@ -5,4 +5,9 @@ class LookDecorator < Draper::Decorator
     object.pictures.includes(:look_pictures)
   end
 
+  def available_pictures
+    object.user.pictures - object.pictures
+  end
+
+
 end

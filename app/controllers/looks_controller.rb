@@ -1,6 +1,7 @@
 class LooksController < ApplicationController
 
   before_action :set_look, only: [:show, :edit, :update, :destroy, :available_pictures, :add_pictures]
+  before_action :reset_extra_pictures, only: [:new, :edit]
 
   def index
     @looks = current_user.looks
@@ -41,23 +42,27 @@ class LooksController < ApplicationController
 
   def destroy
     @look.destroy
-    redirect_to categories_path, notice: 'Look was successfully destroyed.'
+    redirect_to looks_path, notice: 'Look was successfully destroyed.'
   end
 
   def available_pictures
     @available_pictures = current_user.pictures.available_for_look(params[:id])
-    @extra_picture_ids = params[:extra_picture_ids].split(',')
+    @extra_picture_ids = cookies[:extra_pictures].split(',')
   end
 
   def add_pictures
     @extra_pictures = current_user.pictures.where("id in (?)", look_params[:picture_ids])
-    @extra_look_pictures = @extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) }
+    cookies[:extra_pictures] += (cookies[:extra_pictures].present? ?  ',' : '') + @extra_pictures.ids.join(',')
   end
 
   private
 
   def set_look
     @look = params[:id].eql?("0") ? current_user.looks.new.decorate : current_user.looks.find(params[:id]).decorate
+  end
+
+  def reset_extra_pictures
+    cookies[:extra_pictures] = ''
   end
 
   def look_params
