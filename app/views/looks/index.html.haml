@@ -4,9 +4,13 @@
   = link_to 'Add New Look', new_look_path, class: "btn btn-add-new"
 
   - @looks.each do |look|
-    %p
-      %div{class: "modal fade", id: "look-modal-#{look.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
-        = render 'looks/modals/show', look: look
-      = link_to look.name, "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#look-modal-#{look.id}"}
+    .look-info
+      .look-name
+        = look.name
+      .look-block
+        %div{class: "modal fade", id: "look-modal-#{look.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
+          = render 'looks/modals/show', look: look
+        = image_tag('no_image_found.jpg', alt: 'Click to view', class: "image-space")
+        -# = link_to look.name, "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#look-modal-#{look.id}"}
 
 

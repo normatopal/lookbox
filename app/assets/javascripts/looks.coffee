@@ -1,5 +1,4 @@
 $ ->
-  max_zindex = 100
   #drag_start = (e) ->
 
   draggable_options = {
@@ -23,22 +22,36 @@ $ ->
 
     $(".draggable" ).draggable(draggable_options)
 
+    $("#look-canvas").on("DOMNodeInserted", ".draggable", -> set_draggable($(this)) )
+
     return
 
-  set_position_change = (e) ->
+  max_zindex = 100
+
+  change_zindex = (e) ->
     max_zindex += 1
     e.css('z-index', max_zindex)
     return
 
   set_draggable = (e) ->
     e.draggable(draggable_options)
-    e.click -> set_position_change($(this))
+    e.click -> change_zindex($(this))
     return
 
   $(document).on('page:change', set_look_canvas)
 
-  $("#look-canvas").on("DOMNodeInserted", ".draggable", -> set_draggable($(this)) )
+  $('.draggable').click -> change_zindex($(this))
 
-  $('.draggable').click -> set_position_change($(this))
+  $('#look-screenshot').click ->
+    html2canvas($('#look-canvas'), {
+      onrendered: (canvas) ->
+        #return Canvas2Image.saveAsPNG(canvas)
+        url = canvas.toDataURL();
+        file_name = $("#look_name").val()
+        $("<a>", { href: url, download: file_name }).on("click", ->
+          $(this).remove()).appendTo("body")[0].click()
+      })
+    return false
+
 
 

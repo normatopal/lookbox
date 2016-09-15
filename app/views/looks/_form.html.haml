@@ -21,7 +21,7 @@
 
   .form-group
     .row
-      -#= link_to 'Add Picture', available_pictures_look_path(@look.id || 0), class: "btn", remote: true
+      = link_to 'Screenshot', "#", class: "btn", id: "look-screenshot"
 
   #look-picture-positions-list
     = render 'look_pictures_list', f: f, look_pictures: @look.look_pictures, current_child_index: 0
@@ -30,7 +30,8 @@
     = render 'pictures_list', pictures: @look.preloaded_pictures
 
 = link_to 'Add Picture', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#pictures-modal"}
+
 %div{id: "pictures-modal", class: "modal fade", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
   = render 'looks/modals/available_pictures', available_pictures: @look.available_pictures
 
--#pictures-modal.modal.fade{ tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
+
