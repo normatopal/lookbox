@@ -17,8 +17,12 @@
 #= require bootstrap-sprockets
 #= require bootbox
 
-#= require jquery.ui.nestedSortable
-#= require sortable_tree/initializer
+#= require lib/jquery.ui.nestedSortable
+#= require lib/sortable_tree/initializer
+#= require lib/render_tree_helper
+
+#= require lib/html2canvas
+#= require lib/canvas2image
 
 #= require_tree .
 

@@ -9,10 +9,12 @@ class Picture < ActiveRecord::Base
   has_many :looks, -> { uniq }, :through => :look_pictures
 
   cattr_accessor(:with_subcategories) { false }
+  attr_accessor :image_encoded
 
   validates :title, presence: true
   validates_length_of :title, :minimum => 5, :if => proc{|p| p.title.present?}
   validates :user, presence: true
+  validate :image_size_validation
 
   scope :uncategorized, -> { includes(:categories).where( categories: { id: nil } ) }
 
@@ -31,5 +33,11 @@ class Picture < ActiveRecord::Base
   def self.ransackable_scopes(auth_object = nil)
     [:category_search, :include_subcategories]
   end
+
+  private
+  def image_size_validation
+    errors[:image] << "should be less than 500KB" if image.size > 0.5.megabytes
+  end
+
 
 end

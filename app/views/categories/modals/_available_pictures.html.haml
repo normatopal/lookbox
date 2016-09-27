@@ -5,6 +5,7 @@
       %h4.modal-title#modal-label= @category.name
     .modal-body
       = form_for(@category, url: url_for(controller: :categories, action: :add_pictures), remote: true, authenticity_token: true, format: :js, :html => { :method => :post }) do |fp|
+        = hidden_field_tag :name, @category.name, name: 'category[name]'
         - @available_pictures.each do |picture|
           .add-picture-block
             = check_box_tag :picture_ids, picture.id, false, name: 'category[picture_ids][]', class: "mark-picture-chbox"
