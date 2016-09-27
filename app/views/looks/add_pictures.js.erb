@@ -1,6 +1,6 @@
 $("#look-canvas").append("<%= escape_javascript (render(partial: 'pictures_list', :locals => { pictures: @extra_pictures } )) %>");
 '<%= form_for(@look) do |ff| %>'
-  $("#look-picture-positions-list").append("<%= escape_javascript (render(partial: 'look_pictures_list', :locals => { f: ff, current_child_index: @look.pictures.count, look_pictures: @extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) } } )) %>");
+  $("#look-picture-positions-list").append("<%= escape_javascript (render(partial: 'look_pictures_list', :locals => { f: ff, current_child_index: @look.pictures.count + cookies[:extra_pictures_count].to_i, look_pictures: @extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) } } )) %>");
 '<% end %>'
 $('.mark-picture-chbox').attr('checked', false)
 $('.btn-add-picture').attr('disabled', true)

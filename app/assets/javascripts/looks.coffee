@@ -1,5 +1,4 @@
 $ ->
-  #drag_start = (e) ->
 
   draggable_options = {
     #start: drag_start
@@ -22,7 +21,22 @@ $ ->
 
     $(".draggable" ).draggable(draggable_options)
 
+
+    $("#look-screenshot").click ->
+      encode_image_url()
+      $("<a>", {href: $('#preview-image-url').val(), download: $("#look_name").val()})
+        .on("click", -> $(this).remove()).appendTo("body")[0].click()
+      return false
+
+    $(".draggable").click -> change_zindex($(this))
+
     $("#look-canvas").on("DOMNodeInserted", ".draggable", -> set_draggable($(this)) )
+
+    $("#look-save-btn").click (e) ->
+      e.preventDefault()
+      $("#preview-image-title").val($("#look_name").val() + " screen")
+      encode_image_url($("#look-save-form"))
+      return
 
     return
 
@@ -38,20 +52,25 @@ $ ->
     e.click -> change_zindex($(this))
     return
 
-  $(document).on('page:change', set_look_canvas)
-
-  $('.draggable').click -> change_zindex($(this))
-
-  $('#look-screenshot').click ->
+  encode_image_url = (e) ->
     html2canvas($('#look-canvas'), {
       onrendered: (canvas) ->
         #return Canvas2Image.saveAsPNG(canvas)
-        url = canvas.toDataURL();
-        file_name = $("#look_name").val()
-        $("<a>", { href: url, download: file_name }).on("click", ->
-          $(this).remove()).appendTo("body")[0].click()
-      })
-    return false
+        url = canvas.toDataURL(("image/png"));
+        $('#preview-image-url').val(url)
+        if (e)
+          e.submit()
+        return
+    })
+    return
+
+  $(document).on("page:change", set_look_canvas)
+
+  return
+
+
+
+
 
 
 

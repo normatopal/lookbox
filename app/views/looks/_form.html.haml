@@ -1,4 +1,4 @@
-= form_for(@look, authenticity_token: true, html: { multipart: true}) do |f|
+= form_for(@look, authenticity_token: true, html: { multipart: true, id: "look-save-form"}) do |f|
   = render 'shared/error_message', entity: @look
 
   .form-group
@@ -17,14 +17,20 @@
     .row
       .col-sm-offset-2.col-sm-10
         .actions
-          = f.submit "Save"
+          = f.submit "Save", id: "look-save-btn"
+
+  = f.fields_for :screen do |fs|
+    = fs.hidden_field :title, id: "preview-image-title", value: 'new screen'
+    = fs.hidden_field :user_id
+    = fs.hidden_field :id
+    = fs.hidden_field :image_encoded, id: "preview-image-url", value: ''
 
   .form-group
     .row
       = link_to 'Screenshot', "#", class: "btn", id: "look-screenshot"
 
   #look-picture-positions-list
-    = render 'look_pictures_list', f: f, look_pictures: @look.look_pictures, current_child_index: 0
+    = render 'look_pictures_list', f: f, look_pictures: @look.look_pictures, current_child_index: 1
 
   #look-canvas.ui-widget-content
     = render 'pictures_list', pictures: @look.preloaded_pictures

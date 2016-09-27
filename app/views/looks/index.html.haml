@@ -10,7 +10,7 @@
       .look-block
         %div{class: "modal fade", id: "look-modal-#{look.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
           = render 'looks/modals/show', look: look
-        = image_tag('no_image_found.jpg', alt: 'Click to view', class: "image-space")
+        = image_tag look.preview_image, alt: 'No image', class: "image-space"
         -# = link_to look.name, "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#look-modal-#{look.id}"}
 
 

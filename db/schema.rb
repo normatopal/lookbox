@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830141535) do
+ActiveRecord::Schema.define(version: 20160915182415) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -39,10 +39,9 @@ ActiveRecord::Schema.define(version: 20160830141535) do
   add_index "category_pictures", ["category_id", "picture_id"], name: "index_category_pictures_on_category_id_and_picture_id", using: :btree
 
   create_table "look_pictures", force: :cascade do |t|
-    t.integer "look_id",       limit: 4
-    t.integer "picture_id",    limit: 4
-    t.integer "position_top",  limit: 4, default: 0
-    t.integer "position_left", limit: 4, default: 0
+    t.integer "look_id",         limit: 4
+    t.integer "picture_id",      limit: 4
+    t.text    "position_params", limit: 65535
   end
 
   add_index "look_pictures", ["look_id", "picture_id"], name: "index_look_pictures_on_look_id_and_picture_id", using: :btree
@@ -54,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160830141535) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.datetime "deleted_at"
+    t.integer  "picture_id",  limit: 4
   end
 
   create_table "pictures", force: :cascade do |t|
