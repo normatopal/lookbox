@@ -1,5 +1,12 @@
 #content
-  %h2 Pictures
+  .row
+    .col-md-6
+      %h2 Pictures
+    .col-md-6
+      = link_to new_picture_path, class: "btn btn-add-new", remote: true do
+        %i.glyphicon.glyphicon-plus
+        New Picture
+
   .filters
     = search_form_for @search, enforce_utf8: false, html: { class: "form-inline" } do |f|
       Sort:
@@ -17,9 +24,6 @@
         = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: 'All' }, onChange: "this.form.submit()", class: 'form-control'
         = f.check_box :include_subcategories
         Include subcategories
-  = link_to new_picture_path, class: "btn btn-add-new", remote: true do
-    %i.glyphicon.glyphicon-plus
-    New Picture
 
   #pictures-container
     = render 'index'
