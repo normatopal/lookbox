@@ -1,7 +1,9 @@
 #content
-  %h2 Looks
-
-  = link_to 'Add New Look', new_look_path, class: "btn btn-add-new"
+  .row
+    .col-md-6
+      %h2 Looks
+    .col-md-6
+      = link_to 'Add New Look', new_look_path, class: "btn btn-add-new"
 
   - @looks.each do |look|
     .look-info

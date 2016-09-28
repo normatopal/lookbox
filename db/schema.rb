@@ -15,14 +15,14 @@ ActiveRecord::Schema.define(version: 20160915182415) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
-    t.text     "description", limit: 16777215
+    t.text     "description", limit: 65535
     t.integer  "user_id",     limit: 4
     t.integer  "parent_id",   limit: 4
-    t.integer  "lft",         limit: 4,                    null: false
-    t.integer  "rgt",         limit: 4,                    null: false
-    t.integer  "depth",       limit: 4,        default: 0, null: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.integer  "lft",         limit: 4,                 null: false
+    t.integer  "rgt",         limit: 4,                 null: false
+    t.integer  "depth",       limit: 4,     default: 0, null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   add_index "categories", ["lft"], name: "index_categories_on_lft", using: :btree
@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(version: 20160915182415) do
 
   create_table "pictures", force: :cascade do |t|
     t.string   "title",       limit: 255
-    t.text     "description", limit: 16777215
+    t.text     "description", limit: 65535
     t.integer  "user_id",     limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "image",       limit: 255
     t.datetime "deleted_at"
   end
