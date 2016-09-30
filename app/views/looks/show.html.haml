@@ -6,6 +6,8 @@
     .row
       %strong Description:
       = @look.description
+      - if look.screen.present?
+        = image_tag look.screen.image.url, { class: "show-picture-image"}
 
 = link_to 'Edit', edit_look_path(@look)
 = link_to 'Looks', looks_path

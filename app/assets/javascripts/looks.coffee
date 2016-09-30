@@ -1,4 +1,4 @@
-$ ->
+ready = ->
 
   draggable_options = {
     #start: drag_start
@@ -11,13 +11,8 @@ $ ->
   }
 
   set_look_canvas = ->
-    if $("#look-canvas").length < 1
-      return
 
-    $("#look-canvas").resizable({
-      handles: 'e, s, se'
-      #animate: true
-    })
+    $("#look-canvas").resizable({ handles: 'e, s, se' })
 
     $(".draggable" ).draggable(draggable_options)
 
@@ -38,35 +33,42 @@ $ ->
       encode_image_url($("#look-save-form"))
       return
 
+    max_zindex = 100
+
+    change_zindex = (e) ->
+      max_zindex += 1
+      e.css('z-index', max_zindex)
+      return
+
+    set_draggable = (e) ->
+      e.draggable(draggable_options)
+      e.click -> change_zindex($(this))
+      return
+
+    encode_image_url = (e) ->
+      html2canvas($('#look-canvas'), {
+        onrendered: (canvas) ->
+          #return Canvas2Image.saveAsPNG(canvas)
+          url = canvas.toDataURL(("image/png"));
+          $('#preview-image-url').val(url)
+          if (e)
+            e.submit()
+          return
+      })
+      return
+
     return
 
-  max_zindex = 100
-
-  change_zindex = (e) ->
-    max_zindex += 1
-    e.css('z-index', max_zindex)
-    return
-
-  set_draggable = (e) ->
-    e.draggable(draggable_options)
-    e.click -> change_zindex($(this))
-    return
-
-  encode_image_url = (e) ->
-    html2canvas($('#look-canvas'), {
-      onrendered: (canvas) ->
-        #return Canvas2Image.saveAsPNG(canvas)
-        url = canvas.toDataURL(("image/png"));
-        $('#preview-image-url').val(url)
-        if (e)
-          e.submit()
-        return
-    })
-    return
-
-  $(document).on("page:change", set_look_canvas)
+  if $("#look-canvas").length > 0
+    set_look_canvas()
 
   return
+
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
+
+
 
 
 

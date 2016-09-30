@@ -4,13 +4,14 @@
       = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
       %h4.modal-title#modal-label
     .modal-body
-      = form_tag add_pictures_look_path(@look.id || 0), :remote => true, format: :js, authenticity_token: true, :method => :post do
+      = form_tag add_pictures_look_path(@look.id || 0), remote: true, format: :js, authenticity_token: true, :method => :post do
         = hidden_field_tag :name, @look.name, name: 'look[name]'
-        - available_pictures.each do |picture|
+        - @available_pictures.each do |picture|
           - next unless picture.id
-          .add-picture-block{id: "picture-block-#{picture.id}"}
+          .add-picture.picture-block{id: "picture-block-#{picture.id}"}
             = check_box_tag :picture_ids, picture.id, false, name: 'look[picture_ids][]', class: "mark-picture-chbox"
-            = image_tag picture.image.thumb, class: "image-space", 'data-toggle': "tooltip", title: "Click to select/diselect"
+            .image-block
+              = image_tag picture.image.thumb, class: "image-space", 'data-toggle': "tooltip", title: "Click to select/diselect"
             .picture-action
               .tick-mark-green
         = submit_tag "Add to look", class: "btn btn-primary btn-add-picture", disabled: true

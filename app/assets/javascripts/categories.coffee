@@ -1,11 +1,13 @@
-$(document).on('click', '.picture-block', ->
-  chbox = $(this).find('.category-picture-chbox')
-  image_opacity = 1
+$(document).on('click', '.add-picture', ->
+  chbox = $(this).find('.mark-picture-chbox')
+  #if $.inArray(chbox.val(), $.cookie("extra_pictures").split(',')) > -1
+    #return false
   is_checked = chbox.is(':checked')
   if is_checked
-    image_opacity = 0.5
-    $(this).find('.picture-action .glyphicon').removeClass('glyphicon-remove').addClass('glyphicon-ok')
-  $(this).css({ opacity: image_opacity })
+    $(this).find('.picture-action').hide()
+  else
+    $(this).find('.picture-action').show()
+    $('.btn-add-picture').attr('disabled', false)
   chbox.prop('checked', !is_checked)
   return
 )

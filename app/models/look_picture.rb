@@ -4,7 +4,7 @@ class LookPicture < ActiveRecord::Base
 
   validates_uniqueness_of :look_id, :scope => :picture_id
 
-  attr_accessor :preview_image, :position_top, :position_left
+  attr_accessor :preview_image, :position_top, :position_left, :position_zindex
   serialize :position_params, Hash
 
 end

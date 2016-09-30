@@ -35,9 +35,10 @@
   #look-canvas.ui-widget-content
     = render 'pictures_list', pictures: @look.preloaded_pictures
 
-= link_to 'Add Picture', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#pictures-modal"}
+-#= link_to 'Add Picture', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#pictures-modal"}
+= link_to 'Add Picture', available_pictures_look_path(@look.id || 0),  {class: "btn btn-primary btn-lg", remote: true}
 
 %div{id: "pictures-modal", class: "modal fade", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
-  = render 'looks/modals/available_pictures', available_pictures: @look.available_pictures
+  -#= render 'looks/modals/available_pictures', available_pictures: @look.available_pictures
 
 

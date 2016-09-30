@@ -1,7 +1,7 @@
 class LooksController < ApplicationController
 
   before_action :set_look, only: [:show, :edit, :update, :destroy, :available_pictures, :add_pictures]
-  before_action :reset_extra_pictures, only: [:new, :edit]
+  before_action :reset_look_pictures, only: [:new, :edit]
 
   def index
     @looks = LookDecorator.wrap(current_user.looks)
@@ -55,14 +55,16 @@ class LooksController < ApplicationController
   end
 
   def available_pictures
-    @available_pictures = current_user.pictures.available_for_look(params[:id])
-    @extra_picture_ids = cookies[:extra_pictures].split(',')
+    @available_pictures = current_user.pictures.where.not(id: cookies[:look_pictures_ids].split(','))
+    #@extra_picture_ids = cookies[:extra_pictures].split(',')
   end
 
   def add_pictures
     @extra_pictures = current_user.pictures.where("id in (?)", look_params[:picture_ids])
-    cookies[:extra_pictures] += (cookies[:extra_pictures].present? ?  ',' : '') + @extra_pictures.ids.join(',')
-    cookies[:extra_pictures_count] = cookies[:extra_pictures_count].to_i + @extra_pictures.count
+    added_extra_pictures_array = cookies[:look_pictures_ids].split(",")
+    cookies[:look_pictures_ids] = (added_extra_pictures_array + @extra_pictures.ids).join(',')
+    @all_extra_pictures_count = @look.pictures.count + added_extra_pictures_array.count
+    @extra_look_pictures = @extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) }
   end
 
   private
@@ -71,9 +73,8 @@ class LooksController < ApplicationController
     @look = params[:id].eql?("0") ? current_user.looks.new.decorate : current_user.looks.find(params[:id]).decorate
   end
 
-  def reset_extra_pictures
-    cookies[:extra_pictures] = ''
-    cookies[:extra_pictures_count] = 0
+  def reset_look_pictures
+    cookies[:look_pictures_ids] = @look.pictures.ids.join(",")
   end
 
   def look_params

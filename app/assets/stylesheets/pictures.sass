@@ -7,21 +7,27 @@
   float: right
   margin-top: 15px
 
-.picture-block, .add-picture-block
-  border: 1px solid grey
-  box-shadow: 1px 1px 3px 0 black
+.picture-block
   float: left
-  width: 152px
-  height: 152px
   margin-right: 15px
   margin-bottom: 15px
-  overflow: hidden
   background: white
 
+.image-block
+  width: 152px
+  height: 152px
+  overflow: hidden
+  border: 1px solid grey
+  box-shadow: 1px 1px 3px 0 black
+
+.pictures .picture-block
+  height: 162px
+
 .picture-action
+  float: right
   display: none
 
-.picture-block:hover, .add-picture-block:hover
+.picture-block:hover
   cursor: pointer
 
 .show-picture-image
@@ -33,8 +39,15 @@
 .mark-picture-chbox
   display: none
 
-.add-picture-block-disabled
-  @extend .picture-block
-  opacity: 0.5
+.add-picture
+  position: relative
+
+.tick-mark-green
+  width: 48px
+  height: 48px
+  background: image-url('/images/icons/tick-mark-green.png') -1px -1px no-repeat
+  position: absolute
+  bottom: -2px
+  right: 100px
 
 

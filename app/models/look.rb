@@ -26,8 +26,10 @@ class Look < ActiveRecord::Base
   private
 
   before_save do
-    self.look_pictures.each do |lp|
-      lp.position_params = {left: lp.position_left, top: lp.position_top} if lp.position_left.present? && lp.position_top.present?
+    look_pictures.each do |lp|
+      lp.position_params.megre!({left: lp.position_top}) if lp.position_top.present?
+      lp.position_params.megre!({left: lp.position_left}) if lp.position_left.present?
+      lp.position_params.megre!({left: lp.position_zindex}) if lp.position_zindex.present?
     end
   end
 

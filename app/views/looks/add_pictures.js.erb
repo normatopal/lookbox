@@ -1,8 +1,8 @@
 $("#look-canvas").append("<%= escape_javascript (render(partial: 'pictures_list', :locals => { pictures: @extra_pictures } )) %>");
 '<%= form_for(@look) do |ff| %>'
-  $("#look-picture-positions-list").append("<%= escape_javascript (render(partial: 'look_pictures_list', :locals => { f: ff, current_child_index: @look.pictures.count + cookies[:extra_pictures_count].to_i, look_pictures: @extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) } } )) %>");
+  $("#look-picture-positions-list").append("<%= escape_javascript (render(partial: 'look_pictures_list', :locals => { f: ff, current_child_index: @all_extra_pictures_count, look_pictures: @extra_look_pictures }) ) %>");
 '<% end %>'
-$('.mark-picture-chbox').attr('checked', false)
+//$('.mark-picture-chbox').attr('checked', false)
 $('.btn-add-picture').attr('disabled', true)
-$.each($.cookie("extra_pictures").split(','), function(index, value){ $("#picture-block-" + value).css('opacity', 0.5) })
+//$.each($.cookie("extra_pictures").split(','), function(index, value){ $("#picture-block-" + value).css('opacity', 0.5) })
 $("#pictures-modal").modal('hide');

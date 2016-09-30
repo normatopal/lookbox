@@ -3,8 +3,8 @@
   .picture-block
     %div{class: "modal fade", id: "picture-modal-#{picture.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
       = render 'pictures/modals/show', picture: picture
-    = image_tag picture.image.thumb, class: "image-space"
-    %br
+    .image-block
+      = image_tag picture.image.thumb, class: "image-space"
     .picture-action
       = link_to 'Show', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#picture-modal-#{picture.id}"}
       = link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' }

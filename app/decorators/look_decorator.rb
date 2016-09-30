@@ -16,7 +16,7 @@ class LookDecorator < Draper::Decorator
   end
 
   def preview_image
-    object.screen.present? ? object.screen.image.look_small : 'no_image_found.jpg'
+    object.screen.present? ? object.screen.image.thumb : 'no_image_found.jpg'
   end
 
 end
