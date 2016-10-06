@@ -1,10 +1,16 @@
-.pictures-list
-  - pictures.each do |picture|
-    - picture_position_top, picture_position_left = get_look_picture_position(picture)
-    .draggable.ui-widget-content{id: "look-picture-#{picture.id}", style: "top: #{picture_position_top}px; left: #{picture_position_left}px;"  }
-      .look-picture-block
-        = image_tag picture.image.look_small, class: "image-space", 'data-toggle': "tooltip", title: ""
-        .picture-action
-          .remove-look-picture-btn
-            Delete
+- look_pictures.each.with_index(current_child_index - 1) do |look_picture, index|
+  = f.fields_for :look_pictures, look_picture, child_index: index do |flp|
+    %div{id: "look-picture-#{flp.object.picture.id}-position"}
+      = flp.hidden_field :id
+      = flp.hidden_field :picture_id
+      = flp.hidden_field :_destroy
+      = flp.hidden_field :position_top, { value: flp.object.position_params[:top] }
+      = flp.hidden_field :position_left, { value: flp.object.position_params[:left] }
+      = flp.hidden_field :position_order, { value: flp.object.order_number }
 
+  - picture_position_top, picture_position_left, picture_position_zindex = get_look_picture_position(look_picture.picture)
+  .draggable.ui-widget-content.look-picture-block{id: "look-picture-#{look_picture.picture.id}", style: "top: #{look_picture.position_params[:top]}px; left: #{look_picture.position_params[:left]}px; z-index: #{look_picture.order_number} " }
+    = image_tag look_picture.picture.image.look_small, class: "image-space", 'data-toggle': "tooltip", title: ""
+    .picture-action
+      .remove-look-picture-btn{"picture-removed-id": look_picture.picture.id}
+        Delete

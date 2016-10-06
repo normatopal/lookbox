@@ -29,16 +29,12 @@
     .row
       = link_to 'Screenshot', "#", class: "btn", id: "look-screenshot"
 
-  #look-picture-positions-list
-    = render 'look_pictures_list', f: f, look_pictures: @look.look_pictures, current_child_index: 1
+  #look-canvas.ui-widget-content.pictures-list
+    = render 'pictures_list', look_pictures: @look.preloaded_look_pictures, current_child_index: 1, f: f
 
-  #look-canvas.ui-widget-content
-    = render 'pictures_list', pictures: @look.preloaded_pictures
-
--#= link_to 'Add Picture', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#pictures-modal"}
 = link_to 'Add Picture', available_pictures_look_path(@look.id || 0),  {class: "btn btn-primary btn-lg", remote: true}
 
 %div{id: "pictures-modal", class: "modal fade", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
-  -#= render 'looks/modals/available_pictures', available_pictures: @look.available_pictures
+
 
 

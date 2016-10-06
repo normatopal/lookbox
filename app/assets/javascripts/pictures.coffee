@@ -2,11 +2,11 @@
 # All this logic will automatically be available in application.coffee.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .look-picture-block', -> $(this).find('.picture-action').show()
+).on('mouseleave', '.pictures-list .picture-block, .pictures-list .look-picture-block', -> $(this).find('.picture-action').hide()
+)
+
 ready = ->
-
-  $('.pictures-list .picture-block, .pictures-list .look-picture-block').mouseenter -> $(this).find('.picture-action').show()
-
-  $('.pictures-list .picture-block, .pictures-list .look-picture-block').mouseleave -> $(this).find('.picture-action').hide()
 
   $('.pictures-list .image-block').click -> $(this).parent().find('.modal').modal 'show'
 
@@ -20,9 +20,6 @@ ready = ->
     $(this).css({ opacity: image_opacity })
     chbox.prop('checked', !is_checked)
     return
-
-    $('.remove-look-picture-btn').click ->
-      
 
   return
 
