@@ -4,6 +4,20 @@ class LooksController < ApplicationController
   before_action :set_look_screen, only: [:new, :edit]
   before_action :reset_look_pictures, only: [:new, :edit]
 
+  autocomplete :user, :email, :extra_data => [:id]
+
+  def autocomplete_user_email1
+    users = User.all
+    res = users.map{|user| {id: user.id, email: user.email}}
+    render json: res.first
+  end
+
+  def get_autocomplete_items(parameters)
+    #items = super(parameters) #rails4-autocomplete
+    #items = active_record_get_autocomplete_items(parameters) #rails-jquery-autocomplete
+    active_record_get_autocomplete_items(parameters).presence || [OpenStruct.new(id: '', parameters[:method].to_s => 'nothing found')]
+  end
+
   def index
     @looks = LookDecorator.wrap(current_user.looks)
   end
@@ -14,6 +28,7 @@ class LooksController < ApplicationController
 
   def create
     @look = current_user.looks.new(look_params).decorate
+    @look.decode_screen_image(look_params[:screen_attributes][:image_encoded])
     if @look.save
       redirect_to looks_path, notice: 'Look was successfully created.'
     else
@@ -58,7 +73,7 @@ class LooksController < ApplicationController
   private
 
   def set_look
-    @look = ["0", nil].include?(params[:id]) ? current_user.looks.new.decorate : current_user.looks.find(params[:id]).decorate
+    @look = ['0', nil].include?(params[:id]) ? current_user.looks.new.decorate : current_user.looks.find(params[:id]).decorate
   end
 
   def set_look_screen
@@ -70,7 +85,8 @@ class LooksController < ApplicationController
   end
 
   def look_params
-    params.require(:look).permit(:name, :description, picture_ids: [], look_pictures_attributes: [:position_top, :position_left, :position_order, :picture_id, :id, :_destroy], screen_attributes: [:id, :title, :user_id, :image_encoded])
+    params.require(:look).permit(:name, :description, picture_ids: [], look_pictures_attributes: [:position_top, :position_left, :position_order, :picture_id, :id, :_destroy],
+            screen_attributes: [:id, :title, :user_id, :image_encoded11], user_looks_attributes: [:id, :user_id, :_destroy])
   end
 
 end

@@ -37,6 +37,9 @@ gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'jquery-ui-rails'
 gem 'bootbox-rails'
+gem 'rails-jquery-autocomplete'
+
+gem 'jquery-tmpl-rails'
 
 gem 'devise'
 gem 'kaminari'
@@ -49,6 +52,8 @@ gem 'the_sortable_tree', '~> 2.5.0'
 
 gem 'paranoia', '~> 2.0'
 gem 'draper'
+
+#gem 'sprockets-rails'
 
 group :development, :test do
   gem 'pry-byebug'

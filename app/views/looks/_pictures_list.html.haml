@@ -1,12 +1,12 @@
 - look_pictures.each.with_index(current_child_index - 1) do |look_picture, index|
-  = f.fields_for :look_pictures, look_picture, child_index: index do |flp|
-    %div{id: "look-picture-#{flp.object.picture.id}-position"}
-      = flp.hidden_field :id
-      = flp.hidden_field :picture_id
-      = flp.hidden_field :_destroy
-      = flp.hidden_field :position_top, { value: flp.object.position_params[:top] }
-      = flp.hidden_field :position_left, { value: flp.object.position_params[:left] }
-      = flp.hidden_field :position_order, { value: flp.object.order_number }
+  = f.fields_for :look_pictures, look_picture, child_index: index do |f_lp|
+    %div{id: "look-picture-#{look_picture.picture.id}-position"}
+      = f_lp.hidden_field :id
+      = f_lp.hidden_field :picture_id
+      = f_lp.hidden_field :_destroy
+      = f_lp.hidden_field :position_top, { value: look_picture.position_params[:top] }
+      = f_lp.hidden_field :position_left, { value: look_picture.position_params[:left] }
+      = f_lp.hidden_field :position_order, { value: look_picture.order_number }
 
   - picture_position_top, picture_position_left, picture_position_zindex = get_look_picture_position(look_picture.picture)
   .draggable.ui-widget-content.look-picture-block{id: "look-picture-#{look_picture.picture.id}", style: "top: #{look_picture.position_params[:top]}px; left: #{look_picture.position_params[:left]}px; z-index: #{look_picture.order_number} " }

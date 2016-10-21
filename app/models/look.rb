@@ -6,14 +6,18 @@ class Look < ActiveRecord::Base
   has_many :pictures, -> { uniq }, :through => :look_pictures
   belongs_to :screen, :class_name => "Picture", :foreign_key => "picture_id"
 
+  has_many :user_looks, dependent: :destroy
+  has_many :shared_users, through: :user_looks, source: :user
+
   accepts_nested_attributes_for :look_pictures, :allow_destroy => true
   accepts_nested_attributes_for :screen
+  accepts_nested_attributes_for :user_looks, :allow_destroy => true
 
   validates :name, presence: true
   validates_length_of :name, :minimum => 3, :if => proc{|p| p.name.present?}
   validates :user_id, presence: true
 
-  attr_accessor :preview_image
+  attr_accessor :preview_image, :user_email, :shared_users_ids
 
   def decode_screen_image(encoded_file = nil)
     return unless encoded_file

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :looks do
      get 'available_pictures', on: :member
      post 'add_pictures', on: :member
+     get 'autocomplete_user_email', on: :collection
   end
   resources :categories do
     get 'available_pictures', on: :member

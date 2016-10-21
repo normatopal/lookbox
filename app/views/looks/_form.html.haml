@@ -15,6 +15,25 @@
 
   .form-group
     .row
+      = f.label "Shared with", class: "col-sm-2 control-label"
+      .col-sm-10
+        .text-input-wrapper
+          = f.autocomplete_field :user_email, autocomplete_user_email_looks_path, :data => { :no_matches_label => '' }, :"data-autocomplete-label" => "nothing found.", id: "user-email-autocomplete", :fields => {:shared_users => '#shared_users'}
+          %span.clear-input-btn{title: "Clear"}
+            &times;
+        -#= autocomplete_field_tag 'user_email', '', autocomplete_user_email_looks_path, :size => 75, :"data-autocomplete-label" => "Sorry, nothing found.", :fields => {:shared_users => '#shared_users'}
+        = hidden_field_tag "shared-users-count", @look.shared_users.count
+        #shared-users-list
+          - @look.user_looks.each do |user_look|
+            = f.fields_for :user_looks, user_look do |f_ul|
+              %div{id: "shared-user-id-#{user_look.user.id}"}
+                = f_ul.hidden_field :id, value: user_look.id
+                = f_ul.hidden_field :user_id, value: user_look.user.id
+                = f_ul.hidden_field :_destroy
+                = link_to user_look.user.email, '#', class: "remove-shared-user-btn", "user-removed-id": user_look.user.id
+
+  .form-group
+    .row
       .col-sm-offset-2.col-sm-10
         .actions
           = f.submit "Save", id: "look-save-btn"
@@ -36,5 +55,12 @@
 
 %div{id: "pictures-modal", class: "modal fade", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
 
+
+%script#shared-user-template{:type => "text/template"}
+  %div{id: "shared-user-id-${ user.id }"}
+    %input{type: 'hidden', id: "look_user_looks_attributes_{{= users_count }}_user_id", name: "look[user_looks_attributes][${users_count}][user_id]", value: "${ user.id }" }
+    %input{type: 'hidden', id: "look_user_looks_attributes_${users_count}__destroy", name: "look[user_looks_attributes][${users_count}][_destroy]", value: "false"}
+    %a.remove-shared-user-btn{href: "#", "user-removed-id": "${ user.id }"}
+      ${ user.email }
 
 

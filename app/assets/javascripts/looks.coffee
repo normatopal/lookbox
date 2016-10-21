@@ -17,6 +17,7 @@ ready = ->
 
     $(".draggable").draggable(draggable_options)
 
+
     $("#look-screenshot").click ->
       encode_image_url()
       $("<a>", {href: $('#preview-image-url').val(), download: $("#look_name").val()})
@@ -73,14 +74,44 @@ $(document).on('click', '.remove-look-picture-btn', ->
   picture_id = $(this).attr('picture-removed-id')
   $('#look-picture-' + picture_id).hide()
   $('#look-picture-' + picture_id + '-position').find($("input[id$='_destroy']")).get(0).value = 'true'
-
   look_pictures_ids = $.cookie('look_pictures_ids').split(',')
   index = $.inArray(picture_id, look_pictures_ids)
   if (index >= 0)
     look_pictures_ids.splice(index, 1)
     $.cookie('look_pictures_ids', look_pictures_ids.join(','), { path: '/' })
   return
+).on('railsAutocomplete.select', '#user-email-autocomplete', (event, data) ->
+  unless data.item.id
+    $(this).val('')
+    return
+  exist_user = $("#shared-user-id-" + data.item.id)
+  if exist_user.length && !exist_user.is(':visible')
+    exist_user.find($("input[id$='_destroy']")).get(0).value = 'false'
+    exist_user.show()
+  return if exist_user.length > 0
+  users_count = parseInt($('#shared-users-count').val())
+  data = { users_count: users_count, user: { id: data.item.id, email: data.item.value } }
+  $('#shared-user-template').tmpl(data).appendTo('#shared-users-list')
+  #$.tmpl($('#shared-user-template'), data).appendTo('#shared-users-list')
+  return
+).on('click', '.remove-shared-user-btn', ->
+  user_id = $(this).attr('user-removed-id')
+  $('#shared-user-id-' + user_id).find($("input[id$='_destroy']")).get(0).value = 'true'
+  $('#shared-user-id-' + user_id).hide()
+  return false
+).on('keyup', "#user-email-autocomplete", ->
+  visibility = if this.value.length > 0 then "visible" else "hidden"
+  $(".clear-input-btn").css('visibility', visibility)
+  return
+).on('click', '.clear-input-btn', ->
+  $(this).prev('input').first().val('')
+  $(this).css('visibility', 'hidden')
+  return
 )
+
+
+
+
 
 
 
