@@ -7,11 +7,20 @@ Rails.application.routes.draw do
   resources :pictures do
     get 'refresh', on: :collection
   end
+
   resources :looks do
-     get 'available_pictures', on: :member
-     post 'add_pictures', on: :member
-     get 'autocomplete_user_email', on: :collection
-  end
+     collection do
+       get 'autocomplete_user_email'
+       get 'shared'
+     end
+     member do
+        get 'available_pictures'
+        post 'add_pictures'
+        get 'approve_shared'
+        get 'remove_shared'
+     end
+ end
+
   resources :categories do
     get 'available_pictures', on: :member
     post 'add_pictures', on: :member

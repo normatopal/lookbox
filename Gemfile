@@ -53,7 +53,8 @@ gem 'the_sortable_tree', '~> 2.5.0'
 gem 'paranoia', '~> 2.0'
 gem 'draper'
 
-#gem 'sprockets-rails'
+gem 'active_link_to'
+gem 'tabs_on_rails'
 
 group :development, :test do
   gem 'pry-byebug'

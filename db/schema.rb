@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161009175313) do
+ActiveRecord::Schema.define(version: 20161022192458) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -67,10 +67,11 @@ ActiveRecord::Schema.define(version: 20161009175313) do
   end
 
   create_table "user_looks", force: :cascade do |t|
-    t.integer  "look_id",    limit: 4
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "look_id",     limit: 4
+    t.integer  "user_id",     limit: 4
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "is_approved",           default: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   has_many :categories
   has_many :looks
 
+  has_many :user_looks, dependent: :destroy
+  has_many :shared_looks, through: :user_looks, source: :look
+
   validates :email, presence: true
 
   def update_password_with_new(params)

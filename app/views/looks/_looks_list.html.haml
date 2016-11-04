@@ -1,0 +1,18 @@
+= render "filters", is_shared_looks: is_shared_looks
+.pictures-list.clearfix
+  - @looks.each do |look|
+    .look-info
+      %div{class: "modal fade", id: "look-modal-#{look.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
+        = render 'looks/modals/show', look: look
+      .look-name
+        = look.name
+      .image-block.look-block
+        = image_tag look.preview_image, alt: 'No image', class: "image-space"
+        -# = link_to look.name, "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#look-modal-#{look.id}"}
+      - if is_shared_looks
+        .shared-looks-actions
+          = link_to "Approve", approve_shared_look_path(look), class: 'btn btn-primary' unless look.user_looks[0].is_approved
+          = link_to "Decline", remove_shared_look_path(look), class: 'btn btn-primary', data: { confirm: 'Are you sure?' }
+
+= paginate @looks
+

@@ -4,22 +4,42 @@ class LooksController < ApplicationController
   before_action :set_look_screen, only: [:new, :edit]
   before_action :reset_look_pictures, only: [:new, :edit]
 
-  autocomplete :user, :email, :extra_data => [:id]
+  set_tab :looks_list, :only => %w(index)
+  set_tab :looks_shared, :only => %w(shared)
 
-  def autocomplete_user_email1
-    users = User.all
-    res = users.map{|user| {id: user.id, email: user.email}}
-    render json: res.first
-  end
+  autocomplete :user, :email, :extra_data => [:id]
 
   def get_autocomplete_items(parameters)
     #items = super(parameters) #rails4-autocomplete
     #items = active_record_get_autocomplete_items(parameters) #rails-jquery-autocomplete
-    active_record_get_autocomplete_items(parameters).presence || [OpenStruct.new(id: '', parameters[:method].to_s => 'nothing found')]
+    active_record_get_autocomplete_items(parameters).select{|user| !user.eql?(current_user)}.presence || [OpenStruct.new(id: '', parameters[:method].to_s => 'nothing found')]
   end
 
   def index
-    @looks = LookDecorator.wrap(current_user.looks)
+    #@looks = LookDecorator.wrap(current_user.looks)
+    search_looks(current_user.looks)
+  end
+
+  def shared
+    #@looks = LookDecorator.wrap(current_user.shared_looks.with_approved(current_user.id))
+    search_looks(current_user.shared_looks.with_approved(current_user.id))
+    render "index", locals: {is_shared_looks: true}
+  end
+
+  def approve_shared
+    user_look = UserLook.find_by(user: current_user, look: 8)
+    if user_look
+      user_look.update(is_approved: true)
+      redirect_to shared_looks_path, notice: 'Shared look was successfully approved.'
+    else
+      redirect_to shared_looks_path, notice: 'You can\'t approve this sharing.'
+    end
+  end
+
+  def delete_shared
+    user_look = UserLook.find_by(user: current_user, look: params[:id])
+    user_look.destroy
+    redirect_to shared_looks_path, notice: 'Sharing with look was successfully destroyed.'
   end
 
   def new
@@ -63,11 +83,11 @@ class LooksController < ApplicationController
   end
 
   def add_pictures
-    @extra_pictures = current_user.pictures.where("id in (?)", look_params[:picture_ids])
-    all_extra_pictures_ids = cookies[:look_pictures_ids].split(",") + @extra_pictures.ids
+    extra_pictures = current_user.pictures.where("id in (?)", look_params[:picture_ids])
+    all_extra_pictures_ids = cookies[:look_pictures_ids].split(",") + extra_pictures.ids
     cookies[:look_pictures_ids] = all_extra_pictures_ids.join(',')
     @all_extra_pictures_count = all_extra_pictures_ids.count
-    @extra_look_pictures = @extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) }
+    @extra_look_pictures = extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) }
   end
 
   private
@@ -82,6 +102,11 @@ class LooksController < ApplicationController
 
   def reset_look_pictures
     cookies[:look_pictures_ids] = @look.pictures.ids.join(",")
+  end
+
+  def search_looks(looks_list)
+    @search = looks_list.search(params[:q])
+    @looks = Kaminari.paginate_array(LookDecorator.wrap(@search.result)).page(params[:page]).per(@kaminari_per_page)
   end
 
   def look_params

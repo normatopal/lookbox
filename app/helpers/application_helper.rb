@@ -8,4 +8,8 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
 
+  def active_current_page_menu(*pages)
+    pages.each{|page| return 'active' if current_page? page}
+  end
+
 end

@@ -1,0 +1,14 @@
+.filters
+  = search_form_for @search, enforce_utf8: false, html: { class: "form-inline" } do |f|
+    %label Sort by:
+    = sort_link @search, :name, 'name', {}, { class: '' }
+    = sort_link @search, :created_at, 'date', {}, { class: '' }
+    .form-group
+      = f.text_field :name_cont, :class =>"search-query form-control", "placeholder" => 'Type name or part..'
+    = f.submit 'Search', :class => "btn btn-grey"
+    = link_to is_shared_looks ? looks_path : shared_looks_path, class: "btn" do
+      Refresh
+      %i.glyphicon.glyphicon-refresh
+
+  - unless @looks.any?
+    No results found. Refresh to view all items.
