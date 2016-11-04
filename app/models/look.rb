@@ -30,9 +30,11 @@ class Look < ActiveRecord::Base
     self.screen.image = screen_image
   end
 
+  before_save :set_position_params
+
   private
 
-  before_save do
+  def set_position_params
     look_pictures.sort_by(&:position_order_for_sort).each_with_index do |lp, index|
       lp.position_params.merge!({top: lp.position_top, left: lp.position_left, order: index + 1})
     end
