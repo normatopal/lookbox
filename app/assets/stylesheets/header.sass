@@ -1,0 +1,28 @@
+header
+  font-weight: bold
+  font-style: normal
+  .glyphicon-log-out:before,
+  .glyphicon-log-in:before
+    font-size: 18px
+  .navbar.navbar-default
+    background: #8BC34A
+    border-color: #689F38
+    border-radius: 0
+    .navbar-brand
+      color: #fff
+      @include transition(all 0.4s)
+      &:hover
+        color: #33691E
+    a
+      color: #fff
+      &:hover
+        color: #33691E
+    .navbar-nav > .open
+      &> a,
+      &> a:hover,
+      &> a:focus
+        background-color: #9CCC65
+        color: #33691E
+      .dropdown-menu
+        a
+          color: #555

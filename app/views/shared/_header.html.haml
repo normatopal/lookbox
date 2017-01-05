@@ -1,25 +1,30 @@
 %header
-  .container
-    .row
-      .col-xs-6
-        %h1
-          = link_to "Lookbox", root_path
-      .col-xs-6
-        .pull-right
+  %nav.navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#lookbox-navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        = link_to "Lookbox", root_path, class: 'navbar-brand'
+      #lookbox-navbar-collapse.collapse.navbar-collapse
+        %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
-            = link_to "Pictures", pictures_path, class: "btn"
-            = link_to "Categories", categories_path, class: "btn"
-            = link_to "My Looks", looks_path, class: "btn"
-            .btn-group
-              = link_to "#", class: "dropdown-toggle btn", 'data-toggle': "dropdown" do
+            %li= link_to "Pictures", pictures_path
+            %li= link_to "Categories", categories_path
+            %li= link_to "My Looks", looks_path
+            %li.dropdown
+              = link_to "#", class: "dropdown-toggle", 'data-toggle': "dropdown", 'aria-expanded': "false", 'aria-haspopup': "true", role: 'button' do
                 Account
                 %span.caret
               %ul.dropdown-menu{role: "menu"}
                 %li= link_to "My profile", edit_user_registration_path, class: ""
                 %li= link_to "Change password", users_change_password_path, class: ""
-            = link_to destroy_user_session_path, method: :delete, class: "btn", title: "Log out" do
-              %span.glyphicon.glyphicon-log-out
+            %li
+              = link_to destroy_user_session_path, method: :delete, title: "Log out" do
+                %span.glyphicon.glyphicon-log-out
           - else
-            = link_to new_user_session_path, class: "btn", title: "Log in" do
-              %span.glyphicon.glyphicon-log-in
-            -#= link_to "Sign up", new_user_registration_path, class: "btn"
+            %li
+              = link_to new_user_session_path, title: "Log in" do
+                %span.glyphicon.glyphicon-log-in
