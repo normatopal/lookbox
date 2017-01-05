@@ -1,5 +1,40 @@
+/* font-family: "OpenSansRegular"; */
 @font-face {
-  font-family: 'laCartoonerie';
-  src: asset-url('laCartoonerie.eot');
-  src: local('laCartoonerie'), asset-url('laCartoonerie.woff') format('woff'), asset-url('laCartoonerie.ttf') format('truetype');
+  font-family: "OpenSansRegular";
+  src: asset-url("OpenSansRegular/OpenSansRegular.eot");
+  src: asset-url("OpenSansRegular/OpenSansRegular.eot?#iefix")format("embedded-opentype"),
+  asset-url("OpenSansRegular/OpenSansRegular.woff") format("woff"),
+  asset-url("OpenSansRegular/OpenSansRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "OpenSansBold"; */
+@font-face {
+  font-family: "OpenSansBold";
+  src: asset-url("OpenSansBold/OpenSansBold.eot");
+  src: asset-url("OpenSansBold/OpenSansBold.eot?#iefix")format("embedded-opentype"),
+  asset-url("OpenSansBold/OpenSansBold.woff") format("woff"),
+  asset-url("OpenSansBold/OpenSansBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "OpenSansExtraBold"; */
+@font-face {
+  font-family: "OpenSansExtraBold";
+  src: asset-url("OpenSansExtraBold/OpenSansExtraBold.eot");
+  src: asset-url("OpenSansExtraBold/OpenSansExtraBold.eot?#iefix")format("embedded-opentype"),
+  asset-url("OpenSansExtraBold/OpenSansExtraBold.woff") format("woff"),
+  asset-url("OpenSansExtraBold/OpenSansExtraBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "OpenSansRegularItalic"; */
+@font-face {
+  font-family: "OpenSansRegularItalic";
+  src: asset-url("OpenSansRegularItalic/OpenSansRegularItalic.eot");
+  src: asset-url("OpenSansRegularItalic/OpenSansRegularItalic.eot?#iefix")format("embedded-opentype"),
+  asset-url("OpenSansRegularItalic/OpenSansRegularItalic.woff") format("woff"),
+  asset-url("OpenSansRegularItalic/OpenSansRegularItalic.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
 }
