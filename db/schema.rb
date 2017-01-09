@@ -58,10 +58,18 @@ ActiveRecord::Schema.define(version: 20161022192458) do
 
   create_table "pictures", force: :cascade do |t|
     t.string   "title",       limit: 255
+<<<<<<< HEAD
     t.text     "description", limit: 16777215
     t.integer  "user_id",     limit: 4
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+=======
+    t.text     "description", limit: 65535
+    t.string   "user_id",     limit: 255
+    t.string   "bigint",      limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+>>>>>>> 23aa7e4e58823b86a95a4a79b9db90bafb6d5641
     t.string   "image",       limit: 255
     t.datetime "deleted_at"
   end
