@@ -39,8 +39,6 @@ gem 'jquery-ui-rails'
 gem 'bootbox-rails'
 gem 'rails-jquery-autocomplete'
 
-gem 'jquery-tmpl-rails'
-
 gem 'devise'
 gem 'kaminari'
 gem 'ransack'

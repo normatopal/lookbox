@@ -1,3 +1,2 @@
-$("#modal-form").modal('hide');
-$("#pictures-modal").html("<%= escape_javascript (render 'looks/modals/available_pictures') %>");
+$("#pictures-modal").html("<%= escape_javascript (render(partial: 'looks/modals/available_pictures').force_encoding("utf-8")) %>");
 $("#pictures-modal").modal('show');

@@ -34,6 +34,11 @@ class Picture < ActiveRecord::Base
     [:category_search, :include_subcategories]
   end
 
+  def self.switch_subcategories_flag(search_params)
+    self.with_subcategories = search_params.present? && search_params['include_subcategories'] == '1'
+  end
+
+
   private
   def image_size_validation
     errors[:image] << "should be less than 500KB" if image.size > 0.5.megabytes

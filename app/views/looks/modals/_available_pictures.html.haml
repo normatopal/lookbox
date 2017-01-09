@@ -1,9 +1,14 @@
 %div{class: "modal-dialog", role: "document"}
   .modal-content
     .modal-header
-      = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
+      = button_to "Close", {}, {class: "close", "data-dismiss": "modal"}
       %h4.modal-title#modal-label
     .modal-body
+      .filters
+        = search_form_for @search, remote: true, authenticity_token: true, html: { multipart: true, class: "form-inline" } do |f|
+          = hidden_field_tag :look_id, @look.id || 0
+          = render "pictures/search_filters", f: f
+
       = form_tag add_pictures_look_path(@look.id || 0), remote: true, format: :js, authenticity_token: true, :method => :post do
         = hidden_field_tag :name, @look.name, name: 'look[name]'
         - @available_pictures.each do |picture|

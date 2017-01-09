@@ -13,9 +13,8 @@
 #= require jquery
 #= require jquery-ui
 #= require jquery_ujs
-#= require jquery-tmpl
-
 #= require turbolinks
+
 #= require bootstrap-sprockets
 #= require bootbox
 #= require autocomplete-rails

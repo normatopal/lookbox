@@ -8,7 +8,11 @@ class PicturesController < ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.js
+      format.js do
+        @look = current_user.looks.find(params[:look_id]).decorate if params[:look_id]
+        @available_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(','))
+        render 'looks/available_pictures'
+      end
     end
   end
 
@@ -77,13 +81,9 @@ class PicturesController < ApplicationController
     def search_pictures
       session[:pictures_filter] = params[:q] unless params[:q].blank?
       search_params = session[:pictures_filter]
-      switch_subcategories_flag(search_params)
+      Picture.switch_subcategories_flag(search_params)
       @search = current_user.pictures.search(search_params)
       @pictures = @search.result.page(params[:page]) #.per(10)
-    end
-
-    def switch_subcategories_flag(search_params)
-      Picture.with_subcategories = search_params.present? && search_params['include_subcategories'] == '1'
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

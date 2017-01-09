@@ -8,25 +8,10 @@
         New Picture
 
   .filters
-    = search_form_for @search, enforce_utf8: false, html: { class: "form-inline" } do |f|
-      %label Sort by:
-      = sort_link @search, :title, 'title', {}, { class: '' }
-      = sort_link @search, :created_at, 'date', {}, { class: '' }
-      .form-group
-        = f.text_field :title_cont, :class =>"search-query form-control", "placeholder" => 'Type title or part..'
-      = f.submit 'Search', :class => "btn btn-grey"
-      = link_to refresh_pictures_path, class: "btn" do
-        Refresh
-        %i.glyphicon.glyphicon-refresh
-      .form-group
-        %label Category:
-        = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: 'All' }, onChange: "this.form.submit()", class: 'form-control'
-        = f.check_box :include_subcategories, onChange: "this.form.submit()"
-        Include subcategories
-
+    = search_form_for @search, enforce_utf8: false, html: {class: "form-inline" } do |f|
+      = render 'search_filters', f: f
     - unless @pictures.count > 0
       No results found. Refresh to view all items.
-
   #pictures-container.pictures-list
     = render 'pictures_list'
 

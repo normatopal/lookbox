@@ -107,8 +107,16 @@ $(document).on('click', '.remove-look-picture-btn', ->
   $(this).prev('input').first().val('')
   $(this).css('visibility', 'hidden')
   return
+).on('change', '#category-pictures-filter', ->
+  picture_ids = $(this).find(':selected').attr('data-picture-ids')
+  console.log picture_ids
+  if typeof picture_ids != "undefined"
+    $('.picture-block').hide()
+    picture_ids.split(',').forEach (id, index) ->  $('#picture-block-' + id).show()
+  else
+    $('.picture-block').show()
+  return
 )
-
 
 
 
