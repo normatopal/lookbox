@@ -14,3 +14,4 @@
     .picture-action
       .remove-look-picture-btn{"picture-removed-id": look_picture.picture.id}
         Delete
+      = link_to look_picture.picture.title, picture_path(look_picture.picture), {target: '_blank'}

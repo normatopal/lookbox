@@ -1,6 +1,7 @@
 %label Sort by:
-= sort_link @search, :title, 'title', {}, { class: '' }
-= sort_link @search, :created_at, 'date', {}, { class: '' }
+- is_remote = defined?(@available_pictures) ? true : false
+= sort_link @search, :title, 'title', {}, { remote: is_remote, class: '' }
+= sort_link @search, :created_at, 'date', {}, { remote: is_remote, class: '' }
 .form-group
   = f.text_field :title_cont, :class =>"search-query form-control", "placeholder" => 'Type title or part..'
 = f.submit 'Search', :class => "btn btn-grey"

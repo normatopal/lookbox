@@ -2,12 +2,23 @@ ready = ->
 
   set_look_canvas = ->
 
+    check_position_range = (top, left, picture_id) ->
+      canvas_width = $('#look-canvas').width(); canvas_height = $('#look-canvas').height()
+      position_top = if top < -200 then -200 else top
+      position_top = if (canvas_height - position_top < 50) then canvas_height - 50 else position_top
+      position_left = if left < -150 then -150 else left
+      position_left = if (canvas_width - position_left < 50) then canvas_width - 50 else position_left
+      $('#' + picture_id).css('top', position_top + 'px') if position_top != top
+      $('#' + picture_id).css('left', position_left + 'px') if position_left != left
+      return {top: position_top, left: position_left}
+
     draggable_options = {
       #start: drag_start
       stop: (event, ui) ->
+        position = check_position_range(ui.position["top"], ui.position["left"], this.id)
         look_position_element = $('#' + this.id + '-position')
-        look_position_element.find($("input[id$='position_top']")).get(0).value = ui.position["top"]
-        look_position_element.find($("input[id$='position_left']")).get(0).value = ui.position["left"]
+        look_position_element.find($("input[id$='position_top']")).get(0).value = position['top']
+        look_position_element.find($("input[id$='position_left']")).get(0).value = position['left']
         change_zindex($(this))
         return
       stack: ".draggable"
