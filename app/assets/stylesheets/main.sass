@@ -1,5 +1,5 @@
 body
-  font-family: 'OpenSansRegular'
+  font-family: 'OpenSans', Arial, sans-serif
   background: #F1F8E9
 
 a
@@ -17,18 +17,18 @@ a
       display: inline-block
     &:first-of-type
       input
-        font-family: Helvetica, Arial, Sans-Serif
+        font-family: 'OpenSans', Arial, sans-serif
         &::-webkit-input-placeholder
-          font-family: 'OpenSansRegular'
+          font-family: 'OpenSans', Arial, sans-serif
 
         &:-moz-placeholder
-          font-family: 'OpenSansRegular'
+          font-family: 'OpenSans', Arial, sans-serif
 
         &::-moz-placeholder
-          font-family: 'OpenSansRegular'
+          font-family: 'OpenSans', Arial, sans-serif
 
         &:-ms-input-placeholder
-          font-family: 'OpenSansRegular'
+          font-family: 'OpenSans', Arial, sans-serif
 
 #content
   .checkbox
@@ -148,4 +148,30 @@ fieldset[disabled] .btn-copy.active
 .filters
   margin: 20px 0
 
+header
+  .navbar-right
+    .btn.active
+      @include box-shadow(inset 0 0 20px rgb(255, 255, 255))
+    .dropdown-toggle
+      font-weight: normal
+  & + .container
+    margin: 74px auto 30px
 
+::-webkit-scrollbar
+  width: 8px
+  padding-bottom: 3px
+  height: 8px
+
+/* Track */
+::-webkit-scrollbar-track
+  background: rgba(220,220,220,0.8)
+  @include rounded(8px)
+
+
+/* Handle */
+::-webkit-scrollbar-thumb
+  @include rounded(8px)
+  background: rgba(120, 144, 156, 0.8)
+
+::-webkit-scrollbar-thumb:window-inactive
+  background: rgba(120, 144, 156, 0.4)
