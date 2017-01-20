@@ -6,8 +6,10 @@
     .image-block
       = image_tag picture.image.thumb, class: "image-space"
     .picture-action
-      = link_to 'Show', "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#picture-modal-#{picture.id}"}
-      = link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' }
+      = link_to "#", data: {toggle: "modal", target: "#picture-modal-#{picture.id}"} do
+        %span.glyphicon.glyphicon-zoom-in
+      = link_to picture, method: :delete, data: { confirm: 'Are you sure?' } do
+        %span.glyphicon.glyphicon-trash
 
   = paginate @pictures #, remote: true
 

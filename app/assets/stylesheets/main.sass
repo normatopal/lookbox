@@ -152,6 +152,8 @@ header
   .navbar-right
     .btn.active
       @include box-shadow(inset 0 0 20px rgb(255, 255, 255))
+    .btn:active
+      @include box-shadow(none)
     .dropdown-toggle
       font-weight: normal
   & + .container

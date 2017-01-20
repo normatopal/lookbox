@@ -12,6 +12,12 @@
   margin-right: 15px
   margin-bottom: 15px
   background: white
+  position: relative
+  &:hover
+    box-shadow: 0 2px 26px 0 rgba(0, 0, 0, 0.2)
+    .picture-action
+      display: block
+
 
 .image-block
   width: 152px
@@ -20,12 +26,23 @@
   border: 1px solid grey
   box-shadow: 1px 1px 3px 0 black
 
-.pictures .picture-block
-  height: 162px
+//.pictures .picture-block
+//  height: 162px
 
 .picture-action
-  float: right
   display: none
+  position: absolute
+  top: 0
+  right: 0
+  background: #555
+  padding: 5px
+  opacity: .7
+  a
+    color: #fff
+    padding: 5px
+    &:hover
+      font-size: 16px
+      text-decoration: none
 
 .picture-block:hover
   cursor: pointer
