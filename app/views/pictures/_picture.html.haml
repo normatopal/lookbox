@@ -1,0 +1,12 @@
+.picture-block
+  %div{class: "modal fade", id: "picture-modal-#{picture.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
+    = render 'pictures/modals/show', picture: picture
+  .image-block
+    = image_tag picture.image.thumb, class: "image-space"
+  .picture-action
+    = link_to "#", data: {toggle: "modal", target: "#picture-modal-#{picture.id}"} do
+      %span.glyphicon.glyphicon-zoom-in
+    = link_to picture, method: :delete, data: { confirm: 'Are you sure?' } do
+      %span.glyphicon.glyphicon-trash
+  .picture-title
+    = picture.title

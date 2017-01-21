@@ -16,9 +16,9 @@
   display: inline-block
   &:hover
     box-shadow: 0 2px 26px 0 rgba(0, 0, 0, 0.2)
-    .picture-action
+    .picture-action,
+    .picture-title
       display: block
-
 
 .image-block
   width: 152px
@@ -68,4 +68,22 @@
   bottom: -2px
   right: 100px
 
-
+.picture-title
+  display: none
+  position: absolute
+  bottom: 0
+  width: 100%
+  opacity: .7
+  padding: 5px 10px
+  border-right: 1px solid transparent
+  color: #fff
+  font-size: 14px
+  font-weight: 700
+  background: #555
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  background: -webkit-linear-gradient(left, #555 , #fff)
+  background: -o-linear-gradient(right, #555, #fff)
+  background: -moz-linear-gradient(right, #555, #fff)
+  background: linear-gradient(to right, #555 , #fff)
