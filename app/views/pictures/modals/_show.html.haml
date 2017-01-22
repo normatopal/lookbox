@@ -1,11 +1,17 @@
 %div{class: "modal-dialog", role: "document"}
   .modal-content
     .modal-header
-      = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
-      %h4.modal-title#modal-label= picture.title
+      %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button'}
+        %span{'aria-hidden' => 'true'} ×
+      %h4.modal-title#modal-label
+        %strong= picture.title
+      .modal-description= picture.description
     .modal-body.picture-show
-      = picture.description
       = image_tag picture.image.url, { class: "show-picture-image"}
     .modal-footer
-      = link_to 'Edit', edit_picture_path(picture),  {class: "btn btn-primary", remote: true}
-      = link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' }
+      = link_to edit_picture_path(picture), {class: "btn btn-sm btn-primary", title: 'Edit', remote: true} do
+        %span.glyphicon.glyphicon-pencil
+        Edit
+      = link_to picture, method: :delete, title: 'Destroy', class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' } do
+        %span.glyphicon.glyphicon-trash
+        Destroy
