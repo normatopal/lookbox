@@ -38,6 +38,7 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'jquery-ui-rails'
 gem 'bootbox-rails'
 gem 'rails-jquery-autocomplete'
+gem 'select2-rails'
 
 gem 'devise'
 gem 'kaminari'

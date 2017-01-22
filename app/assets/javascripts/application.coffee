@@ -18,6 +18,7 @@
 #= require bootstrap-sprockets
 #= require bootbox
 #= require autocomplete-rails
+#= require select2
 
 #= require lib/jquery.ui.nestedSortable
 #= require lib/sortable_tree/initializer
