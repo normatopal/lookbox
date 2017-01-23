@@ -1,0 +1,11 @@
+.picture-block
+  .image-block{id: "image-block-#{picture.id}"}
+    = link_to(image_tag(picture.preview_image, class: "image-space"), picture, remote: true)
+  .picture-action
+    = link_to(picture, remote: true) do
+      %span.glyphicon.glyphicon-zoom-in
+    = link_to picture, method: :delete, data: { confirm: 'Are you sure?' } do
+      %span.glyphicon.glyphicon-trash
+  .picture-title
+    = picture.title
+

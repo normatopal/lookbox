@@ -13,7 +13,9 @@
     - unless @pictures.count > 0
       No results found. Refresh to view all items.
   #pictures-container.pictures-list
-    = render 'pictures_list'
+    - @pictures.each do |picture|
+      = render 'picture', picture: picture
+    = paginate @pictures #, remote: true
 
   %div{class: "modal fade", id: "modal-form", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
 

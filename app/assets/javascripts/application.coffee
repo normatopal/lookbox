@@ -22,6 +22,7 @@
 #= require autocomplete-rails
 #= require jquery.elevatezoom
 #= require jquery.remotipart
+#= require select2
 
 #= require lib/jquery.ui.nestedSortable
 #= require lib/sortable_tree/initializer

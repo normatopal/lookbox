@@ -12,6 +12,13 @@
   margin-right: 15px
   margin-bottom: 15px
   background: white
+  position: relative
+  display: inline-block
+  &:hover
+    box-shadow: 0 2px 26px 0 rgba(0, 0, 0, 0.2)
+    .picture-action,
+    .picture-title
+      display: block
 
 .image-block
   width: 152px
@@ -20,12 +27,23 @@
   border: 1px solid grey
   box-shadow: 1px 1px 3px 0 black
 
-.pictures .picture-block
-  height: 162px
+//.pictures .picture-block
+//  height: 162px
 
 .picture-action
-  float: right
   display: none
+  position: absolute
+  top: 0
+  right: 0
+  background: #555
+  padding: 5px
+  opacity: .7
+  a
+    color: #fff
+    padding: 5px
+    &:hover
+      font-size: 16px
+      text-decoration: none
 
 .picture-block:hover
   cursor: pointer
@@ -50,7 +68,6 @@
   bottom: -2px
   right: 100px
 
-
 .thumbnail
   transform-origin: top left /* IE 10+, Firefox, etc. */
   -webkit-transform-origin: top left /* Chrome */
@@ -71,4 +88,24 @@
   -webkit-transform: rotate(270deg) translateX(-100%)
   -ms-transform: rotate(270deg) translateX(-100%)
 
+
+.picture-title
+  display: none
+  position: absolute
+  bottom: 0
+  width: 100%
+  opacity: .7
+  padding: 5px 10px
+  border-right: 1px solid transparent
+  color: #fff
+  font-size: 14px
+  font-weight: 700
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  background: #555
+  background: -webkit-linear-gradient(left, #555 , transparent)
+  background: -o-linear-gradient(right, #555, transparent)
+  background: -moz-linear-gradient(right, #555, transparent)
+  background: linear-gradient(to right, #555 , transparent)
 

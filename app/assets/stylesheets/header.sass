@@ -1,29 +1,65 @@
 header
   font-weight: bold
   font-style: normal
+
   .glyphicon-log-out:before,
   .glyphicon-log-in:before
     font-size: 18px
+
   .navbar.navbar-default
     background: #8BC34A
     border-color: #689F38
     border-radius: 0
+    border-bottom: 0
+    @include box-shadow(0 12px 16px 0px rgb(241, 248, 233))
+
     .navbar-brand
-      color: #fff
-      font-family: "OpenSansExtraBold"
+      color: #F1F8E9
+      font-family: "OpenSans", Arial, sans-serif
+      font-weight: 900
+      font-size: 65px
       @include transition(all 0.4s)
+
       &:hover
         color: #33691E
+
     a
       color: #fff
+
       &:hover
         color: #33691E
+
+        &.active
+          background-color: #F1F8E9
+
     .navbar-nav > .open
       &> a,
       &> a:hover,
       &> a:focus
         background-color: #9CCC65
         color: #33691E
-      .dropdown-menu
-        a
-          color: #555
+
+      .dropdown-menu a
+        color: #555
+
+  .navbar-right
+    .btn,
+    .dropdown-toggle
+      border: none
+
+    .btn.active
+      @include box-shadow(none)
+      background-color: #F1F8E9
+      color: #689F38
+      border-radius: 0
+      font-weight: 700
+
+
+    .btn:active
+      @include box-shadow(none)
+
+    .dropdown-toggle
+      font-weight: normal
+
+  & + .container
+    margin: 74px auto 30px
