@@ -8,7 +8,7 @@
       = @picture.description
 
   %strong Image:
-  = image_tag @picture.image.thumb.url
+  = image_tag @picture.preview_image_large
 
 = link_to 'Edit', edit_picture_path(@picture)
 = link_to 'Pictures', pictures_path

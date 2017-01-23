@@ -4,8 +4,10 @@
       = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
       %h4.modal-title#modal-label= picture.title
     .modal-body.picture-show
-      = picture.description
-      = image_tag picture.image.url, { class: "show-picture-image"}
+      .row
+        = picture.description
+      .row
+        = image_tag picture.preview_image_large, class: "show-picture-image"
     .modal-footer
       = link_to 'Edit', edit_picture_path(picture),  {class: "btn btn-primary", remote: true}
       = link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' }

@@ -103,7 +103,6 @@ $(document).on('click', '.remove-look-picture-btn', ->
   users_count = parseInt($('#shared-users-count').val())
   data = { users_count: users_count, user: { id: data.item.id, email: data.item.value } }
   $('#shared-user-template').tmpl(data).appendTo('#shared-users-list')
-  #$.tmpl($('#shared-user-template'), data).appendTo('#shared-users-list')
   return
 ).on('click', '.remove-shared-user-btn', ->
   user_id = $(this).attr('user-removed-id')

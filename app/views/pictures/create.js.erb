@@ -1,0 +1,5 @@
+//window.location.href = '<%= pictures_path %>';
+current_href = window.location.href;
+if (current_href.indexOf("?") > -1) { current_href += "&" }
+else { current_href += "&" }
+window.location.href = current_href + "created_id=<%= @picture.id || 0 %>"

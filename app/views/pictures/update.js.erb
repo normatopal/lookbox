@@ -1,0 +1,9 @@
+$("#modal-form").modal('hide');
+$("#image-block-<%= @picture.id%>").html("<%= escape_javascript (link_to(image_tag(@picture.image.thumb, class: "image-space"), @picture, remote: true)) %>");
+
+var refresh_image = function(img){
+  img.attr('src', img.attr('src') + "?time=" + new Date().getTime());
+};
+
+refresh_image($("#image-block-<%= @picture.id %> img.image-space"))
+refresh_image($("#picture-modal-<%= @picture.id %> img.show-picture-image"))

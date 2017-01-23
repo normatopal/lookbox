@@ -19,7 +19,7 @@ class Look < ActiveRecord::Base
 
   scope :with_approved, ->(u_id) { includes(:user_looks).where(user_looks: {user_id: u_id}) }
 
-  attr_accessor :preview_image, :user_email, :shared_users_ids
+  attr_accessor :user_email, :shared_users_ids
 
   def decode_screen_image(encoded_file = nil)
     return unless encoded_file

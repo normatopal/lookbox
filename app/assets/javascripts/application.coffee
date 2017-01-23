@@ -13,11 +13,15 @@
 #= require jquery
 #= require jquery-ui
 #= require jquery_ujs
+#= require jquery-tmpl
 #= require turbolinks
 
 #= require bootstrap-sprockets
+#= require jasny-bootstrap.min
 #= require bootbox
 #= require autocomplete-rails
+#= require jquery.elevatezoom
+#= require jquery.remotipart
 
 #= require lib/jquery.ui.nestedSortable
 #= require lib/sortable_tree/initializer

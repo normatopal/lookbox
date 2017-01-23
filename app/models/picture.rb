@@ -9,12 +9,11 @@ class Picture < ActiveRecord::Base
   has_many :looks, -> { uniq }, :through => :look_pictures
 
   cattr_accessor(:with_subcategories) { false }
-  attr_accessor :image_encoded
+  attr_accessor :image_encoded, :rotation
 
   validates :title, presence: true
   validates_length_of :title, :minimum => 5, :if => proc{|p| p.title.present?}
   validates :user, presence: true
-  validate :image_size_validation
 
   scope :uncategorized, -> { includes(:categories).where( categories: { id: nil } ) }
 
@@ -29,6 +28,14 @@ class Picture < ActiveRecord::Base
   end
   scope :include_subcategories, -> {}
 
+  after_save :rotate_image, if: ->(obj){ obj.rotation.present? and obj.rotation.to_i > 0 }
+
+  def rotate_image
+    # image.cache_stored_file!
+    # image.retrieve_from_cache!(image.cache_name)
+    image.recreate_versions!
+  end
+
   # whitelist the scope
   def self.ransackable_scopes(auth_object = nil)
     [:category_search, :include_subcategories]
@@ -37,12 +44,5 @@ class Picture < ActiveRecord::Base
   def self.switch_subcategories_flag(search_params)
     self.with_subcategories = search_params.present? && search_params['include_subcategories'] == '1'
   end
-
-
-  private
-  def image_size_validation
-    errors[:image] << "should be less than 500KB" if image.size > 0.5.megabytes
-  end
-
 
 end

@@ -16,12 +16,10 @@ class LooksController < ApplicationController
   end
 
   def index
-    #@looks = LookDecorator.wrap(current_user.looks)
     search_looks(current_user.looks)
   end
 
   def shared
-    #@looks = LookDecorator.wrap(current_user.shared_looks.with_approved(current_user.id))
     search_looks(current_user.shared_looks.with_approved(current_user.id))
     render "index", locals: {is_shared_looks: true}
   end

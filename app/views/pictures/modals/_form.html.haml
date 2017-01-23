@@ -4,7 +4,7 @@
       = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
       %h4.modal-title#modal-label
     .modal-body
-      = form_for(@picture, remote: true, authenticity_token: true, format: :js, html: { multipart: true}) do |f|
+      = form_for(@picture, remote: true, authenticity_token: true, html: { multipart: true}) do |f|
         = render 'shared/error_message', entity: @picture
 
         .form-group
@@ -21,15 +21,32 @@
 
         .form-group
           .row
-            = f.label :image, class: "col-sm-2 control-label"
-            .col-sm-10
-              = f.file_field :image
-
-        .form-group
-          .row
             = f.label 'Category', class: "col-sm-2 control-label"
             .col-sm-10
               = select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true})
+
+
+        .form-group
+          .row
+            = f.label :image, class: "col-sm-2 control-label"
+            .col-sm-10
+              = link_to 'Rotate', '#', id: "rotate_image", class: "btn btn-default"
+              = f.hidden_field :rotation, value: "0"
+              -#= f.file_field :image
+            .col-sm-10
+              .fileinput.fileinput-new{"data-provides": "fileinput"}
+                .fileinput-preview.thumbnail{"data-trigger": "fileinput", style: "width: 200px; height: 150px;"}
+                  - if @picture.image.present?
+                    = image_tag @picture.image.thumb, class: "image-space"
+                %div
+                  %span.btn.btn-default.btn-file
+                    %span.fileinput-new
+                      Select image
+                    %span.fileinput-exists
+                      Change
+                    %input{type: "file", name: "picture[image]"}
+                  %a{href: "#", class: "btn btn-default fileinput-exists", "data-dismiss": "fileinput"}
+                    Remove
 
         .form-group
           .row
