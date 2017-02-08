@@ -16,7 +16,9 @@ class PictureDecorator < Draper::Decorator
   end
 
   def preview_image_large
-    object.image.url.present? ? object.image.url : 'no_image_found_large.jpg'
+    url = object.image.url.present? ? object.image.url : 'no_image_found_large.jpg'
+    url += "?timestamp=" + object.image_timestamp.to_s if object.image_timestamp.present?
+    url
   end
 
 end

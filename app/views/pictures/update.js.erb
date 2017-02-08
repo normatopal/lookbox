@@ -1,9 +1,18 @@
 $("#modal-form").modal('hide');
-$("#image-block-<%= @picture.id%>").html("<%= escape_javascript (link_to(image_tag(@picture.image.thumb, class: "image-space"), @picture, remote: true)) %>");
 
-var refresh_image = function(img){
-  img.attr('src', img.attr('src') + "?time=" + new Date().getTime());
-};
+//var refresh_image = function(img){
+//  img.attr('src', img.attr('src') + "?timestamp=" + new Date().getTime());
+//};
+//
+//refresh_image($("#image-block-<%= @picture.id %> img.image-space"))
 
-refresh_image($("#image-block-<%= @picture.id %> img.image-space"))
-refresh_image($("#picture-modal-<%= @picture.id %> img.show-picture-image"))
+<% if @picture.image_timestamp.present? %>
+  image_block = $("#image-block-<%= @picture.id %> img.image-space")
+  image_block.attr('src', image_block.attr('src') + "?timestamp=<%=@picture.image_timestamp%>");
+<% end %>
+
+<% if @picture.previous_changes['title'].present? %>
+  title_element = $("#image-block-<%= @picture.id %>").siblings('.picture-title')
+  new_title = title_element.html().replace("<%= @picture.previous_changes['title'][0]%>", "<%= @picture.previous_changes['title'][1]%>" );
+  title_element.html(new_title);
+<% end %>

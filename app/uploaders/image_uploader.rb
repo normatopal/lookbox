@@ -36,9 +36,15 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  process optimize: [{ quality: 50 }]
+  # process :auto_orient # this should go before all other "process" steps
+  #
+  # def auto_orient
+  #   manipulate! do |image|
+  #     image.tap(&:auto_orient)
+  #   end
+  # end
 
-  process :rotate_img
+  process optimize: [{ quality: 50 }]
 
   def rotate_img
     manipulate! do |img|
@@ -46,6 +52,8 @@ class ImageUploader < CarrierWave::Uploader::Base
       img #returns the manipulated image
     end
   end
+
+  process :rotate_img
 
   # Create different versions of your uploaded files:
   version :thumb do

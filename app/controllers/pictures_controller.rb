@@ -8,7 +8,7 @@ class PicturesController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        flash[:notice] = 'Picture was successfully added.' if params[:created_id].present?
+        flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id)
       end
       format.js do
         @look = current_user.looks.find(params[:look_id]).decorate if params[:look_id]
@@ -41,9 +41,9 @@ class PicturesController < ApplicationController
   def create
     @picture = current_user.pictures.new(picture_params).decorate
     respond_to do |format|
-      if @picture.valid? #save
+      if @picture.save
         format.html { redirect_to pictures_path, notice: 'Picture was successfully added.' }
-        format.js { render :create }
+        format.js { render text: 'window.location.reload()' }
       else
         format.html { render :new }
         format.js { render :new }
