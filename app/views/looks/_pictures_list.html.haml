@@ -8,10 +8,10 @@
       = f_lp.hidden_field :position_left, { value: look_picture.position_params[:left] }
       = f_lp.hidden_field :position_order, { value: look_picture.order_number }
 
-  - picture_position_top, picture_position_left, picture_position_zindex = get_look_picture_position(look_picture.picture)
   .draggable.ui-widget-content.look-picture-block{id: "look-picture-#{look_picture.picture.id}", style: "top: #{look_picture.position_params[:top]}px; left: #{look_picture.position_params[:left]}px; z-index: #{look_picture.order_number} " }
     = image_tag look_picture.picture.image.look_small, class: "image-space", 'data-toggle': "tooltip", title: ""
     .picture-action
+      = link_to(look_picture.picture, {target: '_blank'} ) do
+        %span.glyphicon.glyphicon-zoom-in
       .remove-look-picture-btn{"picture-removed-id": look_picture.picture.id}
-        Delete
-      = link_to look_picture.picture.title, picture_path(look_picture.picture), {target: '_blank'}
+        %span.glyphicon.glyphicon-trash

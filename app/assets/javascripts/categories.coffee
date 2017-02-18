@@ -4,9 +4,9 @@ $(document).on('click', '.add-picture', ->
     #return false
   is_checked = chbox.is(':checked')
   if is_checked
-    $(this).find('.picture-action').hide()
+    $(this).find('.tick-mark-green').hide()
   else
-    $(this).find('.picture-action').show()
+    $(this).find('.tick-mark-green').show()
     $('.btn-add-picture').attr('disabled', false)
   chbox.prop('checked', !is_checked)
   return

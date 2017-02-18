@@ -9,10 +9,12 @@ class PicturesController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id)
+        @pictures = Kaminari.paginate_array(PictureDecorator.wrap(@search.result)).page(params[:page]).per(@kaminari_per_page)
       end
       format.js do
-        @look = current_user.looks.find(params[:look_id]).decorate if params[:look_id]
-        @available_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(','))
+        @look_id = params[:look_id]
+        search_result = @search.result.where.not(id: cookies[:look_pictures_ids].split(','))
+        @available_pictures = Kaminari.paginate_array(PictureDecorator.wrap(search_result)).page(params[:page]).per(@kaminari_per_page)
         render 'looks/available_pictures'
       end
     end
@@ -89,7 +91,6 @@ class PicturesController < ApplicationController
       search_params = session[:pictures_filter]
       Picture.switch_subcategories_flag(search_params)
       @search = current_user.pictures.search(search_params)
-      @pictures = Kaminari.paginate_array(PictureDecorator.wrap(@search.result)).page(params[:page]).per(@kaminari_per_page)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

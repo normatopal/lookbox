@@ -48,3 +48,9 @@ ready = ->
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
+
+$(document).on('keypress', '.lookbox-form', (e) ->
+  if (e.keyCode == 13)
+    return false
+  return
+)

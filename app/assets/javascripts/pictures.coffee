@@ -10,22 +10,10 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
   $('.fileinput-preview.thumbnail').removeClass("rotate0 rotate90 rotate180 rotate270").addClass("rotate" + angle)
   $('#picture_rotation').val(angle)
   return false
-).on('shown.bs.modal', '#modal-form', ->
-#  picture_id = $('.picture-show').attr('picture_id')
-#  show_image = $('.picture-show img.show-picture-image')
-#  block_image = $("#image-block-" + picture_id + " img.image-space")
-#  timestamp_index = block_image.attr('src').indexOf('?timestamp')
-#  if (timestamp_index > -1)
-#    timestamp = block_image.attr('src').substr(timestamp_index)
-#    show_image.attr('src', show_image.attr('src') + timestamp)
-#    return
-  return
 )
 
-#refresh_image = (img) -> img.attr('src', img.attr('src') + "?timestamp=" + new Date().getTime());
-
 ready = ->
-  #$('.pictures-list .image-block').click -> $(this).parent().find('.modal').modal 'show'
+  $('.pictures-list .look-block').click -> $(this).parent().find('.modal').modal 'show'
 
   $('.edit_category .image-block').click ->
     chbox = $(this).parent().find('.mark-picture-chbox')

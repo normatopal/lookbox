@@ -1,7 +1,8 @@
-%h2 Edit Look
-
-= link_to 'Show', @look
-= link_to 'Back to Looks', looks_path
+.row
+  .col-md-6
+    %h2 Edit Look
+  .col-md-6
+    = link_to 'Back to Looks', looks_path, class: "btn-form-action"
 
 = render 'form'
 
