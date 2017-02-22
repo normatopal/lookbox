@@ -1,3 +1,2 @@
-$("#modal-form").modal('hide');
-$("#category-modal").html("<%= escape_javascript (render(partial: 'categories/modals/show', :locals => { category: @category } ).force_encoding("utf-8")) %>");
-$("#category-modal").modal('show');
+$("#modal-form").html("<%= escape_javascript (render(partial: 'categories/modals/show', :locals => { category: @category } ).force_encoding("utf-8")) %>");
+$("#modal-form").modal('show');

@@ -6,7 +6,7 @@
     .modal-body
       = render 'categories/show'
     .modal-footer
-      = link_to 'Edit', edit_category_path(category),  { class: "btn btn-primary" }
+      = link_to 'Edit', edit_category_path(category), remote: true, class: "btn btn-primary"
       = link_to category, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-delete" do
         %i.glyphicon.glyphicon-trash
         Destroy

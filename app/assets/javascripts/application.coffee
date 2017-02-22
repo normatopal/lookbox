@@ -18,6 +18,8 @@
 
 #= require bootstrap-sprockets
 #= require jasny-bootstrap.min
+#= require bootstrap-datepicker
+
 #= require bootbox
 #= require autocomplete-rails
 #= require jquery.elevatezoom

@@ -35,6 +35,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml'
 gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-datepicker-rails'
 gem 'jasny-bootstrap-rails'
 
 gem 'jquery-ui-rails'

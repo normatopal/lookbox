@@ -5,26 +5,38 @@
     = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
       = devise_error_messages!
 
-      .field
-        = f.label :email, class: "col-sm-2 control-label"
-        %br
-        = f.email_field :email, autofocus: true
+      .form-group
+        .row
+          = f.label :email, class: "col-sm-2 control-label"
+          .col-sm-10
+            = f.email_field :email, autofocus: true
 
-      .field
-        = f.label :password, class: "col-sm-2 control-label"
-        - if @minimum_password_length
-          %em
-            = "{#@minimum_password_length} characters minimum"
-          %br
-        = f.password_field :password, autocomplete: "off"
+      .form-group
+        .row
+          = f.label :name, class: "col-sm-2 control-label"
+          .col-sm-10
+            = f.text_field :name
 
-      .field
-        = f.label :password_confirmation, class: "col-sm-2 control-label"
-        %br
-        = f.password_field :password_confirmation, autocomplete: "off"
+      .form-group
+        .row
+          = f.label :password, class: "col-sm-2 control-label"
+          .col-sm-10
+            - if @minimum_password_length
+              %em
+                = "{#@minimum_password_length} characters minimum"
+              %br
+            = f.password_field :password, autocomplete: "off"
 
-      .actions
-        = f.submit "Sign up"
+      .form-group
+        .row
+          = f.label :password_confirmation, class: "col-sm-2 control-label"
+          .col-sm-10
+            = f.password_field :password_confirmation, autocomplete: "off"
+
+      .form-group
+        .row
+          .col-sm-offset-2.col-sm-10
+            = f.submit "Sign up"
 
     .row
       .col-sm-offset-2.col-sm-10

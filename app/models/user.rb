@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   acts_as_paranoid
@@ -13,7 +13,9 @@ class User < ActiveRecord::Base
   has_many :user_looks, dependent: :destroy
   has_many :shared_looks, through: :user_looks, source: :look
 
-  validates :email, presence: true
+  validates :name, uniqueness: true, if: 'name.present?'
+
+  attr_readonly :email
 
   def update_password_with_new(params)
     current_password = params.delete(:current_password)

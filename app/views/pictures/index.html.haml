@@ -7,15 +7,18 @@
         %i.glyphicon.glyphicon-plus
         New Picture
 
-  .filters
-    = search_form_for @search, enforce_utf8: false, html: {class: "form-inline" } do |f|
-      = render 'search_filters', f: f
-    - unless @pictures.count > 0
-      No results found. Refresh to view all items.
-  #pictures-container.pictures-list
-    - @pictures.each do |picture|
-      = render 'picture', picture: picture
-    = paginate @pictures #, remote: true
+  - if @search.result.any?
+    .filters
+      = search_form_for @search, enforce_utf8: false, html: {class: "form-inline" } do |f|
+        = render 'search_filters', f: f
+      - unless @pictures.any?
+        No results found. Refresh to view all items.
+    #pictures-container.pictures-list
+      - @pictures.each do |picture|
+        = render 'picture', picture: picture
+      = paginate @pictures #, remote: true
+  - else
+    No pictures have been added yet. Press 'New picture' button to add the first one.
 
   %div{class: "modal fade", id: "modal-form", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
 

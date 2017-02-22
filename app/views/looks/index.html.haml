@@ -6,6 +6,9 @@
       = link_to 'Add New Look', new_look_path, class: "btn btn-add-new"
 
   = render "tabs_links"
-
-  = render "looks_list", is_shared_looks:  is_shared_looks ||= false
+  - is_shared_looks ||= false
+  - if @search.result.any?
+    = render "looks_list", is_shared_looks: is_shared_looks
+  - else
+    = is_shared_looks ? "No one shared with you look has been found." : "No one look has been added yet. Press 'New look' to add the first one."
 

@@ -5,6 +5,14 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_user!
   before_filter :set_default_per_page
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :password, :current_password, :birth_date])
+  end
 
   def set_default_per_page
     @kaminari_per_page = Kaminari.config.default_per_page

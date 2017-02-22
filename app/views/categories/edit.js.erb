@@ -1,0 +1,4 @@
+$("#modal-form").html("<%= escape_javascript (render('categories/modals/form').force_encoding("utf-8")) %>");
+$("#modal-form .modal-footer").html("<%= escape_javascript (render(partial: 'categories/modals/footer_btns', :locals => { category: @category } )) %>");
+$("#modal-label").html("Edit Category");
+$("#modal-form").modal('show');

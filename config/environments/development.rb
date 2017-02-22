@@ -47,6 +47,8 @@ Rails.application.configure do
   # Stub to have email not being sent to the actual users instead storing them locally to the file
   config.action_mailer.delivery_method = :file
 
+  config.action_mailer.perform_deliveries = true
+
   # Location of the file to store
   config.action_mailer.file_settings = { :location => Rails.root.join('tmp/mail') }
 
