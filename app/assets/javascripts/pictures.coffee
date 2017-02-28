@@ -31,18 +31,18 @@ ready = ->
     cursor: "crosshair"
   })
 
-  image_rotation = ->
-    angle = 0
-    change_angle = () ->
-      alert('change!')
-      angle = (angle + 90) % 360
-      $('.fileinput-exists.thumbnail').removeClass("rotate0 rotate90 rotate180 rotate270").addClass("rotate" + angle)
-      $('#rotation').val(angle)
-      return
-    $('#rotate_image').click(change_angle)
-    return
-
-  image_rotation()
+#  image_rotation = ->
+#    angle = 0
+#    change_angle = () ->
+#      alert('change!')
+#      angle = (angle + 90) % 360
+#      $('.fileinput-exists.thumbnail').removeClass("rotate0 rotate90 rotate180 rotate270").addClass("rotate" + angle)
+#      $('#rotation').val(angle)
+#      return
+#    $('#rotate_image').click(change_angle)
+#    return
+#
+#  image_rotation()
 
   return
 

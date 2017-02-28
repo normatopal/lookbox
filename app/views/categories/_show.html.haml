@@ -9,9 +9,10 @@
     = link_to @category.parent.name, category_path(@category.parent), remote: true
 
 - if @category.descendants.any?
-  #category-descendants.row
-    %strong Subcategories count:
-    = @category.descendants.count
+  .row
+    #category-descendants
+      %strong Subcategories count:
+      = @category.descendants.count
 
 .row
   %strong Created:

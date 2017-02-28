@@ -1,18 +1,38 @@
 %div{class: "modal-dialog", role: "document"}
   .modal-content
     .modal-header
-      = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
-      %h4.modal-title#modal-label= @category.name
+      %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button'}
+        %span{'aria-hidden' => 'true'} ×
+      %h4.modal-title#modal-label= @category_id
     .modal-body
-      = form_for(@category, url: add_pictures_category_path, remote: true, authenticity_token: true,  html: { method: :post }) do |fp|
-        = hidden_field_tag :name, @category.name, name: 'category[name]'
+      .filters
+        = search_form_for @search, remote: true, authenticity_token: true, html: { multipart: true, class: "form-inline" } do |f|
+          = hidden_field_tag :category_id, @category_id || 0
+          = render "pictures/search_filters", f: f
+
+      -#= form_for add_pictures_category_path(@category_id), remote: true, authenticity_token: true,  html: { method: :post } do |fp|
+      = form_tag add_pictures_category_path(@category_id || 0), remote: true, format: :js, authenticity_token: true, method: :post do
+        -#= hidden_field_tag :name, @category.name, name: 'category[name]'
         - @available_pictures.each do |picture|
-          .picture-block.add-picture
+          - next unless picture.id
+          .add-picture.picture-block{id: "picture-block-#{picture.id}"}
             = check_box_tag :picture_ids, picture.id, false, name: 'category[picture_ids][]', class: "mark-picture-chbox"
             .image-block
               = image_tag picture.image.thumb, class: "image-space", 'data-toggle': "tooltip", title: "Click to select/diselect"
             .picture-action
-              .tick-mark-green
-        = fp.submit "Add to category", class: "btn btn-primary"
+              = link_to(picture, title: "View image", target: '_blank') do
+                %span.glyphicon.glyphicon-zoom-in
+            .tick-mark-green
+            .picture-title
+              = picture.title
+                      
+          -#.picture-block.add-picture
+          -#  = check_box_tag :picture_ids, picture.id, false, name: 'category[picture_ids][]', class: "mark-picture-chbox"
+          -#  .image-block
+          -#    = image_tag picture.image.thumb, class: "image-space", 'data-toggle': "tooltip", title: "Click to select/diselect"
+          -#  .picture-action
+          -#    .tick-mark-green
+
+        = submit_tag "Add to category", class: "btn btn-primary"
 
     .modal-footer

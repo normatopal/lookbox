@@ -41,7 +41,7 @@ module RenderSortableTreeHelper
 
         edit_path = h.url_for(:controller => options[:klass].pluralize, :action => :edit, :id => node)
         destroy_path = h.url_for(:controller => options[:klass].pluralize, :action => :destroy, :id => node)
-        available_pictures_path = h.url_for(:controller => options[:klass].pluralize, :action => :available_pictures, :id => node)
+        available_pictures_path = h.url_for(:controller => 'pictures', :action => :index, :category_id => node)
         pictures_count_id = "category_#{node.id}_pictures_count"
 
         "

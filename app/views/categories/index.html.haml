@@ -2,24 +2,27 @@
   .row
     .col-md-6
       %h2 Categories
+
+  .row
+    .col-md-6
+      - if @search.result.any?
+        .filters
+          = search_form_for @search, enforce_utf8: false, html: { class: "form-inline" } do |f|
+            %label Sort:
+            = sort_link @search, :name, 'name', {}, { class: '' }
+            = sort_link @search, :created_at, 'date', {}, { class: '' }
+      - else
+        No one category has been added yet. Press 'New category' button to add the first one.
+
     .col-md-6
       = link_to new_category_path, remote: true, class: "btn btn-add-new" do
         %i.glyphicon.glyphicon-plus
         New Category
 
-  - if @search.result.any?
-    .filters
-      = search_form_for @search, enforce_utf8: false, html: { class: "form-inline" } do |f|
-        %label Sort:
-        = sort_link @search, :name, 'name', {}, { class: '' }
-        = sort_link @search, :created_at, 'date', {}, { class: '' }
+  %ol.sortable_tree{  data: { rebuild_url: categories_path } }
+    = sortable_tree(@categories, {type: :sortable, id: "categories-set"})
 
-    .category-block
-      %div{class: "modal fade", id: "modal-form", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
+  #pictures-modal.modal.fade{ tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
 
-    %ol.sortable_tree{  data: { rebuild_url: categories_path } }
-      = sortable_tree(@categories, {type: :sortable, id: "categories-set"})
-
-    #pictures-modal.modal.fade{ tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
-  - else
-    No one category has been added yet. Press 'New category' button to add the first one.
+  .category-block
+    %div{class: "modal fade", id: "modal-form", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}

@@ -12,7 +12,7 @@ ready = ->
       value: "makeusabrew"
       buttons:
         success:
-          label: "Destroy"
+          label: "Delete"
           className: "btn-danger"
           callback: -> callback()
         chickenout:

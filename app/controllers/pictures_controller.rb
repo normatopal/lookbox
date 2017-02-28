@@ -9,13 +9,14 @@ class PicturesController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id)
-        @pictures = Kaminari.paginate_array(PictureDecorator.wrap(@search.result)).page(params[:page]).per(@kaminari_per_page)
+        #@pictures = Kaminari.paginate_array(PictureDecorator.wrap(@search.result)).page(params[:page]).per(@kaminari_per_page)
       end
       format.js do
-        @look_id = params[:look_id]
-        search_result = @search.result.where.not(id: cookies[:look_pictures_ids].split(','))
-        @available_pictures = Kaminari.paginate_array(PictureDecorator.wrap(search_result)).page(params[:page]).per(@kaminari_per_page)
-        render 'looks/available_pictures'
+        # search_result = @search.result.where.not(id: cookies[:look_pictures_ids].split(','))
+        # @available_pictures = Kaminari.paginate_array(PictureDecorator.wrap(search_result)).page(params[:page]).per(@kaminari_per_page)
+        @available_pictures = @pictures
+        search_view = if params[:look_id] then 'looks/available_pictures' elsif params[:category_id] then 'categories/available_pictures' else {js: 'No results was found'}  end
+        render search_view
       end
     end
   end
@@ -90,7 +91,12 @@ class PicturesController < ApplicationController
       session[:pictures_filter] = params[:q] unless params[:q].blank?
       search_params = session[:pictures_filter]
       Picture.switch_subcategories_flag(search_params)
+      @look_id, @category_id = params[:look_id], params[:category_id]
       @search = current_user.pictures.search(search_params)
+      current_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(',')) if @look_id
+      current_pictures = @search.result.available_for_category(@category_id) if @category_id
+      current_pictures ||= @search.result
+      @pictures = Kaminari.paginate_array(PictureDecorator.wrap(current_pictures)).page(params[:page]).per(@kaminari_per_page)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

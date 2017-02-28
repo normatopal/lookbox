@@ -50,7 +50,7 @@
     .col-md-6
       = link_to 'Screenshot', "#", class: "btn", id: "look-screenshot"
     .col-md-6
-      = link_to pictures_path(look_id: @look.id), class: "btn btn-add-new", remote: true do
+      = link_to pictures_path(look_id: @look.id || 0), class: "btn btn-add-new", remote: true do
         %i.glyphicon.glyphicon-plus
         Add Picture
   .row

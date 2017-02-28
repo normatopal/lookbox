@@ -3,7 +3,9 @@
     .col-md-6
       -#%h2 Looks
     .col-md-6
-      = link_to 'Add New Look', new_look_path, class: "btn btn-add-new"
+      = link_to new_look_path, class: "btn btn-add-new" do
+        %i.glyphicon.glyphicon-plus
+        Add New Look
 
   = render "tabs_links"
   - is_shared_looks ||= false

@@ -1,12 +1,16 @@
 %div{class: "modal-dialog", role: "document"}
   .modal-content
     .modal-header
-      = button_to 'Close', {}, {class: "close", "data-dismiss": "modal"}
+      %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button'}
+        %span{'aria-hidden' => 'true'} ×
       %h4.modal-title#modal-label= category.name
     .modal-body
-      = render 'categories/show'
+      .modal-form-content
+        = render 'categories/show'
     .modal-footer
-      = link_to 'Edit', edit_category_path(category), remote: true, class: "btn btn-primary"
-      = link_to category, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-delete" do
+      = link_to edit_category_path(category), remote: true, class: "btn btn-sm btn-primary" do
+        %i.glyphicon.glyphicon-pencil
+        Edit
+      = link_to category, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-delete" do
         %i.glyphicon.glyphicon-trash
-        Destroy
+        Delete

@@ -11,7 +11,7 @@
     .row
       = f.label :description, class: "col-sm-2 control-label"
       .col-sm-10
-        = f.text_field :description
+        = f.text_area :description
 
   .form-group
     .row
@@ -23,7 +23,7 @@
     .row
       .col-sm-offset-2.col-sm-10
         .actions
-          = f.submit
+          = f.submit 'Save', class: 'btn btn-primary'
 
   = render 'pictures_list', pictures: @category.pictures
 

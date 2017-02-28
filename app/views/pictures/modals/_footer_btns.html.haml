@@ -1,6 +1,6 @@
-= link_to picture, remote: true, class: "btn btn-primary" do
+= link_to picture, remote: true, class: "btn" do
   %span.glyphicon.glyphicon-chevron-left
   Back to Show
-= link_to picture, method: :delete, data: { confirm: 'Are you sure?' } do
-  Destroy
+= link_to picture, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-delete" do
   %span.glyphicon.glyphicon-trash
+  Delete
