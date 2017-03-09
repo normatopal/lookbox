@@ -9,7 +9,7 @@
     .modal-body.picture-show{id: "show-image-block-#{picture.id}", picture_id: picture.id}
       = image_tag picture.preview_image_large, { class: "show-picture-image"}
     .modal-footer
-      = link_to edit_picture_path(picture), {class: "btn btn-sm btn-primary", title: 'Edit', remote: true} do
+      = link_to edit_picture_path(picture), class: "btn btn-sm btn-primary", title: 'Edit', remote: true do
         %span.glyphicon.glyphicon-pencil
         Edit
       = link_to picture, method: :delete, title: 'Destroy', class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' } do

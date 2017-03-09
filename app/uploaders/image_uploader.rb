@@ -53,7 +53,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
 
-  process :rotate_img
+  process :rotate_img, if: :has_rotation?
 
   # Create different versions of your uploaded files:
   version :thumb do
@@ -62,6 +62,10 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   version :look_small do
     process :resize_to_fit => [200, 200]
+  end
+
+  def has_rotation?(options)
+    model.rotation.present?
   end
 
   # version :look_large do

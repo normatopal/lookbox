@@ -3,7 +3,7 @@
     = check_box_tag :picture_ids, picture.id, true, name: 'category[picture_ids][]', class: "mark-picture-chbox"
     .image-block
       = image_tag picture.image.thumb, class: "image-space remove-picture", 'data-toggle': "tooltip", title: "Click to select/diselect"
-    -#.picture-action
+    .picture-action
       %i.glyphicon.glyphicon-remove
 
 

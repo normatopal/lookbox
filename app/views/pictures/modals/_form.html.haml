@@ -5,7 +5,5 @@
         %span{'aria-hidden' => 'true'} ×
       %h4.modal-title#modal-label
     .modal-body
-      = form_for(@picture, remote: true, authenticity_token: true, html: { multipart: true}) do |f|
-        = render 'pictures/form_content', f: f
-    .modal-footer
+      = render 'pictures/form', is_remote: true
 

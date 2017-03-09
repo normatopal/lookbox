@@ -10,5 +10,9 @@
         .look-screen
           = image_tag look.screen.image.url, { class: "show-picture-image"}
     .modal-footer
-      = link_to 'Edit', edit_look_path(look), { class: "btn btn-primary" }
-      = link_to 'Destroy', look, method: :delete, data: { confirm: 'Are you sure?' }
+      = link_to edit_look_path(look), class: "btn btn-sm btn-primary", title: 'Edit'  do
+        %span.glyphicon.glyphicon-pencil
+        Edit
+      = link_to look, method: :delete, class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' } do
+        %span.glyphicon.glyphicon-trash
+        Delete

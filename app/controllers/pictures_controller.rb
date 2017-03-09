@@ -96,7 +96,11 @@ class PicturesController < ApplicationController
       current_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(',')) if @look_id
       current_pictures = @search.result.available_for_category(@category_id) if @category_id
       current_pictures ||= @search.result
-      @pictures = Kaminari.paginate_array(PictureDecorator.wrap(current_pictures)).page(params[:page]).per(@kaminari_per_page)
+      @pictures = paginate_pictures(current_pictures, (@look_id || @category_id) ? 5 : @kaminari_per_page)
+    end
+
+    def paginate_pictures(pictures, per_page)
+      Kaminari.paginate_array(PictureDecorator.wrap(pictures)).page(params[:page]).per(per_page)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

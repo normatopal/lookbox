@@ -1,14 +1,20 @@
-%p
-  .row
+.row
+  .col-md-6
     %strong Title:
     = @picture.title
-  - if @picture.description.present?
-    .row
-      %strong Description:
-      = @picture.description
+  .col-md-6
+    .btn-form-action
+      = link_to edit_picture_path(@picture), class: "btn" do
+        %span.glyphicon.glyphicon-chevron-left
+        Back to Pictures
+      = link_to edit_picture_path(@picture), class: "btn btn-primary", title: 'Edit', remote: true do
+        %span.glyphicon.glyphicon-pencil
+        Edit
 
-  %strong Image:
-  = image_tag @picture.preview_image_large
+- if @picture.description.present?
+  .row
+    %strong Description:
+    = @picture.description
+.row
+  = image_tag @picture.preview_image_large, class: 'picture-show'
 
-= link_to 'Edit', edit_picture_path(@picture)
-= link_to 'Pictures', pictures_path
