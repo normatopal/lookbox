@@ -24,10 +24,21 @@ ready = ->
       stack: ".draggable"
     }
 
+    resizeable_options = {
+        handles: 'se',
+        minHeight: 150,
+        minWidth: 150,
+        aspectRatio: true,
+        stop: (event, ui) ->
+          res = ui
+          return
+    }
+
     $("#look-canvas").resizable({ handles: 'e, s, se' })
 
     $(".draggable").draggable(draggable_options)
 
+    $( ".resizable" ).resizable(resizeable_options)
 
     $("#look-screenshot").click ->
       encode_image_url()

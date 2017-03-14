@@ -53,7 +53,8 @@
       = link_to pictures_path(look_id: @look.id || 0), class: "btn btn-add-new", remote: true do
         %i.glyphicon.glyphicon-plus
         Add Picture
-  #look-canvas.ui-widget-content.pictures-list
+
+  #look-canvas.pictures-list
     = render 'pictures_list', look_pictures: @look.preloaded_look_pictures, current_child_index: 1, f: f
 
 %div{id: "pictures-modal", class: "modal fade", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
