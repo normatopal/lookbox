@@ -1,45 +1,50 @@
 = form_for(@look, authenticity_token: true, html: {class: 'lookbox-form', multipart: true, id: "look-save-form"}) do |f|
   = render 'shared/error_message', entity: @look
 
-  .filters
-    .look-toggler
-      .form-group
-        .row
-          = f.label :name, class: "col-sm-2 control-label"
-          .col-sm-10
-            = f.text_field :name
+  .look-toggler
+    .form-group
+      .row
+        = f.label :name, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.text_field :name
 
-      .form-group
-        .row
-          = f.label :description, class: "col-sm-2 control-label"
-          .col-sm-10
-            = f.text_area :description
+    .form-group
+      .row
+        = f.label :description, class: "col-sm-2 control-label"
+        .col-sm-10
+          = f.text_area :description
 
-      .form-group
-        .row
-          = f.label "Shared with", class: "col-sm-2 control-label"
-          .col-sm-10
-            .text-input-wrapper
-              = f.autocomplete_field :user_email, autocomplete_user_email_looks_path, :data => { :no_matches_label => '' }, :"data-autocomplete-label" => "nothing found.", id: "user-email-autocomplete", :fields => {:shared_users => '#shared_users'}
-              %span.clear-input-btn{title: "Clear"}
-                &times;
-            -#= autocomplete_field_tag 'user_email', '', autocomplete_user_email_looks_path, :size => 75, :"data-autocomplete-label" => "Sorry, nothing found.", :fields => {:shared_users => '#shared_users'}
-            = hidden_field_tag "shared-users-count", @look.shared_users.count
-            #shared-users-list
-              - @look.user_looks.each do |user_look|
-                = f.fields_for :user_looks, user_look do |f_ul|
-                  %div{id: "shared-user-id-#{user_look.user.id}"}
-                    = f_ul.hidden_field :id, value: user_look.id
-                    = f_ul.hidden_field :user_id, value: user_look.user.id
-                    = f_ul.hidden_field :_destroy
-                    = link_to user_look.user.email, '#', class: "remove-shared-user-btn", "user-removed-id": user_look.user.id
+    .form-group
+      .row
+        = f.label "Shared with", class: "col-sm-2 control-label"
+        .col-sm-10
+          .text-input-wrapper
+            = f.autocomplete_field :user_email, autocomplete_user_email_looks_path, :data => { :no_matches_label => '' }, :"data-autocomplete-label" => "nothing found.", id: "user-email-autocomplete", :fields => {:shared_users => '#shared_users'}
+            %span.clear-input-btn{title: "Clear"}
+              &times;
+          -#= autocomplete_field_tag 'user_email', '', autocomplete_user_email_looks_path, :size => 75, :"data-autocomplete-label" => "Sorry, nothing found.", :fields => {:shared_users => '#shared_users'}
+          = hidden_field_tag "shared-users-count", @look.shared_users.count
+    .form-group
+      .row
+        = react_component 'SharedUsers', { shared_users: "#{ @look.user_looks.to_json(include: :user) }" }
+        -##shared-users-list
+          - @look.user_looks.each do |user_look|
+            = f.fields_for :user_looks, user_look do |f_ul|
+              %div{id: "shared-user-id-#{user_look.user.id}"}
+                = f_ul.hidden_field :id, value: user_look.id
+                = f_ul.hidden_field :user_id, value: user_look.user.id
+                = f_ul.hidden_field :_destroy
+                = link_to user_look.user.email, '#', class: "remove-shared-user-btn", "user-removed-id": user_look.user.id
 
-      .form-group
-        .row
-          .col-sm-offset-2.col-sm-10
-            .actions
-              = f.submit "Save", id: "look-save-btn", class: "btn btn-primary"
-              = link_to 'Make screenshot', "#", class: "btn btn-primary", id: "look-screenshot", title: "Load screen to your locally"
+    .row
+      .col-sm-6
+        = f.submit 'Save', id: "look-save-btn", class: "btn btn-primary"
+        = link_to 'Make screenshot', "#", class: "btn btn-primary", id: "look-screenshot", title: "Load screen to your locally"
+      .col-sm-6
+        = link_to pictures_path(look_id: @look.id || 0), class: "btn btn-add-new", remote: true do
+          %i.glyphicon.glyphicon-plus
+          Add Picture
+
 
   = f.fields_for :screen do |fs|
     = fs.hidden_field :title, id: "preview-image-title", value: 'new screen'
@@ -50,9 +55,6 @@
   .row
     .col-md-6
     .col-md-6
-      = link_to pictures_path(look_id: @look.id || 0), class: "btn btn-add-new", remote: true do
-        %i.glyphicon.glyphicon-plus
-        Add Picture
 
   #look-canvas.pictures-list
     = render 'pictures_list', look_pictures: @look.preloaded_look_pictures, current_child_index: 1, f: f

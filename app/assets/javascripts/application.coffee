@@ -33,5 +33,9 @@
 #= require lib/html2canvas
 #= require lib/canvas2image
 
+#= require react
+#= require react_ujs
+#= require components
+
 #= require_tree .
 

@@ -62,6 +62,8 @@ gem 'draper'
 gem 'active_link_to'
 gem 'tabs_on_rails'
 
+gem 'react-rails'
+
 group :development, :test do
   gem 'pry-byebug'
 
