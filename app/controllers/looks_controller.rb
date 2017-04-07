@@ -34,12 +34,6 @@ class LooksController < ApplicationController
     end
   end
 
-  def delete_shared
-    user_look = UserLook.find_by(user: current_user, look: params[:id])
-    user_look.destroy
-    redirect_to shared_looks_path, notice: 'Sharing with look was successfully destroyed.'
-  end
-
   def new
   end
 

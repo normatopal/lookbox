@@ -125,8 +125,8 @@ $(document).on('click', '.remove-look-picture-btn', ->
   $(".clear-input-btn").css('visibility', visibility)
   return
 ).on('click', '.clear-input-btn', ->
-  $(this).prev('input').first().val('')
-  $(this).css('visibility', 'hidden')
+#  $(this).prev('input').first().val('')
+#  $(this).css('visibility', 'hidden')
   return
 ).on('change', '#category-pictures-filter', ->
   picture_ids = $(this).find(':selected').attr('data-picture-ids')
