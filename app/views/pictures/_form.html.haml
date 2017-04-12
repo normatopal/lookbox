@@ -40,7 +40,7 @@
         .col-sm-6
           .fileinput-preview.thumbnail{"data-trigger": "fileinput", style: "width: 200px; height: 150px;"}
             - if @picture.image.present?
-              = image_tag @picture.image.thumb, class: "image-space"
+              = image_tag @picture.preview_image, class: "image-space"
 
 
   %div{class: "#{is_remote ? 'modal-footer':''}"}
@@ -53,8 +53,6 @@
                 %span.glyphicon.glyphicon-chevron-left
                 Back to Show
             = f.submit "Save", class: 'btn btn-primary', data: { "disable_with" => "Saving..." }
-
-
 
 :javascript
   $('.select2-select').select2({

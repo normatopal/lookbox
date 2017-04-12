@@ -1,4 +1,10 @@
 $("div[id^='picture-modal']" ).modal('hide');
+
+block_image = $("#image-block-<%= @picture.id%> img.image-space")
+if (block_image.attr('src').indexOf('?timestamp') > -1) {
+  <% @picture.image_timestamp= DateTime.now.to_i %>
+}
+
 $("#modal-form").html("<%= escape_javascript (render('pictures/modals/form').force_encoding("utf-8")) %>");
 $("#modal-label").html("Edit Picture");
 $("#modal-form").modal('show');
