@@ -26,5 +26,9 @@ module Lookbox
 
     config.encoding = 'utf-8'
 
+    config.exception_handler = { dev: true }
+
+    #config.exception_handler = {  email: "your@email.com"  }
+
   end
 end

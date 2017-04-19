@@ -52,4 +52,7 @@ Rails.application.configure do
   # Location of the file to store
   config.action_mailer.file_settings = { :location => Rails.root.join('tmp/mail') }
 
+  # Make your app process requests as production
+  config.consider_all_requests_local =  true
+
 end

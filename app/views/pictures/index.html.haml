@@ -5,14 +5,11 @@
 
   .row
     .col-md-11
-      - if @search.result.any?
-        .filters
-          = search_form_for @search, enforce_utf8: false, html: {class: "form-inline" } do |f|
-            = render 'search_filters', f: f
-          - unless @pictures.any?
-            No results found. Refresh to view all items.
-      - else
-        No pictures have been added yet. Press 'New picture' button to add the first one.
+      .filters
+        = search_form_for @search, enforce_utf8: false, html: {class: "form-inline" } do |f|
+          = render 'search_filters', f: f
+      - unless @pictures.any?
+        = current_user.pictures.any? ? "No results found. Refresh to view all items." : "No pictures have been added yet. Press 'New picture' button to add the first one."
     .col-md-1
       = link_to new_picture_path, remote: true, class: "btn btn-add-new" do
         %i.glyphicon.glyphicon-plus

@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/richpeck/exception_handler.git
+  revision: 264893bb1768bd880b8a29c94b08dc3f411807e8
+  specs:
+    exception_handler (0.7.6.0)
+      bundler
+      rails (>= 4.2.0)
+      responders
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -253,6 +262,7 @@ DEPENDENCIES
   devise
   draper
   elevatezoom-rails
+  exception_handler!
   haml
   haml-rails
   jasny-bootstrap-rails

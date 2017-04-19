@@ -12,8 +12,6 @@ class PicturesController < ApplicationController
         #@pictures = Kaminari.paginate_array(PictureDecorator.wrap(@search.result)).page(params[:page]).per(@kaminari_per_page)
       end
       format.js do
-        # search_result = @search.result.where.not(id: cookies[:look_pictures_ids].split(','))
-        # @available_pictures = Kaminari.paginate_array(PictureDecorator.wrap(search_result)).page(params[:page]).per(@kaminari_per_page)
         @available_pictures = @pictures
         search_view = if params[:look_id] then 'looks/available_pictures' elsif params[:category_id] then 'categories/available_pictures' else {js: 'No results was found'}  end
         render search_view
@@ -88,8 +86,8 @@ class PicturesController < ApplicationController
     end
 
     def search_pictures
-      session[:pictures_filter] = params[:q] unless params[:q].blank?
-      search_params = session[:pictures_filter]
+      #session[:pictures_filter] = params[:q] unless params[:q].blank?
+      search_params = params[:q]
       Picture.switch_subcategories_flag(search_params)
       @look_id, @category_id = params[:look_id], params[:category_id]
       @search = current_user.pictures.search(search_params)

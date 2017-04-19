@@ -9,6 +9,3 @@
     = link_to is_shared_looks ? shared_looks_path : looks_path, class: "btn" do
       Refresh
       %i.glyphicon.glyphicon-refresh
-
-  - unless @looks.any?
-    No results found. Refresh to view all items.
