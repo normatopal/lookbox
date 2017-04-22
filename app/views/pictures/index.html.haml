@@ -17,8 +17,9 @@
 
   #pictures-container.pictures-list
     - @pictures.each do |picture|
-      %div{id: "picture-#{picture.id}"}
-        = render 'picture', picture: picture
+      - cache(picture) do
+        %div{id: "picture-#{picture.id}"}
+          = render 'picture', picture: picture
     = paginate @pictures #, remote: true
 
   %div{class: "modal fade", id: "modal-form", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}

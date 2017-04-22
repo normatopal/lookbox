@@ -21,7 +21,12 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1
   def show
-
+    if stale?(last_modified: @picture.updated_at.utc, etag: @picture.cache_key)
+      respond_to do |format|
+        format.html
+        format.js
+      end
+    end
   end
 
   # GET /pictures/new
@@ -86,15 +91,21 @@ class PicturesController < ApplicationController
     end
 
     def search_pictures
-      #session[:pictures_filter] = params[:q] unless params[:q].blank?
-      search_params = params[:q]
-      Picture.switch_subcategories_flag(search_params)
-      @look_id, @category_id = params[:look_id], params[:category_id]
-      @search = current_user.pictures.search(search_params)
-      current_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(',')) if @look_id
-      current_pictures = @search.result.available_for_category(@category_id) if @category_id
-      current_pictures ||= @search.result
-      @pictures = paginate_pictures(current_pictures, (@look_id || @category_id) ? 5 : @kaminari_per_page)
+      puts "Pictures search"
+      time = Benchmark.measure do
+        #session[:pictures_filter] = params[:q] unless params[:q].blank?
+        search_params = params[:q]
+        Picture.switch_subcategories_flag(search_params)
+        @look_id, @category_id = params[:look_id], params[:category_id]
+        @search = current_user.pictures.search(search_params)
+        current_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(',')) if @look_id
+        current_pictures = @search.result.available_for_category(@category_id) if @category_id
+        current_pictures ||= @search.result
+        @pictures = Rails.cache.fetch('pictures/' + current_pictures.map(&:id).join(',')) do
+          paginate_pictures(current_pictures, (@look_id || @category_id) ? 5 : @kaminari_per_page)
+        end
+      end
+      puts time
     end
 
     def paginate_pictures(pictures, per_page)
