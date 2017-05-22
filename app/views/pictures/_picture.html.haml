@@ -2,9 +2,9 @@
   .image-block{id: "image-block-#{picture.id}"}
     = link_to(image_tag(picture.preview_image, class: "image-space"), picture, remote: true)
   .picture-action
-    = link_to(picture, remote: true) do
+    = link_to(picture, title: t("modal_forms.show"), remote: true) do
       %span.glyphicon.glyphicon-zoom-in
-    = link_to picture, method: :delete, data: { confirm: 'Are you sure?' } do
+    = link_to picture, method: :delete, data: { confirm: t("modal_forms.confirm_delete") }, title: t("modal_forms.delete") do
       %span.glyphicon.glyphicon-trash
   .picture-title
     = picture.title

@@ -6,6 +6,17 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   before_filter :set_default_per_page
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :set_locale
+
+  def try_chain
+    yield
+  rescue NoMethodError
+    nil
+  end
+
+  def after_sign_in_path_for(resource_or_scope)
+    root_path
+  end
 
   protected
 
@@ -16,6 +27,11 @@ class ApplicationController < ActionController::Base
 
   def set_default_per_page
     @kaminari_per_page = Kaminari.config.default_per_page
+  end
+
+
+  def set_locale
+    I18n.locale = try_chain { current_user.user_setting.locale.name } || I18n.default_locale
   end
 
 end

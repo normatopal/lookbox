@@ -1,7 +1,7 @@
 #content.pictures
   .row
     .col-md-6
-      %h2 Pictures
+      %h2= t('.pictures')
 
   .row
     .col-md-11
@@ -9,7 +9,7 @@
         = search_form_for @search, enforce_utf8: false, html: {class: "form-inline" } do |f|
           = render 'search_filters', f: f
       - unless @pictures.any?
-        = current_user.pictures.any? ? "No results found. Refresh to view all items." : "No pictures have been added yet. Press 'New picture' button to add the first one."
+        = current_user.pictures.any? ? t("search_filters.no_results") : t("search_filters.no_items", {item: t('pictures.picture'), button_name: t("pictures.new_picture")})
     .col-md-1
       = link_to new_picture_path, remote: true, class: "btn btn-add-new" do
         %i.glyphicon.glyphicon-plus

@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :user_looks, dependent: :destroy
   has_many :shared_looks, through: :user_looks, source: :look
+  has_one :user_setting
 
   validates :name, uniqueness: true, if: 'name.present?'
 

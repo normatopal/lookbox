@@ -26,6 +26,13 @@ Rails.application.routes.draw do
     post 'add_pictures', on: :member
   end
 
+  resources :user_settings do
+    collection do
+      get 'change'
+      put 'save'
+    end
+  end
+
   get 'users/profile', as: 'user_root'
   root to: 'home#index'
 end

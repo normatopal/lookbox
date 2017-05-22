@@ -20,4 +20,39 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  search_filters:
+      sort_by: "Sort by:"
+      title: "title"
+      date: "date"
+      search: "Search"
+      refresh: "Refresh"
+      type_title_or_part: "Type title or part..."
+      category: "Category:"
+      include_subcategories : "Include subcategories"
+      include_blank_all: "All"
+      no_results: "No results found. Refresh to view all items."
+      no_items: "No %{item} has been added yet. Press %{button_name} button to add the first one."
+  modal_forms:
+      close: "Close"
+      edit: "Edit"
+      delete: "Delete"
+      confirm_delete: "Are you sure?"
+      show: "Show"
+      save: "Save"
+      back_to_show: "Back to show"
+      new: "New"
+  pictures:
+      new_picture: "New Picture"
+      pictures: "Pictures"
+      back_to_pictures: "Back to Pictures"
+      edit_picture: "Edit Picture"
+      category: "Category"
+      add_new_picture: "Add new picture"
+      picture: 'picture'
+
+  activerecord:
+      errors:
+      attributes:
+          picture:
+              title: "Title!!"
+              description: "Description!!!"

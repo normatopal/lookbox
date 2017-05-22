@@ -1,0 +1,27 @@
+= form_for(@user_setting, url: url_for(action: :save), html: { method: :put }) do |f|
+
+  .form-group
+    .row
+      = f.label :locale_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.select :locale_id, options_for_select(Locale.locales_set, selected: @user_setting.try(:locale).try(:id) || Locale.default_locale.id )
+
+  .form-group
+    .row
+      = f.label :time_zone, class: "col-sm-2 control-label"
+      .col-sm-10
+        -#= f.select :time_zone, options_for_select(ActiveSupport::TimeZone.const_get(:MAPPING).map{|t| t[0]}.sort, selected: @user_setting.time_zone || "UTC")
+        = time_zone_select('user_setting', 'time_zone', ActiveSupport::TimeZone.us_zones, default: "Pacific Time (US & Canada)")
+
+
+  .form-group
+    .row
+      .col-sm-offset-2.col-sm-10
+        .actions
+          = f.submit "Save"
+
+
+
+
+
+
