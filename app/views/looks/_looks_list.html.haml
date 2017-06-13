@@ -4,7 +4,7 @@
     .look-info
       %div{class: "modal fade", id: "look-modal-#{look.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
         = render 'looks/modals/show', look: look
-      .look-name
+      .look-name.text-short
         = look.name
       .image-block.look-block
         = image_tag look.preview_image, alt: 'No image', class: "image-space"
