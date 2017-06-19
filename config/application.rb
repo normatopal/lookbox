@@ -36,5 +36,10 @@ module Lookbox
 
     config.time_zone = 'UTC'
 
+    config.before_configuration do
+      env_file = File.join(Rails.root, 'config', 'secret_tokens.yml')
+      YAML.load(File.open(env_file)).each { |key, value| ENV[key.to_s] = value } if File.exists?(env_file)
+    end
+
   end
 end

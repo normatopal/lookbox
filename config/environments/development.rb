@@ -44,7 +44,18 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # Stub to have email not being sent to the actual users instead storing them locally to the file
-  config.action_mailer.delivery_method = :file
+  #config.action_mailer.delivery_method = :file
+
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+          :address              => "smtp.gmail.com",
+          :port                 => 587,
+          :user_name            => Rails.application.secrets.gmail_user_name,
+          :password             => Rails.application.secrets.gmail_user_password,
+          :authentication       => "plain",
+          :enable_starttls_auto => true
+  }
 
   config.action_mailer.perform_deliveries = true
 

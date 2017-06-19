@@ -6,8 +6,9 @@ development:
   pool: 5
   username: root
   password: ubuntu
-  #host: localhost
-  host: db
+  #password: root
+  host: localhost
+  #host: db
 
 test:
   adapter: mysql2

@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
+         :omniauth_providers => [:google]
 
   acts_as_paranoid
 
@@ -31,6 +32,26 @@ class User < ActiveRecord::Base
         false
       end
     result
+  end
+
+  def self.from_omniauth(auth)
+    user = self.find_by_email(auth.info.email)
+    if user
+      user.uid, user.provider = auth.uid, auth.provider
+      user.save if user.changed?
+    else
+      login_password = SecureRandom.urlsafe_base64(6)
+      user = self.create do |user|
+        user.provider = auth.provider
+        user.uid = auth.uid
+        user.email = auth.info.email
+        user.name = auth.info.name
+        user.password = login_password
+        user.skip_confirmation!
+      end
+      UserMailer.google_user_site_login_password(user, login_password).deliver_now
+    end
+    user
   end
 
 end

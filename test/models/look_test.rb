@@ -23,7 +23,7 @@ describe Look do
     look = looks(:first_look)
     look.screen = Picture.new(user: look.user)
     look.decode_screen_image(encoded_str)
-    MIME::Types.type_for(look.screen.image.filename).first.try(:media_type).must_match "image"
+    MIME::Types.type_for(look.screen.image.filename).first.media_type.try(:must_match, "image")
   end
 
   it "return if no string to encode" do

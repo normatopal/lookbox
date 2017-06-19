@@ -21,7 +21,7 @@
       .row
         = f.label :birth_date, class: "col-sm-2 control-label"
         .col-sm-10
-          = f.text_field :birth_date, value: resource.birth_date.strftime("%d-%m-%Y"), 'data-behaviour' => 'datepicker'
+          = f.text_field :birth_date, value: resource.birth_date.try(:strftime, "%d-%m-%Y"), 'data-behaviour' => 'datepicker'
 
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       Currently waiting confirmation for: <%= resource.unconfirmed_email

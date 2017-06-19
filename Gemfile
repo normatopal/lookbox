@@ -62,6 +62,8 @@ gem 'draper'
 gem 'active_link_to'
 gem 'tabs_on_rails'
 
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 gem 'exception_handler', git: 'git://github.com/richpeck/exception_handler.git'
 
 group :development, :test do
