@@ -1,3 +1,37 @@
 ru:
+  search_filters:
+      sort_by: "Сортировка"
+      title: "название"
+      date: "дата"
+      search: "Поиск"
+      refresh: "Обновить"
+      type_title_or_part: "Вддедите название или его часть.."
+      category: "Категория:"
+      include_subcategories : "Включая подкатегории"
+      include_blank_all: "Все"
+      no_results: "Результатов по заданному поиску не найдено. Обновите, чтобы увилеть все элементы."
+      no_items: "Ни одного элемента %{item} еще не было обавлено. Нажмите %{button_name} чтобы добавить первый элемент."
+  modal_forms:
+      close: "Закрыть"
+      edit: "Редактировать"
+      delete: "Удалить"
+      confirm_delete: "Вы уверены?"
+      show: "Показать"
+      save: "Сохранить"
+      back_to_show: "Вернуться к просмотру"
+      new: "Новый"
   pictures:
-        pictures: "Картинки"
+      new_picture: "Новая картинка"
+      pictures: "Картинки"
+      back_to_pictures: "Вернуться к картинкам"
+      edit_picture: "Изменить картинку"
+      category: "Категория"
+      add_new_picture: "Добавить новую картинку"
+      picture: 'картинка'
+
+  activerecord:
+      errors:
+      attributes:
+          picture:
+              title: "Название"
+              description: "Описание"

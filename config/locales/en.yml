@@ -54,5 +54,5 @@ en:
       errors:
       attributes:
           picture:
-              title: "Title!!"
-              description: "Description!!!"
+              title: "Title"
+              description: "Description"

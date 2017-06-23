@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
 
   def set_locale
-    I18n.locale = try_chain { current_user.user_setting.locale.name } || I18n.default_locale
+    I18n.locale = try_chain { current_user.user_setting.locale.locale } || I18n.default_locale
   end
 
 end
