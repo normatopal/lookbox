@@ -4,6 +4,8 @@ require 'rails/test_help'
 # require "minitest/spec"
 # require "minitest/autorun"
 require 'minitest/rails/capybara'
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!  # by default it is fake
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.

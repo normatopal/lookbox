@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class LoginTest < Capybara::Rails::TestCase
+  include ActiveJob::TestHelper
 
   def setup
     @user = users(:john_doe)
@@ -53,7 +54,7 @@ class LoginTest < Capybara::Rails::TestCase
     assert page.has_content? 'Sign in with Google'
     click_link 'Sign in with Google'
     assert page.has_link? 'Account'
-    #assert_match ActionMailer::Base.deliveries.empty?, false
+    assert_enqueued_jobs 1
   end
 
   private
@@ -64,8 +65,8 @@ class LoginTest < Capybara::Rails::TestCase
                                                                   provider: 'google',
                                                                   uid: rand(1000..10000),
                                                                   info: {
-                                                                          name: @user.name,
-                                                                          email: @user.email
+                                                                          name: 'Demo',
+                                                                          email: 'demo@test.com'
                                                                   }
                                                                 })
   end

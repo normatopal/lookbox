@@ -7,10 +7,7 @@ class PicturesController < ApplicationController
   # GET /pictures
   def index
     respond_to do |format|
-      format.html do
-        flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id)
-        #@pictures = Kaminari.paginate_array(PictureDecorator.wrap(@search.result)).page(params[:page]).per(@kaminari_per_page)
-      end
+      format.html { flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id) }
       format.js do
         @available_pictures = @pictures
         search_view = if params[:look_id] then 'looks/available_pictures' elsif params[:category_id] then 'categories/available_pictures' else {js: 'No results was found'}  end

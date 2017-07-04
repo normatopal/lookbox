@@ -64,7 +64,8 @@ gem 'tabs_on_rails'
 
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem 'exception_handler', git: 'git://github.com/richpeck/exception_handler.git'
+
+gem 'sidekiq'
 
 group :development, :test do
   gem 'pry-byebug'

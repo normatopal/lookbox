@@ -1,0 +1,10 @@
+---
+:concurrency: 1
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:queues:
+  - default
+  - mailers
+  - lookbox_default
+  - lookbox_mailers
+#:daemon: true

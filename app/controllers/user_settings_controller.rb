@@ -16,7 +16,7 @@ class UserSettingsController < ApplicationController
   private
 
   def set_user_setting
-    @user_setting = current_user.user_setting || UserSetting.new(locale: Locale.default_locale, user: current_user)
+    @user_setting = current_user.user_setting || current_user.user_setting.new(locale: Locale.default_locale)
   end
 
   def user_setting_params

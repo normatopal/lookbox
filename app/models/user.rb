@@ -40,16 +40,16 @@ class User < ActiveRecord::Base
       user.uid, user.provider = auth.uid, auth.provider
       user.save if user.changed?
     else
-      login_password = SecureRandom.urlsafe_base64(6)
+      user_password = SecureRandom.urlsafe_base64(6)
       user = self.create do |user|
         user.provider = auth.provider
         user.uid = auth.uid
         user.email = auth.info.email
         user.name = auth.info.name
-        user.password = login_password
+        user.password = user_password
         user.skip_confirmation!
       end
-      UserMailer.google_user_site_login_password(user, login_password).deliver_now
+      UserMailer.google_user_site_password(user, user_password).deliver_later
     end
     user
   end
