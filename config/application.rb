@@ -30,6 +30,8 @@ module Lookbox
 
     #config.exception_handler = {  email: "your@email.com"  }
 
+    config.i18n.available_locales =  Dir["#{Rails.root}/config/locales/??.yml"].map { |d|  d.split('/').last.split('.').first }
+
     config.i18n.fallbacks = {'es' => 'en', 'ru' => 'en', 'fr' => 'en', 'ua' => 'en', 'de' => 'en'}
     config.i18n.enforce_available_locales = false
     config.i18n.default_locale = 'en'

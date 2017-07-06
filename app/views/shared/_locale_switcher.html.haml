@@ -1,0 +1,12 @@
+%li.dropdown
+  = link_to '#', class: 'dropdown-toggle language-select', 'data-toggle' => 'dropdown' do
+    %i.icon-globe
+    %span #{I18n.locale.to_s}
+    %b.caret
+  %ul.dropdown-menu#locale-link
+    - I18n.available_locales.each do |locale|
+      %li
+        -#= link_to 'javascript:void(0)', onclick: "window.location.href = '/#{locale.to_s}/' + window.location.href; " do
+        = link_to params.merge(locale: locale.to_s) do
+          %span.badge #{locale.to_s}
+          = t(locale.to_s, {locale: locale.to_s})
