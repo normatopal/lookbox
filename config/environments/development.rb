@@ -48,9 +48,9 @@ Rails.application.configure do
   config.active_job.queue_name_delimiter = "_"
 
   # Stub to have email not being sent to the actual users instead storing them locally to the file
-  config.action_mailer.delivery_method = :file
+  #config.action_mailer.delivery_method = :file
 
-  #config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
           :address              => "smtp.gmail.com",
