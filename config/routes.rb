@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
 
+  devise_for :users, skip: [:session, :password, :registration, :confirmation], controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
 
-      devise_for :users, skip: :omniauth_callbacks #:controllers => { :omniauth_callbacks => "callbacks" }
+    devise_scope :user do
+      get 'omniauth/:provider' => 'omniauth_callbacks#localized', as: :localized_omniauth
+    end
+
+      devise_for :users, skip: :omniauth_callbacks
+
 
       get 'users/change_password'
       put 'users/save_password' => 'users#save_password'

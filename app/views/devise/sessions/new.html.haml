@@ -3,6 +3,7 @@
     %h2.text-center Log in
     .text-right
       -#= link_to "Sign in with Google", user_google_omniauth_authorize_path
+      = link_to "Sign in with Google", localized_omniauth_path(:google)
     = form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "form-horizontal"}) do |f|
       .form-group
         .row
