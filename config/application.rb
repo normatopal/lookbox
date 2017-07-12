@@ -36,7 +36,7 @@ module Lookbox
 
     config.before_configuration do
       env_file = File.join(Rails.root, 'config', 'secret_tokens.yml')
-      YAML.load(File.open(env_file)).each { |key, value| ENV[key.to_s] = value } if File.exists?(env_file)
+        YAML.load(File.open(env_file)).try(:each) { |key, value| ENV[key.to_s] = value } if File.exists?(env_file) && !File.zero?(env_file)
     end
 
   end
