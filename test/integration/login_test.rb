@@ -14,7 +14,7 @@ class LoginTest < Capybara::Rails::TestCase
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    assert_current_path '/'
+    assert_current_path "/#{I18n.locale}"
     assert page.has_content? 'Signed in successfully'
   end
 
@@ -44,7 +44,7 @@ class LoginTest < Capybara::Rails::TestCase
     fill_in 'Password', with: '123123'
     fill_in 'Password confirmation', with: '123123'
     click_button 'Sign up'
-    assert_current_path root_path
+    assert_current_path "/#{I18n.locale}"
     assert page.has_content? 'A message with a confirmation link'
   end
 

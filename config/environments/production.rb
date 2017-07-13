@@ -92,4 +92,7 @@ Rails.application.configure do
           :enable_starttls_auto => true
   }
 
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger::DEBUG
+
 end

@@ -1,4 +1,6 @@
-Rails.application.routes.draw do
+  Rails.application.routes.draw do
+
+  root_path = 'home#index'
 
   devise_for :users, skip: [:session, :password, :registration, :confirmation], controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
@@ -46,10 +48,8 @@ Rails.application.routes.draw do
       end
 
       get 'users/profile', as: 'user_root'
-      root to: 'home#index'
+      root to: root_path
   end
-
-  get '', :to => 'home#index'
 
 end
 

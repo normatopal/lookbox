@@ -16,14 +16,14 @@ describe User do
     end
 
     it "not chages password with not correct new" do
-      params = { current_password: "123456", password: "123", password_confirmation: "123" }
+      params = { current_password: "password", password: "123", password_confirmation: "123" }
       @user.update_password_with_new(params).must_equal false
       @user.errors.count.must_equal 1
       @user.errors[:password].first.must_match "too short"
     end
 
     it "not changes password without correct confirmation" do
-      params = { current_password: "123456", password: "456789", password_confirmation: "456" }
+      params = { current_password: "password", password: "456789", password_confirmation: "456" }
       @user.update_password_with_new(params).must_equal false
       @user.errors.count.must_equal 1
       @user.errors[:password_confirmation].first.must_match "doesn't match"
@@ -40,7 +40,7 @@ describe User do
 
 
     it "updates password with correct params" do
-      params = { current_password: "123456", password: "456789", password_confirmation: "456789" }
+      params = { current_password: "password", password: "456789", password_confirmation: "456789" }
       @user.update_password_with_new(params).must_equal true
     end
 

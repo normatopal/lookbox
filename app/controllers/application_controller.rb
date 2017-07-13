@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options = {})
-    options.merge!({ :locale => ((I18n.locale.to_s == try_chain { current_user.user_setting.locale.locale} ) ? nil : I18n.locale) })
+    options.merge({locale: ((I18n.locale.to_s == try_chain { current_user.user_setting.locale.locale} ) ? nil : I18n.locale) })
   end
 
 end
