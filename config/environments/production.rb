@@ -78,6 +78,8 @@ Rails.application.configure do
   config.active_job.queue_name_prefix = "lookbox"
   config.active_job.queue_name_delimiter = "_"
 
+  config.action_mailer.default_url_options = { host: 'lookbox.herokuapp.com' }
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
