@@ -12,7 +12,7 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
   return false
 ).on('change.bs.fileinput', '.fileinput', ->
   if $('#picture_title').val() == ''
-    $('#picture_title').val($('input[type=file]').val().split('.')[0])
+    $('#picture_title').val($('input[type=file]').val().split('\\').pop().split('.').shift().replace(/_/g, ' '))
 )
 
 ready = ->
