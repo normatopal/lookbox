@@ -28,9 +28,10 @@ ready = ->
         handles: 'se',
         minHeight: 30,
         minWidth: 30,
-        aspectRatio: true,
+        aspectRatio: true, # resize image proportionally
         stop: (event, ui) ->
           res = ui
+          debugger
           return
     }
 

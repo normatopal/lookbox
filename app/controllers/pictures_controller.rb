@@ -98,9 +98,9 @@ class PicturesController < ApplicationController
         current_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(',')) if @look_id
         current_pictures = @search.result.available_for_category(@category_id) if @category_id
         current_pictures ||= @search.result
-        @pictures = Rails.cache.fetch('pictures/' + current_pictures.map(&:id).join(',')) do
-          paginate_pictures(current_pictures, (@look_id || @category_id) ? 5 : @kaminari_per_page)
-        end
+        #@pictures = Rails.cache.fetch('pictures/' + current_pictures.map(&:id).join(',')) do
+        @pictures = paginate_pictures(current_pictures, (@look_id || @category_id) ? 5 : @kaminari_per_page)
+        #end
       end
       puts time
     end
