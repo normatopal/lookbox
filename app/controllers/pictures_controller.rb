@@ -7,13 +7,8 @@ class PicturesController < ApplicationController
   # GET /pictures
   def index
     respond_to do |format|
-      format.html do
-        flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id)
-        #@pictures = Kaminari.paginate_array(PictureDecorator.wrap(@search.result)).page(params[:page]).per(@kaminari_per_page)
-      end
+      format.html { flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id) }
       format.js do
-        # search_result = @search.result.where.not(id: cookies[:look_pictures_ids].split(','))
-        # @available_pictures = Kaminari.paginate_array(PictureDecorator.wrap(search_result)).page(params[:page]).per(@kaminari_per_page)
         @available_pictures = @pictures
         search_view = if params[:look_id] then 'looks/available_pictures' elsif params[:category_id] then 'categories/available_pictures' else {js: 'No results was found'}  end
         render search_view
@@ -23,7 +18,12 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1
   def show
-
+    if stale?(last_modified: @picture.updated_at.utc, etag: @picture.cache_key)
+      respond_to do |format|
+        format.html
+        format.js
+      end
+    end
   end
 
   # GET /pictures/new
@@ -88,15 +88,21 @@ class PicturesController < ApplicationController
     end
 
     def search_pictures
-      session[:pictures_filter] = params[:q] unless params[:q].blank?
-      search_params = session[:pictures_filter]
-      Picture.switch_subcategories_flag(search_params)
-      @look_id, @category_id = params[:look_id], params[:category_id]
-      @search = current_user.pictures.search(search_params)
-      current_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(',')) if @look_id
-      current_pictures = @search.result.available_for_category(@category_id) if @category_id
-      current_pictures ||= @search.result
-      @pictures = paginate_pictures(current_pictures, (@look_id || @category_id) ? 5 : @kaminari_per_page)
+      puts "Pictures search"
+      time = Benchmark.measure do
+        #session[:pictures_filter] = params[:q] unless params[:q].blank?
+        search_params = params[:q]
+        Picture.switch_subcategories_flag(search_params)
+        @look_id, @category_id = params[:look_id], params[:category_id]
+        @search = current_user.pictures.search(search_params)
+        current_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(',')) if @look_id
+        current_pictures = @search.result.available_for_category(@category_id) if @category_id
+        current_pictures ||= @search.result
+        #@pictures = Rails.cache.fetch('pictures/' + current_pictures.map(&:id).join(',')) do
+        @pictures = paginate_pictures(current_pictures, (@look_id || @category_id) ? 5 : @kaminari_per_page)
+        #end
+      end
+      puts time
     end
 
     def paginate_pictures(pictures, per_page)

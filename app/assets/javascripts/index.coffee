@@ -4,7 +4,7 @@ ready = ->
 
   $('[data-toggle="tooltip"]').tooltip();
 
-  window.myCustomConfirmBox = (message,callback) ->
+  window.myCustomConfirmBox = (message, success_label, callback) ->
     bootbox.dialog
       message: message
       class: 'class-confirm-box'
@@ -12,7 +12,7 @@ ready = ->
       value: "makeusabrew"
       buttons:
         success:
-          label: "Delete"
+          label: success_label
           className: "btn-danger"
           callback: -> callback()
         chickenout:
@@ -26,12 +26,13 @@ ready = ->
 
     #message = "Are you sure about removing? "
     answer = false
+    success_label = if element.data("confirm-success-label") != undefined then element.data("confirm-success-label") else "Delete"
     callback = undefined
 
     if $.rails.fire(element, "confirm")
       if element.closest('li').find('.nested_set').length > 0
         message += "<label for='delete_with_sub'> Destroy with subcategories </label>  <input type='checkbox' name='delete_with_sub' value='destroy'> "
-      myCustomConfirmBox message, ->
+      myCustomConfirmBox message, success_label, ->
         callback = $.rails.fire(element, "confirm:complete", [answer])
         if $("input[name='delete_with_sub']").is(':checked')
           element[0].attributes['href'].value += "?delete_with_sub=destroy"

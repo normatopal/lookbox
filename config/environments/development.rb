@@ -10,8 +10,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -25,7 +24,7 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = true
+  config.assets.debug = false
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
@@ -44,12 +43,31 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
+  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_name_prefix = "lookbox"
+  config.active_job.queue_name_delimiter = "_"
+
   # Stub to have email not being sent to the actual users instead storing them locally to the file
-  config.action_mailer.delivery_method = :file
+  #config.action_mailer.delivery_method = :file
+
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+          :address              => "smtp.gmail.com",
+          :port                 => 587,
+          :user_name            => Rails.application.secrets.gmail_user_name,
+          :password             => Rails.application.secrets.gmail_user_password,
+          :authentication       => "plain",
+          :enable_starttls_auto => true
+  }
 
   config.action_mailer.perform_deliveries = true
 
   # Location of the file to store
   config.action_mailer.file_settings = { :location => Rails.root.join('tmp/mail') }
 
+  # Make your app process requests as production
+  config.consider_all_requests_local =  true
+
+  config.cache_store = :file_store, Rails.root.join('tmp', 'cache')
 end

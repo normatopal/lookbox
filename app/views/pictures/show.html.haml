@@ -6,14 +6,14 @@
     .btn-form-action
       = link_to edit_picture_path(@picture), class: "btn" do
         %span.glyphicon.glyphicon-chevron-left
-        Back to Pictures
+        = t("pictures.back_to_pictures")
       = link_to edit_picture_path(@picture), class: "btn btn-primary", title: 'Edit', remote: true do
         %span.glyphicon.glyphicon-pencil
-        Edit
+        = t("modal_forms.edit")
 
-- if @picture.description.present?
+- if !@picture.description.present?
   .row
-    %strong Description:
+    %strong= Picture.human_attribute_name("description")
     = @picture.description
 .row
   = image_tag @picture.preview_image_large, class: 'picture-show'

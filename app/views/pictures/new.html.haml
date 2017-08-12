@@ -1,7 +1,7 @@
-%h2 Add new picture
+%h2= t("pictures.add_new_picture")
 
 = render 'form'
 
 = link_to pictures_path class: "btn" do
   %span.glyphicon.glyphicon-chevron-left
-  Back to pictures
+  = t("pictures.back_to_pictures")

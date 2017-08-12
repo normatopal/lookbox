@@ -10,10 +10,14 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
   $('.fileinput-preview.thumbnail').removeClass("rotate0 rotate90 rotate180 rotate270").addClass("rotate" + angle)
   $('#picture_rotation').val(angle)
   return false
+).on('change.bs.fileinput', '.fileinput', ->
+  if $('#picture_title').val() == ''
+    $('#picture_title').val($('input[type=file]').val().split('\\').pop().split('.').shift().replace(/_/g, ' '))
 )
 
 ready = ->
   $('.pictures-list .look-block').click -> $(this).parent().find('.modal').modal 'show'
+
 
   $('.edit_category .image-block').click ->
     chbox = $(this).parent().find('.mark-picture-chbox')
@@ -30,19 +34,6 @@ ready = ->
     zoomType: "inner",
     cursor: "crosshair"
   })
-
-#  image_rotation = ->
-#    angle = 0
-#    change_angle = () ->
-#      alert('change!')
-#      angle = (angle + 90) % 360
-#      $('.fileinput-exists.thumbnail').removeClass("rotate0 rotate90 rotate180 rotate270").addClass("rotate" + angle)
-#      $('#rotation').val(angle)
-#      return
-#    $('#rotate_image').click(change_angle)
-#    return
-#
-#  image_rotation()
 
   return
 

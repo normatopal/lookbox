@@ -36,7 +36,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bootstrap-datepicker-rails'
-gem 'jasny-bootstrap-rails'
+gem 'jasny-bootstrap-rails' # rotate image before download
 
 gem 'jquery-ui-rails'
 gem 'bootbox-rails'
@@ -62,6 +62,10 @@ gem 'draper'
 gem 'active_link_to'
 gem 'tabs_on_rails'
 
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
+gem 'sidekiq'
 gem 'react-rails'
 
 group :development, :test do

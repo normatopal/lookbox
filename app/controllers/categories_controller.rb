@@ -55,6 +55,7 @@ class CategoriesController < ApplicationController
   def destroy
     @category.move_subcategories unless params[:delete_with_sub].present?
     @category.destroy
+    #MoveSubcategoriesJob.set(wait: 1.minute).perform_later(@category.id) unless params[:delete_with_sub].present?
     redirect_to categories_path, notice: 'Category was successfully destroyed.'
   end
 

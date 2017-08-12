@@ -12,13 +12,17 @@ class PictureDecorator < Draper::Decorator
   end
 
   def preview_image
-    object.image.url.present? ? object.image.thumb : 'no_image_found.jpg'
+    object.image.url.present? ? image_url_with_timestamp(object.image.thumb.url, object.image_timestamp) : 'no_image_found.jpg'
   end
 
   def preview_image_large
-    url = object.image.url.present? ? object.image.url : 'no_image_found_large.jpg'
-    url += "?timestamp=" + object.image_timestamp.to_s if object.image_timestamp.present?
-    url
+    object.image.url.present? ? image_url_with_timestamp(object.image.url, object.image_timestamp) : 'no_image_found_large.jpg'
+  end
+
+  private
+
+  def image_url_with_timestamp(url, image_timestamp)
+    image_timestamp.present? ? (url + "?timestamp=" + image_timestamp.to_s) : url
   end
 
 end

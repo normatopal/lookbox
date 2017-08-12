@@ -16,7 +16,7 @@
 
   .form-group
     .row
-      = f.label 'Category', class: "col-sm-2 control-label"
+      = f.label t("pictures.category"), class: "col-sm-2 control-label"
       .col-sm-10
         = select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: 'select2-select'})
 
@@ -38,9 +38,9 @@
               %i.glyphicon.glyphicon-picture
             %input{type: "file", name: "picture[image]"}
         .col-sm-6
-          .fileinput-preview.thumbnail{"data-trigger": "fileinput", style: "width: 200px; height: 150px;"}
+          .fileinput-preview.thumbnail{"data-trigger": "fileinput", style: "width: 150px; height: 150px;"}
             - if @picture.image.present?
-              = image_tag @picture.image.thumb, class: "image-space"
+              = image_tag @picture.preview_image, class: "image-space"
 
 
   %div{class: "#{is_remote ? 'modal-footer':''}"}
@@ -51,10 +51,8 @@
             - if @picture.persisted? && is_remote
               = link_to @picture, remote: is_remote, class: "btn" do
                 %span.glyphicon.glyphicon-chevron-left
-                Back to Show
-            = f.submit "Save", class: 'btn btn-primary', data: { "disable_with" => "Saving..." }
-
-
+                = t("modal_forms.back_to_show")
+            = f.submit t("modal_forms.save"), class: 'btn btn-primary', data: { "disable_with" => "Saving..." }
 
 :javascript
   $('.select2-select').select2({

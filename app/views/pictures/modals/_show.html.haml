@@ -1,7 +1,7 @@
 %div{class: "modal-dialog", role: "document"}
   .modal-content
     .modal-header
-      %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button'}
+      %button.close{'aria-label' => t("modal_forms.close"), 'data-dismiss' => 'modal', type: 'button'}
         %span{'aria-hidden' => 'true'} ×
       %h4.modal-title#modal-label
         %strong= picture.title
@@ -9,9 +9,9 @@
     .modal-body.picture-show{id: "show-image-block-#{picture.id}", picture_id: picture.id}
       = image_tag picture.preview_image_large, { class: "show-picture-image"}
     .modal-footer
-      = link_to edit_picture_path(picture), class: "btn btn-sm btn-primary", title: 'Edit', remote: true do
+      = link_to edit_picture_path(picture), class: "btn btn-sm btn-primary", remote: true do
         %span.glyphicon.glyphicon-pencil
-        Edit
-      = link_to picture, method: :delete, title: 'Destroy', class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' } do
+        = t("modal_forms.edit")
+      = link_to picture, method: :delete, class: "btn btn-sm btn-danger", data: { confirm: t("modal_forms.confirm_delete") } do
         %span.glyphicon.glyphicon-trash
-        Delete
+        = t("modal_forms.delete")

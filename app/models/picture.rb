@@ -21,20 +21,22 @@ class Picture < ActiveRecord::Base
   scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) }
   scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
 
-  scope :category_search, -> (category_id = nil) do
-    ids = category_id
-    ids = Category.find(category_id).self_and_descendants.ids if self.with_subcategories
+  scope :category_search, -> (category_id) do
+    category_id = nil unless category_id.to_i > 0
+    ids = Category.find(category_id).self_and_descendants.ids if self.with_subcategories && category_id
+    ids ||= category_id
     includes(:categories).where( categories: { id: ids })
   end
   scope :include_subcategories, -> {}
 
   after_update :recreate_image, if: ->(obj){ obj.rotation.present? and obj.rotation.to_i > 0 }
+  after_update :create_image_timetamp, if: ->(obj){ obj.image_changed? }
 
   def recreate_image
     # image.cache_stored_file!
     # image.retrieve_from_cache!(image.cache_name)
     image.recreate_versions!
-    self.image_timestamp = DateTime.now.to_i
+    create_image_timetamp
   end
 
   # whitelist the scope
@@ -44,6 +46,11 @@ class Picture < ActiveRecord::Base
 
   def self.switch_subcategories_flag(search_params)
     self.with_subcategories = search_params.present? && search_params['include_subcategories'] == '1'
+  end
+
+  private
+  def create_image_timetamp
+    self.image_timestamp = DateTime.now.to_i
   end
 
 end

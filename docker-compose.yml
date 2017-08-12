@@ -1,0 +1,21 @@
+web:
+  container_name: lookbox
+  build: .
+  volumes:
+    - .:/lookbox
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  command: rails s -p 3000 -b '0.0.0.0'
+
+db:
+  image: library/mysql:5.5.55
+  container_name: lookbox_database
+  volumes:
+    - ./tmp/mysql:/tmp/mysql
+  ports:
+    - "13306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: lookbox

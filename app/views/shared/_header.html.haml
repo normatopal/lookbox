@@ -21,10 +21,14 @@
               %ul.dropdown-menu{role: "menu"}
                 %li= link_to "My profile", edit_user_registration_path, class: ""
                 %li= link_to "Change password", users_change_password_path, class: ""
+                -#%li= link_to "Settings", new_user_setting_path, class: ""
+                %li= link_to "Settings", change_user_settings_path, class: ""
+            %li= render 'shared/locale_switcher'
             %li
-              = link_to destroy_user_session_path, method: :delete, title: "Log out" do
+              = link_to destroy_user_session_path, method: :delete, data: { confirm: 'Do you really want to leave?', confirm_success_label: 'Exit' }, title: "Log out" do
                 %span.glyphicon.glyphicon-log-out
           - else
+            %li= render 'shared/locale_switcher'
             %li
               = link_to new_user_session_path, title: "Log in" do
                 %span.glyphicon.glyphicon-log-in

@@ -22,9 +22,22 @@ module Lookbox
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-    config.web_console.development_only = false
+    #config.web_console.development_only = false
 
     config.encoding = 'utf-8'
+
+    config.i18n.available_locales =  Dir["#{Rails.root}/config/locales/??.yml"].map { |d|  d.split('/').last.split('.').first }
+
+    config.i18n.fallbacks = {'es' => 'en', 'ru' => 'en', 'fr' => 'en', 'ua' => 'en', 'de' => 'en'}
+    config.i18n.enforce_available_locales = false
+    config.i18n.default_locale = 'en'
+
+    config.time_zone = 'UTC'
+
+    config.before_configuration do
+      env_file = File.join(Rails.root, 'config', 'secret_tokens.yml')
+        YAML.load(File.open(env_file)).try(:each) { |key, value| ENV[key.to_s] = value } if File.exists?(env_file) && !File.zero?(env_file)
+    end
 
   end
 end

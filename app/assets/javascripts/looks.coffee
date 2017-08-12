@@ -26,19 +26,27 @@ ready = ->
 
     resizeable_options = {
         handles: 'se',
-        minHeight: 150,
-        minWidth: 150,
-        aspectRatio: true,
+        minHeight: 30,
+        minWidth: 30,
+        aspectRatio: true, # resize image proportionally
         stop: (event, ui) ->
           res = ui
+          debugger
           return
     }
 
+    set_draggable_resizable = (e) ->
+      e.find('.resizable').resizable(resizeable_options)
+      e.draggable(draggable_options)
+      e.click -> change_zindex($(this))
+      return
+
     $("#look-canvas").resizable({ handles: 'e, s, se' })
 
-    $(".draggable").draggable(draggable_options)
+    #$(".draggable").draggable(draggable_options)
+    set_draggable_resizable($(".draggable"))
 
-    $( ".resizable" ).resizable(resizeable_options)
+
 
     $("#look-screenshot").click ->
       encode_image_url()
@@ -48,7 +56,7 @@ ready = ->
 
     $(".draggable").click -> change_zindex($(this))
 
-    $("#look-canvas").on("DOMNodeInserted", ".draggable", -> set_draggable($(this)) )
+    $("#look-canvas").on("DOMNodeInserted", ".draggable", -> set_draggable_resizable($(this)) )
 
     $("#look-save-btn").click (e) ->
       e.preventDefault()
@@ -62,11 +70,6 @@ ready = ->
       max_zindex += 1
       e.css('z-index', max_zindex)
       $('#' + e.attr('id') + '-position').find($("input[id$='position_order']")).get(0).value = max_zindex
-      return
-
-    set_draggable = (e) ->
-      e.draggable(draggable_options)
-      e.click -> change_zindex($(this))
       return
 
     encode_image_url = (e) ->
@@ -87,7 +90,6 @@ ready = ->
     set_look_canvas()
 
   return
-
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

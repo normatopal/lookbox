@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170219212753) do
+ActiveRecord::Schema.define(version: 20170614180654) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -37,6 +37,17 @@ ActiveRecord::Schema.define(version: 20170219212753) do
   end
 
   add_index "category_pictures", ["category_id", "picture_id"], name: "index_category_pictures_on_category_id_and_picture_id", using: :btree
+
+  create_table "locales", force: :cascade do |t|
+    t.string   "locale",     limit: 255
+    t.string   "name",       limit: 255
+    t.boolean  "visible",                default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "locales", ["locale"], name: "index_locales_on_locale", using: :btree
+  add_index "locales", ["name"], name: "index_locales_on_name", using: :btree
 
   create_table "look_pictures", force: :cascade do |t|
     t.integer "look_id",         limit: 4
@@ -76,6 +87,12 @@ ActiveRecord::Schema.define(version: 20170219212753) do
 
   add_index "user_looks", ["look_id", "user_id"], name: "index_user_looks_on_look_id_and_user_id_and_is_owner", unique: true, using: :btree
 
+  create_table "user_settings", force: :cascade do |t|
+    t.string  "time_zone", limit: 255
+    t.integer "locale_id", limit: 4
+    t.integer "user_id",   limit: 4
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false
@@ -96,6 +113,8 @@ ActiveRecord::Schema.define(version: 20170219212753) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email",      limit: 255
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

@@ -6,16 +6,35 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   before_filter :set_default_per_page
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :set_locale
 
-  protected
+  def try_chain
+    yield
+  rescue NoMethodError
+    nil
+  end
+
+  def after_sign_in_path_for(resource_or_scope)
+    root_path
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password])
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :password, :current_password, :birth_date])
   end
 
+  private
+
   def set_default_per_page
     @kaminari_per_page = Kaminari.config.default_per_page
+  end
+
+  def set_locale
+    I18n.locale = params[:locale] || try_chain { current_user.user_setting.locale.locale } || I18n.default_locale
+  end
+
+  def default_url_options(options = {})
+    options.merge({locale: ((I18n.locale.to_s == try_chain { current_user.user_setting.locale.locale} ) ? nil : I18n.locale) })
   end
 
 end

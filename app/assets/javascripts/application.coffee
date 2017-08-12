@@ -26,12 +26,8 @@
 #= require jquery.remotipart
 #= require select2
 
-#= require lib/jquery.ui.nestedSortable
-#= require lib/sortable_tree/initializer
-#= require lib/render_tree_helper
-
-#= require lib/html2canvas
-#= require lib/canvas2image
+#= require_tree ./expandable_tree
+#= require_tree ./lib
 
 #= require react
 #= require react_ujs

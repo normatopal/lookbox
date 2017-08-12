@@ -3,10 +3,12 @@ development:
   encoding: utf8
   reconnect: false
   database: lookbox
-  pool: 5
+  pool: <%= ENV["RAILS_MAX_THREADS"] || 5 %>
   username: root
   password: ubuntu
+  #password: root
   host: localhost
+  #host: db
 
 test:
   adapter: mysql2
@@ -19,4 +21,9 @@ test:
   host: localhost
 
 production:
+  adapter: postgresql
+  encoding: unicode
+  database: lookbox
+  pool: <%= ENV["RAILS_MAX_THREADS"] || 5 %>
+
 
