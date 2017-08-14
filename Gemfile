@@ -66,6 +66,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 
 gem 'sidekiq'
+gem 'redis-namespace'
 
 group :development, :test do
   gem 'pry-byebug'
@@ -87,5 +88,4 @@ group :production do
   gem 'pg'
 end
 
-ruby '2.3.1'
 

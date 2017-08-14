@@ -6,6 +6,9 @@
 
   get '/users/auth/:provider' => 'omniauth_sessions#create', as: 'omniauth_authorize'
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
 
     devise_scope :user do
