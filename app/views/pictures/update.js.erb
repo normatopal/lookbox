@@ -3,8 +3,6 @@ $("#modal-form").modal('hide');
 <% if @picture.image_timestamp.present? %>
   $("#picture-<%=@picture.id%>").html("<%= escape_javascript (render(partial: 'pictures/picture', locals: {picture: @picture}).force_encoding("utf-8")) %>")
 <% elsif @picture.previous_changes['title'].present? %>
-  title_element = $("#image-block-<%= @picture.id %>").siblings('.picture-title')
-  new_title = title_element.html().replace("<%= @picture.previous_changes['title'][0]%>", "<%= @picture.previous_changes['title'][1]%>" );
-  title_element.html(new_title);
+  $("#image-block-<%= @picture.id %>").siblings('.picture-title').html("<%= @picture.title%>");
 <% end %>
 
