@@ -4,6 +4,7 @@ class MoveSubcategoriesJob < ActiveJob::Base
   def perform(category_id)
     category = Category.find(category_id)
     category.move_subcategories
+    #logger.info "!!!Job proceeded at #{DateTime.now}"
   end
 
 end

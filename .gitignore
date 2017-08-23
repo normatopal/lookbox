@@ -36,3 +36,5 @@ db/schema.rb
 db/structure.sql
 
 test_class.rb
+
+public/images/pictures_example

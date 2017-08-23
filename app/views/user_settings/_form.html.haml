@@ -4,7 +4,7 @@
     .row
       = f.label :locale_id, class: "col-sm-2 control-label"
       .col-sm-10
-        = f.select :locale_id, options_for_select(Locale.locales_set, selected: @user_setting.try(:locale).try(:id) || Locale.default_locale.id )
+        -#= f.select :locale_id, options_for_select(Locale.locales_set, selected: try_chain { @user_setting.locale.id } || Locale.default_locale.id )
 
   .form-group
     .row

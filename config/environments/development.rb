@@ -70,4 +70,6 @@ Rails.application.configure do
   config.consider_all_requests_local =  true
 
   config.cache_store = :file_store, Rails.root.join('tmp', 'cache')
+
+  config.log_level = :debug
 end
