@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def active_current_page_menu(*pages)
-    pages.each{|page| return 'active' if current_page? page}
+    return 'active' if pages.any? {|page| current_page? page}
   end
 
 end
