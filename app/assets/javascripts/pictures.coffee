@@ -16,9 +16,6 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
 )
 
 ready = ->
-  $('.pictures-list .look-block').click -> $(this).parent().find('.modal').modal 'show'
-
-
   $('.edit_category .image-block').click ->
     chbox = $(this).parent().find('.mark-picture-chbox')
     image_opacity = 1

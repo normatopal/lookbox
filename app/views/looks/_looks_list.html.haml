@@ -7,8 +7,7 @@
       .look-name.text-short
         = look.name
       .image-block.look-block
-        = image_tag look.preview_image, alt: 'No image', class: "image-space"
-        -# = link_to look.name, "#", data: {class: "btn btn-primary btn-lg", toggle: "modal", target: "#look-modal-#{look.id}"}
+        = link_to image_tag(look.preview_image, alt: 'No image', class: "image-space"), "#", data: {toggle: "modal", target: "#look-modal-#{look.id}"}
       - if is_shared_looks
         .shared-looks-actions
           = link_to "Approve", approve_shared_look_path(look), class: 'btn btn-primary' unless look.user_looks[0].is_approved

@@ -19,7 +19,7 @@ ready = ->
         look_position_element = $('#' + this.id + '-position')
         look_position_element.find($("input[id$='position_top']")).get(0).value = position['top']
         look_position_element.find($("input[id$='position_left']")).get(0).value = position['left']
-        change_zindex($(this))
+        change_zindex($(this)) # just use element.draggable({ stack: "div", distance: 0 })
         return
       stack: ".draggable"
     }

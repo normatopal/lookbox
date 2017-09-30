@@ -5,6 +5,7 @@
   //background: #D2EBB5
   background: #FFF
   margin-top: 20px
+  position: relative
 
 .look-picture-block
   float: left
@@ -15,8 +16,10 @@
   &:hover
     .picture-action
       display: block
+      cursor: pointer
       right: auto
       left: 0
+      opacity: 1 // for react
 
 .look-info
   float: left
@@ -34,9 +37,6 @@
   clear: right
   width: auto
   max-width: 150px
-
-.remove-look-picture-btn
-  cursor: pointer
 
 #shared-users-list
   float: left
@@ -73,3 +73,7 @@
 .image-space
   width: auto
   height: 200px
+
+.look-user-item
+  cursor: pointer
+

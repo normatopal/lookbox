@@ -63,7 +63,7 @@ UserItem = React.createClass({
           { userLookInput }
           <input id={`look_user_looks_attributes_${this.props.index }_user_id`} name={`look[user_looks_attributes][${this.props.index}][user_id]`} type='hidden' value= { this.props.user.id}/>
           <UserLook index = {this.props.index} isDestroy = {this.state.isDestroy} />
-          <a onClick={ removeUserMethod } style = {{display: this.props.hide[this.state.isDestroy] }}>{ this.props.user.email }</a>
+          <div className = 'look-user-item'> <a onClick={ removeUserMethod }style = {{display: this.props.hide[this.state.isDestroy] }} title='Click to Remove'>{ this.props.user.email }</a></div>
         </div>
     )
   }
@@ -79,7 +79,7 @@ UserItem.defaultProps = {
 UserLook = React.createClass({
   render: function(){
     return(
-      <input id={`look_user_looks_attributes_${this.props.index}__destroy`} name={`look[user_looks_attributes][${this.props.index}][_destroy]`} type='hidden' value={this.props.isDestroy}/>
+        <input id={`look_user_looks_attributes_${this.props.index}__destroy`} name={`look[user_looks_attributes][${this.props.index}][_destroy]`} type='hidden' value={this.props.isDestroy}/>
     )
   }
 })
@@ -134,6 +134,6 @@ UserField.defaultProps = {
 
 FilteredUser = React.createClass({
   render: function() {
-    return ( <div onClick={this.props.fillUserField} data-user-id={this.props.user.id}>{this.props.user.email}</div> )
+    return (<div className='look-user-item'><a onClick={this.props.fillUserField} data-user-id={this.props.user.id} title='Share'>{this.props.user.email}</a></div> )
   }
 })
