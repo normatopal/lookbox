@@ -44,7 +44,6 @@ var Draggable = React.createClass({
   onMouseDown: function (e) {
     // only left mouse button
     if (e.button !== 0) return
-    //var pos1 = $(ReactDOM.findDOMNode(this)).offset()
     let pos = ReactDOM.findDOMNode(this).getBoundingClientRect()
     this.setState({
       dragging: true,
@@ -76,14 +75,9 @@ var Draggable = React.createClass({
   },
 
   render: function () {
-    let styles = {
-        position: 'absolute',
-        left: this.state.position.left + 'px',
-        top: this.state.position.top + 'px'
-      }
-
     return(
-        <div style={styles} onMouseDown = {this.onMouseDown} >{this.props.children}</div>
+        <div style={{ position: 'absolute', left: this.state.position.left + 'px', top: this.state.position.top + 'px'}}
+             onMouseDown = {this.onMouseDown} >{this.props.children}</div>
     )
   }
 })

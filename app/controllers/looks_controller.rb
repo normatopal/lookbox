@@ -57,6 +57,7 @@ class LooksController < ApplicationController
 
   def update
     @look.decode_screen_image(look_params[:screen_attributes][:image_encoded])
+    binding.pry
     if @look.update(look_params)
       redirect_to looks_path, notice: 'Look was successfully updated.'
     else
