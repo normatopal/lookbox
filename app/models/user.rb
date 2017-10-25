@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
 
   attr_readonly :email
 
+  def current_user_setting
+    user_setting || UserSetting.new(locale: Locale.default_locale, user: self)
+  end
+
   def update_password_with_new(params)
     current_password = params.delete(:current_password)
 

@@ -18,14 +18,14 @@
       .row
         = f.label "Shared with", class: "col-sm-2 control-label"
         .col-sm-10
-          = react_component 'LookUsers', {potential_users: "#{ User.all.to_json(only: [:id, :email]) }", shared_users: "#{ @look.user_looks.to_json(include: {user: { only: [:id, :email]} })}"}
+          = react_component 'LookUsers', {potential_users: "#{ User.all.to_json(only: [:id, :email]) }", shared_users: "#{ @look.user_looks.to_json(only: :id, include: {user: { only: [:id, :email]} })}"}
           -#.text-input-wrapper
             = f.autocomplete_field :user_email, autocomplete_user_email_looks_path, :data => { :no_matches_label => '' }, :"data-autocomplete-label" => "nothing found.", id: "user-email-autocomplete", :fields => {:shared_users => '#shared_users'}
             %span.clear-input-btn{title: "Clear"}
               &times;
           -#= autocomplete_field_tag 'user_email', '', autocomplete_user_email_looks_path, :size => 75, :"data-autocomplete-label" => "Sorry, nothing found.", :fields => {:shared_users => '#shared_users'}
           = hidden_field_tag "shared-users-count", @look.shared_users.count
-    .form-group
+    -#.form-group
       .row
         -#= react_component 'UserList', { look_users: "#{ @look.user_looks.to_json(include: :user, only: [:id, :email]) }" }
         -#shared-users-list

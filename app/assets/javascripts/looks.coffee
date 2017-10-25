@@ -31,7 +31,6 @@ ready = ->
         aspectRatio: true, # resize image proportionally
         stop: (event, ui) ->
           res = ui
-          debugger
           return
     }
 
@@ -49,9 +48,9 @@ ready = ->
 
 
     $("#look-screenshot").click ->
-      encode_image_url()
-      $("<a>", {href: $('#preview-image-url').val(), download: $("#look_name").val()})
-        .on("click", -> $(this).remove()).appendTo("body")[0].click()
+      encode_image_url((image_url) -> $("<a>",
+                                  {href: image_url, download: $("#look_name").val()}).on("click",
+                                  -> $(this).remove()).appendTo("body")[0].click())
       return false
 
     $(".draggable").click -> change_zindex($(this))
@@ -61,7 +60,7 @@ ready = ->
     $("#look-save-btn").click (e) ->
       e.preventDefault()
       $("#preview-image-title").val($("#look_name").val() + " screen")
-      encode_image_url($("#look-save-form"))
+      encode_image_url((image_url) -> $("#look-save-form").submit())
       return
 
     max_zindex = 100
@@ -72,15 +71,13 @@ ready = ->
       $('#' + e.attr('id') + '-position').find($("input[id$='position_order']")).get(0).value = max_zindex
       return
 
-    encode_image_url = (e) ->
+    encode_image_url = (fn) ->
       html2canvas($('#look-canvas'), {
         onrendered: (canvas) ->
           #return Canvas2Image.saveAsPNG(canvas)
           url = canvas.toDataURL(('image/png'));
           $('#preview-image-url').val(url)
-          if (e)
-            e.submit()
-          return
+          fn(url)
       })
       return
 
@@ -132,7 +129,6 @@ $(document).on('click', '.remove-look-picture-btn', ->
   return
 ).on('change', '#category-pictures-filter', ->
   picture_ids = $(this).find(':selected').attr('data-picture-ids')
-  console.log picture_ids
   if typeof picture_ids != "undefined"
     $('.picture-block').hide()
     picture_ids.split(',').forEach (id, index) ->  $('#picture-block-' + id).show()

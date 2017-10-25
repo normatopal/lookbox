@@ -31,7 +31,6 @@
            get 'shared'
          end
          member do
-            get 'available_pictures'
             post 'add_pictures'
             get 'approve_shared'
             get 'remove_shared'

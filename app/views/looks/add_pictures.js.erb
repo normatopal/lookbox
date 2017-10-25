@@ -1,5 +1,5 @@
 '<%= form_for(@look) do |ff| %>'
-  //$("#look-canvas").append("<%= #escape_javascript (render(partial: 'pictures_list', :locals => { f: ff, current_child_index: @all_extra_pictures_count, look_pictures: @extra_look_pictures } )) %>");
+  //$("#look-canvas").append("<%= escape_javascript (render(partial: 'pictures_list', :locals => { f: ff, current_child_index: @all_extra_pictures_count, look_pictures: @extra_look_pictures } )) %>");
 '<% end %>'
 $('.btn-add-picture').attr('disabled', true)
 $("#pictures-modal").modal('hide');

@@ -31,11 +31,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    I18n.locale = params[:locale] || try_chain { current_user.user_setting.locale.locale } || I18n.default_locale
+    #I18n.locale = params[:locale] || try_chain { current_user.current_user_setting.locale.locale } || I18n.default_locale
+    I18n.locale = params[:locale] || current_user.current_user_setting.active_locale.locale
   end
 
   def default_url_options(options = {})
-    options.merge({locale: ((I18n.locale.to_s == try_chain { current_user.user_setting.locale.locale} ) ? nil : I18n.locale) })
+    #options.merge({locale: ((I18n.locale.to_s == try_chain { current_user.user_setting.locale.locale} ) ? nil : I18n.locale) })
+    options.merge({locale: ((I18n.locale.to_s == current_user.current_user_setting.active_locale.locale ) ? nil : I18n.locale) })
   end
 
   def store_location

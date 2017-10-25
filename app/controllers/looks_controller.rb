@@ -1,6 +1,6 @@
 class LooksController < ApplicationController
 
-  before_action :set_look, only: [:new, :show, :edit, :update, :destroy, :available_pictures, :add_pictures]
+  before_action :set_look, only: [:new, :show, :edit, :update, :destroy, :add_pictures]
   before_action :set_look_screen, only: [:new, :edit]
   before_action :reset_look_pictures, only: [:new, :edit]
 
@@ -57,7 +57,6 @@ class LooksController < ApplicationController
 
   def update
     @look.decode_screen_image(look_params[:screen_attributes][:image_encoded])
-    binding.pry
     if @look.update(look_params)
       redirect_to looks_path, notice: 'Look was successfully updated.'
     else
@@ -68,10 +67,6 @@ class LooksController < ApplicationController
   def destroy
     @look.destroy
     redirect_to looks_path, notice: 'Look was successfully destroyed.'
-  end
-
-  def available_pictures
-    @available_pictures = current_user.pictures.where.not(id: cookies[:look_pictures_ids].split(','))
   end
 
   def add_pictures

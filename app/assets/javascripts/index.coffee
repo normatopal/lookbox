@@ -10,6 +10,8 @@ ready = ->
       class: 'class-confirm-box'
       className: "my-modal"
       value: "makeusabrew"
+      onEscape: () -> {}
+      backdrop: true
       buttons:
         success:
           label: success_label
