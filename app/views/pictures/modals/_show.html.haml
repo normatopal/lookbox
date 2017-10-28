@@ -7,7 +7,17 @@
         %strong= picture.title
       .modal-description= picture.description
     .modal-body.picture-show{id: "show-image-block-#{picture.id}", picture_id: picture.id}
-      = image_tag picture.preview_image_large, { class: "show-picture-image"}
+      .row
+        .col-sm-6
+          - if picture.previous_id.present?
+            = link_to picture_path({id: picture.previous_id}), class: "btn btn-sm btn-primary btn-left", remote: true do
+              %span.glyphicon.glyphicon-triangle-left
+        .col-sm-6
+          - if picture.next_id.present?
+            = link_to picture_path({id: picture.next_id}), class: "btn btn-sm btn-primary btn-right", remote: true do
+              %span.glyphicon.glyphicon-triangle-right
+      .row
+        = image_tag picture.preview_image_large, { class: "show-picture-image"}
     .modal-footer
       = link_to edit_picture_path(picture), class: "btn btn-sm btn-primary", remote: true do
         %span.glyphicon.glyphicon-pencil

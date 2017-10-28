@@ -28,6 +28,9 @@ LookPictures = React.createClass({
     this.setState({pictures_for_remove_count: this.state.pictures_for_remove_count + counter})
     return this.state.pictures_for_remove_count
   },
+  clearTrash: function(e){
+    this.setState({pictures_for_remove_count: 0})
+  },
   duplicatePicture: function(picture_id){
     new_look_picture = this.findPictureById(this.state.look_pictures, picture_id)
     new_look_picture.id = ''
@@ -44,6 +47,9 @@ LookPictures = React.createClass({
   render: function() {
     return(
       <div>
+        {this.state.pictures_for_remove_count > 0 &&
+          <div className="look-pictures-action"><span className="glyphicon glyphicon-remove-circle" title="Clear trash" onClick={ this.clearTrash }></span></div>
+        }
         { this.state.look_pictures.map(function(el, index){
           return <LookPictureItem key={`lp_${index}`} lp_id={el.id} index = {index}
                                   picture = {el.picture} position_params = {el.position_params}
@@ -64,7 +70,6 @@ LookPictureItem =  React.createClass({
   getInitialState: function () {
     return {
       show_item: true,
-      removed_pictures_counter: 0,
       position_params:  Object.assign({}, {left: '0', top: '0', order: '0'}, this.props.position_params),
       hidden_fields: { 'id': this.props.lp_id, 'picture_id': this.props.picture.id, '_destroy': false }
     }
@@ -122,14 +127,14 @@ LookPictureItem =  React.createClass({
                  zIndex: this.state.position_params['order'] }} onClick={this.increaseZindex}/>
             <div className="picture-action">
                <span className="glyphicon glyphicon-duplicate" title="Make a copy" style={{zIndex: this.state.position_params['order'] }} onClick={this.duplicatePicture}></span>
-               <span className="glyphicon glyphicon-trash" title="Delete" style={{zIndex: this.state.position_params['order'] }} onClick={this.removePicture}></span>
+               <span className="glyphicon glyphicon-trash" title="Move to trash" style={{zIndex: this.state.position_params['order'] }} onClick={this.removePicture}></span>
             </div>
           </Draggable>
           }
-          {!this.state.show_item &&
-            <div className="undo-picture-remove">
-                 <span className="glyphicon glyphicon-arrow-left" title="Undo removing"
-                       style={{zIndex: this.state.position_params['order'] + this.state.removed_pictures_counter }} onClick={this.undoPictureRemove}></span>
+          {!this.state.show_item && this.props.pictures_for_remove_count > 0 &&
+            <div className="look-pictures-action undo-picture-removing">
+                 <span className="glyphicon glyphicon-picture" title="Undo removing"
+                       style={{zIndex: this.state.position_params['order'] }} onClick={this.undoPictureRemove}></span>
                  <span title=" to restore" style={{backgroundColor: 'white'}}><b>{this.props.pictures_for_remove_count}</b>item(s)</span>
             </div>
           }

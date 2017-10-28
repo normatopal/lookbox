@@ -9,7 +9,7 @@ class Picture < ActiveRecord::Base
   has_many :looks, -> { uniq }, :through => :look_pictures
 
   cattr_accessor(:with_subcategories) { false }
-  attr_accessor :image_encoded, :rotation, :image_timestamp
+  attr_accessor :image_encoded, :rotation, :image_timestamp, :previous_id, :next_id
 
   validates :title, presence: true
   validates_length_of :title, :minimum => 5, :if => proc{|p| p.title.present?}
@@ -46,6 +46,13 @@ class Picture < ActiveRecord::Base
 
   def self.switch_subcategories_flag(search_params)
     self.with_subcategories = search_params.present? && search_params['include_subcategories'] == '1'
+  end
+
+  def find_previous_next_pictures(pictures_list)
+    current_index = pictures_list.index(id)
+    return unless current_index
+    self.previous_id = pictures_list[current_index - 1] if current_index > 0
+    self.next_id = pictures_list[current_index + 1] if current_index < pictures_list.size - 1
   end
 
   private

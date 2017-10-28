@@ -18,12 +18,13 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1
   def show
-    if stale?(last_modified: @picture.updated_at.utc, etag: @picture.cache_key)
+    @picture.find_previous_next_pictures(session[:picture_ids_list])
+    #if stale?(last_modified: @picture.updated_at.utc, etag: @picture.cache_key)
       respond_to do |format|
         format.html
         format.js
       end
-    end
+    #end
   end
 
   # GET /pictures/new
@@ -100,6 +101,7 @@ class PicturesController < ApplicationController
         current_pictures ||= @search.result
         #@pictures = Rails.cache.fetch('pictures/' + current_pictures.map(&:id).join(',')) do
         @pictures = paginate_pictures(current_pictures, (@look_id || @category_id) ? 5 : @kaminari_per_page)
+        session[:picture_ids_list] = current_pictures.map(&:id)
         #end
       end
       puts time
