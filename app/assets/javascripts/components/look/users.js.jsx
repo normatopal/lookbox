@@ -34,9 +34,9 @@ LookUsers = React.createClass({
   },
   render: function() {
     return(
-        <div>
+        <div className="shared-users-container">
           <UserField potential_users = {this.state.potential_users} addSharedUser = {this.addSharedUser}/>
-          <div id='shared-users-list'>
+          <div id='shared-users-list' className="shared-users-list">
             { this.state.shared_users.map(function(el, index){ return <UserItem key={el.id} ref={`user-item-${el.user.id}`} index = {index} user_look_id = {el.id} user = {el.user} removeSharedUser = {this.removeSharedUser}/>}.bind(this)) }
           </div>
         </div>

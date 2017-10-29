@@ -7,59 +7,114 @@
   margin-top: 20px
   position: relative
 
-.look-picture-block
-  float: left
-  //width: 200px
-  //height: 200px
-  cursor: move
-  position: absolute
-  &:hover
-    .picture-action
-      display: block
-      cursor: pointer
-      right: auto
-      left: 0
-      opacity: 1 // for react
+.look
+  &-picture-block
+    float: left
+    //width: 200px
+    //height: 200px
+    cursor: move
+    position: absolute
+    &:hover
+      .picture-action
+        display: block
+        cursor: pointer
+        right: auto
+        left: 0
+        opacity: 1 // for react
 
-.look-info
-  float: left
+  &-info
+    float: left
 
-.look-block
-  //width: 250px
-  //height: 250px
-  cursor: pointer
-  border: 1px solid #8BC34A
-  margin-right: 10px
-  overflow: hidden
-  box-shadow: none
+  &-block
+    //width: 250px
+    //height: 250px
+    cursor: pointer
+    border: 1px solid #8BC34A
+    margin-right: 10px
+    overflow: hidden
+    box-shadow: none
 
-.look-name
-  clear: right
-  width: auto
-  max-width: 150px
+  &-name
+    clear: right
+    width: auto
+    max-width: 150px
+
+  &-toggler
+    .form-group
+      margin-right: 6px
+
+    .control-label
+      margin-right: 3px
+      margin-top: 4px
+
+    .form-group,
+    .control-label
+      vertical-align: top
+
+    .btn
+      width: auto
+
+      &-add-new
+        margin-top: 0
+
+    .row + .row
+      margin-top: 15px
+
+    .shared-users
+      &-container
+        display: flex
+
+      &-list
+        margin-left: 5px
+        max-height: 67px
+        overflow: auto
+        background-color: #e7f4da
+
+  &-user-item
+    cursor: pointer
+
+    a:after
+      content: "×"
+      display: none
+      margin-left: 5px
+      font-weight: bold
+      font-size: 15px
+      line-height: 1
+      color: #a94442
+
+    &:hover
+      a
+        color: #a94442
+        text-decoration: none
+
+        &:after
+          display: inline-block
+
+  &-pictures-action
+    cursor: pointer
+    position: absolute
 
 #shared-users-list
   float: left
 
 .text-input-wrapper
-  border: 1px solid grey
-  padding: 1px 6px 1px 6px
   display: inline-block
   float: left
 
-.text-input-wrapper input
-  border: none
-  background: none
-  outline: none
-  padding: 0 0
-  margin: 0 0
-  font: inherit
+  input
+    border: none
+    background: none
+    outline: none
+    padding: 0 0
+    margin: 0 0
+    font: inherit
 
-.text-input-wrapper span
-  cursor: pointer
-  color: blue
-  font-weight: bold
-  visibility: hidden
+  span
+    cursor: pointer
+    color: blue
+    font-weight: bold
+    visibility: hidden
+    margin-left: -12px
 
 .ui-helper-hidden-accessible
   display: none
@@ -67,19 +122,9 @@
 .shared-looks-actions
   float: left
 
-.look-toggler .form-group
-  float: left
-
 .image-space
   width: auto
   height: 200px
-
-.look-user-item
-  cursor: pointer
-
-.look-pictures-action
-  cursor: pointer
-  position: absolute
 
 .undo-picture-removing
   left: 20px
@@ -89,11 +134,14 @@
   border: 1px solid #ccc
   background-color: #fff
   position: absolute
-  top: 24px
+  top: 30px
   left: 0
   padding: 5px 10px
   z-index: 999999
-  width: 199px
+  width: 191px
 
 .potential-users-list
   position: relative
+
+  #user-autocomplete
+    @extend .form-control
