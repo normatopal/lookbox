@@ -37,6 +37,7 @@ gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bootstrap-datepicker-rails'
 gem 'jasny-bootstrap-rails' # rotate image before download
+gem 'autoprefixer-rails', '~> 7.1', '>= 7.1.6'
 
 gem 'jquery-ui-rails'
 gem 'bootbox-rails'
