@@ -36,7 +36,7 @@
     .row
       .col-sm-6
         = f.submit 'Save', id: "look-save-btn", class: "btn btn-primary"
-        = link_to 'Make screenshot', "#", class: "btn btn-primary", id: "look-screenshot", title: "Load screen to your locally"
+        = link_to 'Make screenshot', "#", class: "btn btn-default", id: "look-screenshot", title: "Load screen to your locally"
       .col-sm-6
         = link_to pictures_path(look_id: @look.id || 0), class: "btn btn-add-new", remote: true do
           %i.glyphicon.glyphicon-plus

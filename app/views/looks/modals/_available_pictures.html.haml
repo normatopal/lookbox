@@ -11,7 +11,7 @@
           = hidden_field_tag :look_id, @look_id || 0
           = render "pictures/search_filters", f: f
 
-      = form_tag add_pictures_look_path(@look_id || 0), remote: true, format: :js, authenticity_token: true, method: :post do
+      = form_tag add_pictures_look_path(@look_id || 0), remote: true, format: :js, authenticity_token: true, method: :post, class: "available-pictures-list clearfix" do
         - @available_pictures.each do |picture|
           - next unless picture.id
           .add-picture.picture-block{id: "picture-block-#{picture.id}"}
@@ -27,5 +27,4 @@
 
         = submit_tag "Add to look", class: "btn btn-primary btn-add-picture", disabled: true
 
-    .modal-footer
       = paginate @available_pictures, remote: true
