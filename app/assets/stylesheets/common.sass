@@ -6,3 +6,22 @@
 
 .form-inline input.form-control
   width: auto !important
+
+.nav-tabs
+  > li.active > span
+    display: block
+    position: relative
+    color: #555
+    line-height: 1.42857143
+    background-color: #f1f8e9
+    border: 1px solid #ddd
+    border-bottom-color: transparent
+    border-radius: 4px 4px 0 0
+    margin-right: 2px
+    padding: 10px 15px
+    cursor: default
+
+  > li > a:hover
+    $_bg_color: darken(#f1f8e9, 10%)
+    border-color: $_bg_color $_bg_color #ddd
+    background-color: $_bg_color
