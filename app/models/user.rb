@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     result
   end
 
+  def potential_shared_users
+    User.where.not(id: self.id).to_json(only: [:id, :email])
+  end
+
   def self.from_omniauth(auth)
     user = self.find_by_email(auth.info.email)
     if user

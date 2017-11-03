@@ -16,17 +16,6 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
 )
 
 ready = ->
-  $('.edit_category .image-block').click ->
-    chbox = $(this).parent().find('.mark-picture-chbox')
-    image_opacity = 1
-    is_checked = chbox.is(':checked')
-    if is_checked
-      image_opacity = 0.5
-      #$(this).find('.picture-action .glyphicon').removeClass('glyphicon-remove').addClass('glyphicon-ok')
-    $(this).css({ opacity: image_opacity })
-    chbox.prop('checked', !is_checked)
-    return
-
   $('.show-picture-image').elevateZoom({
     zoomType: "inner",
     cursor: "crosshair"

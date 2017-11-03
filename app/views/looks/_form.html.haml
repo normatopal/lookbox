@@ -14,7 +14,7 @@
 
         .form-group
           = f.label "Shared with", class: "control-label"
-          = react_component 'LookUsers', {potential_users: "#{ User.all.to_json(only: [:id, :email]) }", shared_users: "#{ @look.user_looks.to_json(only: :id, include: {user: { only: [:id, :email]} })}"}, class: "inline-block"
+          = react_component 'LookUsers', {potential_users: "#{ current_user.potential_shared_users }", shared_users: "#{ @look.user_looks.to_json(only: :id, include: {user: { only: [:id, :email]} })}"}, class: "inline-block"
           -#.text-input-wrapper
             = f.autocomplete_field :user_email, autocomplete_user_email_looks_path, :data => { :no_matches_label => '' }, :"data-autocomplete-label" => "nothing found.", id: "user-email-autocomplete", :fields => {:shared_users => '#shared_users'}
             %span.clear-input-btn{title: "Clear"}

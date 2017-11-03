@@ -64,6 +64,7 @@ var Draggable = React.createClass({
   },
   onMouseMove: function (e) {
     if (!this.state.dragging) return
+    if (e.target.width == undefined) return
     this.setState({
       position: {
         left: e.pageX - this.state.rel.x,

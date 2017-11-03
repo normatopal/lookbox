@@ -133,9 +133,9 @@ LookPictureItem =  React.createClass({
           }
           {!this.state.show_item && this.props.pictures_for_remove_count > 0 &&
             <div className="look-pictures-action undo-picture-removing">
-                 <span className="glyphicon glyphicon-picture" title="Undo removing"
+                 <span className="glyphicon glyphicon-trash" title="Restore picture"
                        style={{zIndex: this.state.position_params['order'] }} onClick={this.undoPictureRemove}></span>
-                 <span title=" to restore" style={{backgroundColor: 'white'}}><b>{this.props.pictures_for_remove_count}</b>item(s)</span>
+                 <span title="picture(s) to restore" style={{backgroundColor: 'white'}}><b>{this.props.pictures_for_remove_count}</b></span>
             </div>
           }
           { this.setHiddenFields() }

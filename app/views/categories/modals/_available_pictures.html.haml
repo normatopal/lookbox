@@ -3,7 +3,8 @@
     .modal-header
       %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button'}
         %span{'aria-hidden' => 'true'} ×
-      %h4.modal-title#modal-label= @category_id
+      %h4.modal-title#modal-label
+        Add pictures
     .modal-body
       .filters
         = search_form_for @search, remote: true, authenticity_token: true, html: { multipart: true, class: "form-inline" } do |f|
@@ -25,13 +26,6 @@
             .tick-mark-green
             .picture-title
               = picture.title
-                      
-          -#.picture-block.add-picture
-          -#  = check_box_tag :picture_ids, picture.id, false, name: 'category[picture_ids][]', class: "mark-picture-chbox"
-          -#  .image-block
-          -#    = image_tag picture.image.thumb, class: "image-space", 'data-toggle': "tooltip", title: "Click to select/diselect"
-          -#  .picture-action
-          -#    .tick-mark-green
 
         = submit_tag "Add to category", class: "btn btn-primary"
 

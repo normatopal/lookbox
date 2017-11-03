@@ -83,24 +83,22 @@ UserField = React.createClass({
     return {filtered_users: [], current_user: '', potential_users: this.props.potential_users, show_filtered: false}
   },
   filterUsers: function(e) {
-    var filtered_users = [];
-    var part_name = e.target.value;
+    [ filtered_users, part_name ] = [ [], e.target.value ];
+    this.setState({current_user: part_name})
     if (part_name.length > 1) {
       filtered_users = this.state.potential_users.filter(function (user) {
         if (user.email.indexOf(part_name) > -1) return user;
       });
       this.setState({show_filtered: true, filtered_users: filtered_users});
-    }
-    this.setState({current_user: part_name})
+    } else this.setState({show_filtered: false})
   },
   fillUserField: function(e){
     //this.setState({current_user: e.currentTarget.textContent});
-    this.setState({current_user: ''});
-    this.setState({filtered_users: []});
+    this.setState({current_user: '', filtered_users: [], show_filtered: false});
     this.props.addSharedUser(e)
   },
   clearUserField: function(e){
-    this.setState({current_user: ''})
+    this.setState({current_user: '', show_filtered: false})
   },
   componentWillMount: function() {
     // add event listener for clicks
@@ -116,7 +114,6 @@ UserField = React.createClass({
     }
   },
   render: function(){
-    var fillUserField = this.fillUserField
     return(
         <div className='potential-users-list'>
           <div className="text-input-wrapper" >
@@ -126,8 +123,8 @@ UserField = React.createClass({
           {this.state.show_filtered &&
             <div className='filtered-users-list'>
               { this.state.filtered_users.map(function (user) {
-                return (<FilteredUser key={user.id} user={user} fillUserField={fillUserField}/>)
-              })}
+                return (<FilteredUser key={user.id} user={user} fillUserField={this.fillUserField}/>)
+              }.bind(this))}
               {!this.state.filtered_users.length && <span>No results</span>}
             </div>
           }
@@ -146,7 +143,7 @@ UserField.defaultProps = {
 FilteredUser = React.createClass({
   render: function() {
     return (
-          <div className='look-user-item'><a onClick={this.props.fillUserField} data-user-id={this.props.user.id} title='Share'>{this.props.user.email}</a></div>
+        <div className=''><a onClick={this.props.fillUserField} data-user-id={this.props.user.id} title='Share'>{this.props.user.email}</a></div>
     )
   }
 })

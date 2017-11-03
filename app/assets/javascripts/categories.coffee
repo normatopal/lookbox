@@ -10,4 +10,18 @@ $(document).on('click', '.add-picture', ->
     $('.btn-add-picture').attr('disabled', false)
   chbox.prop('checked', !is_checked)
   return
-)
+).on('click', '.select-diselect-picture', ->
+    picture = $(this).parents('.picture-block')
+    chbox = picture.find('.mark-picture-chbox')
+    is_checked = chbox.is(':checked')
+    image_opacity = if is_checked then 0.5 else 1
+    if is_checked
+      $(this).find('.remove-picture').hide()
+      $(this).find('.refresh-picture').show()
+    else
+      $(this).find('.remove-picture').show()
+      $(this).find('.refresh-picture').hide()
+    picture.css({ opacity: image_opacity })
+    chbox.prop('checked', !is_checked)
+    return
+  )
