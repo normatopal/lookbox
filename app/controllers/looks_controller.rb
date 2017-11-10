@@ -97,7 +97,7 @@ class LooksController < ApplicationController
   end
 
   def look_params
-    params.require(:look).permit(:name, :description, picture_ids: [], look_pictures_attributes: [:position_top, :position_left, :position_order, :picture_id, :id, :_destroy],
+    params.require(:look).permit(:name, :description, picture_ids: [], look_pictures_attributes: [:top, :left, :width, :height, :order, :picture_id, :id, :_destroy],
             screen_attributes: [:id, :title, :user_id, :image_encoded], user_looks_attributes: [:id, :user_id, :_destroy])
   end
 

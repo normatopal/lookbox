@@ -10,17 +10,17 @@ class CreateLocales < ActiveRecord::Migration
     add_index :locales, :locale
     add_index :locales, :name
 
-    locales = [
-            {locale: 'en', name: 'English'},
-            {locale: 'de', name: 'Deutsch'},
-            {locale: 'ru', name: 'Русский'},
-            {locale: 'ua', name: 'Українська'},
-            {locale: 'es', name: 'Español'}
-    ]
-
-    locales.each do |locale|
-      execute "insert into locales( locale, name, created_at, updated_at) values( '#{locale[:locale]}', '#{locale[:name]}', NOW(), NOW())"
-    end
+    # locales = [
+    #         {locale: 'en', name: 'English'},
+    #         {locale: 'de', name: 'Deutsch'},
+    #         {locale: 'ru', name: 'Русский'},
+    #         {locale: 'ua', name: 'Українська'},
+    #         {locale: 'es', name: 'Español'}
+    # ]
+    #
+    # locales.each do |locale|
+    #   execute "insert into locales( locale, name, created_at, updated_at) values( '#{locale[:locale]}', '#{locale[:name]}', NOW(), NOW())"
+    # end
   end
 
   def down

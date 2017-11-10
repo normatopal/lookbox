@@ -21,6 +21,8 @@ class Look < ActiveRecord::Base
 
   attr_accessor :user_email, :shared_users_ids
 
+  POSITION_PARAMS = [:top, :left, :width, :height]
+
   def decode_screen_image(encoded_file = nil)
     return unless encoded_file.present?
     decoded_file = Base64.decode64(encoded_file['data:image/png;base64,'.length .. -1])
@@ -36,7 +38,12 @@ class Look < ActiveRecord::Base
 
   def set_position_params
     look_pictures.sort_by(&:position_order_for_sort).each_with_index do |lp, index|
-      lp.position_params.merge!({top: lp.position_top, left: lp.position_left, order: index + 1})
+      params = POSITION_PARAMS.map do |n|
+        position_value = lp.send(n.to_sym)
+        next if position_value.nil?
+        [n.to_sym, position_value.to_i]
+      end
+      lp.position_params.merge!(params.to_h.merge({order: index + 1}))
     end
   end
 

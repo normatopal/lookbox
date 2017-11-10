@@ -11,7 +11,7 @@ LookPictures = React.createClass({
       pictures_for_remove_count: 0
     }
   },
-  findPictureById: function(look_pictures, picture_id, field_name){
+  findPictureById: function(look_pictures, picture_id){
     return look_pictures.find((lp) => { if (lp.picture_id == picture_id) return lp })
   },
   changePositionParams: function(picture_id, position_params){
@@ -70,7 +70,7 @@ LookPictureItem =  React.createClass({
   getInitialState: function () {
     return {
       show_item: true,
-      position_params:  Object.assign({}, {left: '0', top: '0', order: '0'}, this.props.position_params),
+      position_params:  Object.assign({}, {left: '0', top: '0', order: '0', height: 200, width: 'auto'}, this.props.position_params),
       hidden_fields: { 'id': this.props.lp_id, 'picture_id': this.props.picture.id, '_destroy': false }
     }
   },
@@ -78,16 +78,15 @@ LookPictureItem =  React.createClass({
     if (this.props.lp_id =='') this.increaseZindex()
   },
   setHiddenFields: function(){
-    //var fields = {'id': this.props.lp_id, 'picture_id': this.props.picture.id, '_destroy': !this.state.show_item, 'order': 0, 'left' : 0, 'top': 0}
     return(
         <div id={`look-picture-${this.props.picture.id}-position-${this.props.index}`}>
           { Object.keys(this.state.hidden_fields).concat(Object.keys(this.state.position_params)).map((field_name) => {
-            let name_prefix = (field_name in this.state.position_params) ? 'position_' : ''
+            //let name_prefix = (field_name in this.state.position_params) ? 'position_' : ''
             return <input type="hidden"
                           key={`lp_hidden_${ this.props.index}_${field_name}`}
                           value={field_name == '_destroy' ? !this.state.show_item : (this.state.position_params[field_name] || this.state.hidden_fields[field_name])}
-                          name={`look[look_pictures_attributes][${this.props.index}][${name_prefix}${field_name}]`}
-                          id={`look_look_pictures_attributes_${this.props.index}_${name_prefix}${field_name}`} /> }) }
+                          name={`look[look_pictures_attributes][${this.props.index}][${field_name}]`}
+                          id={`look_look_pictures_attributes_${this.props.index}_${field_name}`} /> }) }
         </div>
     )
   },
@@ -95,8 +94,10 @@ LookPictureItem =  React.createClass({
     this.setState({ position_params: {...this.state.position_params, ...position } })
     this.props.changePositionParams(this.props.picture.id, position)
   },
-  increaseZindex: function(){
-    this.setState({ position_params: {...this.state.position_params, ['order']: this.props.changeMaxPositionOrder() } })
+  increaseZindex: function(e){
+    new_zindex = this.props.changeMaxPositionOrder()
+    this.setState({ position_params: {...this.state.position_params, ['order']:  new_zindex} })
+    $(ReactDOM.findDOMNode(this)).find('.ui-wrapper').css('z-index', new_zindex) // hack for resizable
   },
   removePicture: function(e){
     e.stopPropagation()
@@ -116,15 +117,46 @@ LookPictureItem =  React.createClass({
     this.setState({show_item: true})
     this.props.changePicturesForRemoveCount(-1)
   },
+  componentDidMount(){
+    resizeable_options = {
+      handles: 's, e',
+      minHeight: 30,
+      minWidth: 30,
+      maxWidth: 500,
+      maxHeight: 500,
+      aspectRatio: true, // resize image proportionally
+      stop: (event, ui) => {
+        this.changePositionParams({width: ui.size.width.toFixed(), height: ui.size.height.toFixed()})
+      }
+    }
+    $(ReactDOM.findDOMNode(this)).find('.resizable').resizable(resizeable_options)
+  },
+  handleSize(image){
+    if (this.state.position_params.width == 'auto' && image != null) {
+      image.onload = function(e) {
+        [ width, height ] = [ e.currentTarget.naturalWidth, e.currentTarget.naturalHeight ]
+        if ( height > this.state.position_params.height) {
+          width = Math.round(parseInt(this.state.position_params.height) * width / height)
+          height = this.state.position_params.height
+        }
+        this.setState({position_params: {...this.state.position_params, ['width']: width, ['height']: height}})
+        wrapper = $(ReactDOM.findDOMNode(this)).find('.ui-wrapper')
+        wrapper.css('width', width);  wrapper.css('height', height) // hack for resizable
+      }.bind(this);
+    }
+  },
   render: function(){
     return(
         <div className = 'look-picture-block'>
           { this.state.show_item &&
-          <Draggable position={this.props.position_params} canvas_id="look-canvas"
+          <Draggable position={this.props.position_params} canvas_id = { ConstantsList.LookCanvasID }
                      changePositionParams={ this.changePositionParams } increaseZindex={ this.increaseZindex }>
-            <img className="" src={`${this.props.picture.image.url}`} title=''
-                 style={{ position: 'relative', width: 'auto', height: '200px',
-                 zIndex: this.state.position_params['order'] }} onClick={this.increaseZindex}/>
+              <img className="resizable" src={this.props.picture.image.url} title=''
+                   style={{ width: this.state.position_params.width + 'px', height: this.state.position_params.height + 'px',
+                   zIndex: this.state.position_params['order'] }}
+                   onClick={this.increaseZindex}
+                   ref = {image => { this.handleSize(image) } }
+              />
             <div className="picture-action">
                <span className="glyphicon glyphicon-duplicate" title="Make a copy" style={{zIndex: this.state.position_params['order'] }} onClick={this.duplicatePicture}></span>
                <span className="glyphicon glyphicon-trash" title="Move to trash" style={{zIndex: this.state.position_params['order'] }} onClick={this.removePicture}></span>

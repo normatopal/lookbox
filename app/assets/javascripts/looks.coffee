@@ -68,7 +68,7 @@ ready = ->
     change_zindex = (e) ->
       max_zindex += 1
       e.css('z-index', max_zindex)
-      $('#' + e.attr('id') + '-position').find($("input[id$='position_order']")).get(0).value = max_zindex
+      $('#' + e.attr('id') + '-position').find($("input[id$='order']")).get(0).value = max_zindex
       return
 
     encode_image_url = (fn) ->

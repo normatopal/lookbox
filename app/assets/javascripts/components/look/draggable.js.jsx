@@ -64,6 +64,7 @@ var Draggable = React.createClass({
   },
   onMouseMove: function (e) {
     if (!this.state.dragging) return
+    //if (window.getComputedStyle(ReactDOM.findDOMNode(this)).cursor != 'move') return
     if (e.target.width == undefined) return
     this.setState({
       position: {

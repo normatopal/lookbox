@@ -4,7 +4,7 @@ class LookPicture < ActiveRecord::Base
 
   validates_uniqueness_of :look_id, :scope => :picture_id
 
-  attr_accessor :position_top, :position_left, :position_order
+  attr_accessor :top, :left, :order, :width, :height
   serialize :position_params, Hash
 
   def order_number
@@ -12,7 +12,7 @@ class LookPicture < ActiveRecord::Base
   end
 
   def position_order_for_sort
-    position_order.to_i
+    order.to_i
   end
 
 end
