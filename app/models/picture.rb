@@ -19,10 +19,10 @@ class Picture < ActiveRecord::Base
 
   # a bit odd, but of many-to-many category and picture
   scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) }
-  scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
+  #scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
 
-  scope :category_search, -> (category_id) do
-    category_id = nil unless category_id.to_i > 0
+  scope :category_search, -> (category_id = nil) do
+    #category_id = nil unless category_id.to_i > 0
     ids = Category.find(category_id).self_and_descendants.ids if self.with_subcategories && category_id
     ids ||= category_id
     includes(:categories).where( categories: { id: ids })

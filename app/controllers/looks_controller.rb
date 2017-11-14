@@ -9,6 +9,8 @@ class LooksController < ApplicationController
 
   autocomplete :user, :email, :extra_data => [:id]
 
+  include SearchFilter
+
   def get_autocomplete_items(parameters)
     #items = super(parameters) #rails4-autocomplete
     #items = active_record_get_autocomplete_items(parameters) #rails-jquery-autocomplete
@@ -16,7 +18,7 @@ class LooksController < ApplicationController
   end
 
   def index
-    search_looks(current_user.looks)
+    @search, @looks = filtered_looks(current_user.looks, params)
   end
 
   def shared
@@ -35,6 +37,7 @@ class LooksController < ApplicationController
   end
 
   def new
+
   end
 
   def create
@@ -88,12 +91,7 @@ class LooksController < ApplicationController
   end
 
   def reset_look_pictures
-    cookies[:look_pictures_ids] = @look.pictures.ids.join(",")
-  end
-
-  def search_looks(looks_list)
-    @search = looks_list.search(params[:q])
-    @looks = Kaminari.paginate_array(LookDecorator.wrap(@search.result)).page(params[:page]).per(@kaminari_per_page)
+    cookies[:look_pictures_ids] = @look.pictures.ids.join(',')
   end
 
   def look_params

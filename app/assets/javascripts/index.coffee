@@ -59,3 +59,16 @@ $(document).on('keypress', '.lookbox-form', (e) ->
 ).on('focus', "[data-behaviour~='datepicker']", (e) ->
  $(this).datepicker(format: "dd-mm-yyyy", weekStart: 1, autoclose: true, container: '.datepicker-container')
 )
+
+#window.onpopstate = (e) ->
+#  $('.modal.in').hide()
+#  $('.modal-backdrop').hide()
+#  debugger
+#  return
+#
+
+document.addEventListener "turbolinks:before-cache", ->
+  $('.modal.in').hide()
+  $('.modal-backdrop').hide()
+  return
+

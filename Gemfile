@@ -45,6 +45,7 @@ gem 'rails-jquery-autocomplete'
 gem 'select2-rails'
 gem 'elevatezoom-rails'
 gem 'jquery-tmpl-rails'
+gem 'jquery-turbolinks'
 
 gem 'devise'
 gem 'kaminari'

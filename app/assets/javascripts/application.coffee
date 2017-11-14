@@ -14,6 +14,7 @@
 #= require jquery-ui
 #= require jquery_ujs
 #= require jquery-tmpl
+#= require jquery.turbolinks
 #= require turbolinks
 
 #= require bootstrap-sprockets
