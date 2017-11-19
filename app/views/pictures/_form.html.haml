@@ -49,7 +49,8 @@
         .col-sm-offset-2.col-sm-10
           .actions
             - if @picture.persisted? && is_remote
-              = link_to @picture, remote: is_remote, class: "btn" do
+              -#= link_to @picture, remote: is_remote, class: "btn" do
+              = link_to "#", data: {toggle: "modal", target: "#picture-modal-#{@picture.id}"}, class: "btn-back-pictures" do
                 %span.glyphicon.glyphicon-chevron-left
                 = t("modal_forms.back_to_show")
             = f.submit t("modal_forms.save"), class: 'btn btn-primary', data: { "disable_with" => "Saving..." }

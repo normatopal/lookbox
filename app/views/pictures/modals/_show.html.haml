@@ -10,14 +10,14 @@
       .row
         .col-sm-6
           - if picture.previous_id.present?
-            = link_to picture_path({id: picture.previous_id}), class: "btn btn-sm btn-primary btn-left", remote: true do
+            = link_to "#", data: {toggle: "modal", target: "#picture-modal-#{picture.previous_id}", 'picture-id': "#{picture.id}"}, class: "btn btn-sm btn-primary btn-left" do
               %span.glyphicon.glyphicon-triangle-left
         .col-sm-6
           - if picture.next_id.present?
-            = link_to picture_path({id: picture.next_id}), class: "btn btn-sm btn-primary btn-right", remote: true do
+            = link_to "#", data: {toggle: "modal", target: "#picture-modal-#{picture.next_id}", 'picture-id': "#{picture.id}" }, class: "btn btn-sm btn-primary btn-right" do
               %span.glyphicon.glyphicon-triangle-right
       .row
-        = image_tag picture.preview_image_large, { class: "show-picture-image"}
+        = image_tag picture.preview_image_large, { class: "show-picture-image", "data-zoom-image": "#{picture.image.url}"}
     .modal-footer
       = link_to edit_picture_path(picture), class: "btn btn-sm btn-primary", remote: true do
         %span.glyphicon.glyphicon-pencil

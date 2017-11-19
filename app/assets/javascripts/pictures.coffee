@@ -13,12 +13,17 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
 ).on('change.bs.fileinput', '.fileinput', ->
   if $('#picture_title').val() == ''
     $('#picture_title').val($('input[type=file]').val().split('\\').pop().split('.').shift().replace(/_/g, ' '))
+).on('click', '.picture-show .btn-left, .picture-show .btn-right, .btn-back-pictures', (e)->
+  $('#picture-modal-' + $(this).attr('data-picture-id')).modal('hide')
+  $('#modal-form').modal('hide')
+  return true
 )
 
 ready = ->
   $('.show-picture-image').elevateZoom({
-    zoomType: "inner",
-    cursor: "crosshair"
+      zoomType				: "lens",
+      lensShape : "round",
+      lensSize    : 150
   })
 
   return

@@ -7,11 +7,11 @@ module SearchFilter
   def filtered_pictures(pictures, params)
     search_params = params[:q].try(:clone)
     Picture.switch_subcategories_flag(search_params)
-    search_params['category_search'].sub!(/\b(1)\b/,'1.0') if search_params
+    search_params.try('category_search').try(:sub!, /\b(1)\b/,'1.0')
     search = pictures.search(search_params)
     pictures = paginate(*available_pictures(search, params))
     session[:picture_ids_list] = pictures.map(&:id) # for modal views navigation
-    search_params['category_search'].sub!(/\b(1.0)\b/,'1') if search_params
+    search_params.try('category_search').try(:sub!, /\b(1.0)\b/,'1')
     [search, pictures]
   end
 

@@ -28,7 +28,7 @@ ready = ->
 
     #message = "Are you sure about removing? "
     answer = false
-    success_label = if element.data("confirm-success-label") != undefined then element.data("confirm-success-label") else "Delete"
+    success_label = if element.data("confirm-success-label") != undefined then element.data("confirm-success-label") else "OK"
     callback = undefined
 
     if $.rails.fire(element, "confirm")
@@ -59,13 +59,6 @@ $(document).on('keypress', '.lookbox-form', (e) ->
 ).on('focus', "[data-behaviour~='datepicker']", (e) ->
  $(this).datepicker(format: "dd-mm-yyyy", weekStart: 1, autoclose: true, container: '.datepicker-container')
 )
-
-#window.onpopstate = (e) ->
-#  $('.modal.in').hide()
-#  $('.modal-backdrop').hide()
-#  debugger
-#  return
-#
 
 document.addEventListener "turbolinks:before-cache", ->
   $('.modal.in').hide()

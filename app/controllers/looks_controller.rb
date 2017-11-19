@@ -22,17 +22,25 @@ class LooksController < ApplicationController
   end
 
   def shared
-    search_looks(current_user.shared_looks.with_approved(current_user.id))
+    @search, @looks = filtered_looks(current_user.shared_looks.with_approved(current_user.id), params)
     render "index", locals: {is_shared_looks: true}
   end
 
   def approve_shared
-    user_look = UserLook.find_by(user: current_user, look: 8)
-    if user_look
-      user_look.update(is_approved: true)
+    user_look = UserLook.find_user_look(current_user.id, params[:id])
+    if user_look && user_look.update(is_approved: true)
       redirect_to shared_looks_path, notice: 'Shared look was successfully approved.'
     else
       redirect_to shared_looks_path, notice: 'You can\'t approve this sharing.'
+    end
+  end
+
+  def remove_shared
+    user_look = UserLook.find_user_look(current_user.id, params[:id])
+    if user_look.delete
+      redirect_to shared_looks_path, notice: 'Shared look was declined. It\'s owner was notified'
+    else
+      redirect_to shared_looks_path, notice: 'You can\'t decline this sharing.'
     end
   end
 

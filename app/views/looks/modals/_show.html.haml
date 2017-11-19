@@ -10,7 +10,7 @@
         .look-screen
           = image_tag look.screen.image.url, { class: "show-picture-image"}
     .modal-footer
-      - if look.screen.image.present?
+      - if look.screen.present?
         = link_to look.screen.image.url, download: look.screen.title, class: "btn btn-sm btn-primary btn-left", title: 'Download'  do
           %span.glyphicon.glyphicon-download-alt
           Download

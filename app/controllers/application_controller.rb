@@ -40,7 +40,6 @@ class ApplicationController < ActionController::Base
 
   def store_location
     return unless request.get?
-    #sign_in_urls = ["/users/sign_in", "/users/sign_up", "/users/sign_out", "omniauth/google", "/users/auth/google/callback"]
     controllers = %w(home sessions passwords omniauth_callbacks)
     if (controllers.none? {|name| controller_name.include? name } && !request.xhr?)
       session[:previous_url] = request.fullpath
