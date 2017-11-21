@@ -42,6 +42,10 @@
             - if @picture.image.present?
               = image_tag @picture.preview_image, class: "image-space"
 
+  -#.form-group
+  -#  .row
+  -#    = f.cropbox :image
+  -#    = f.previewbox :image
 
   %div{class: "#{is_remote ? 'modal-footer':''}"}
     .form-group

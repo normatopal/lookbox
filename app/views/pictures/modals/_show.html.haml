@@ -8,14 +8,14 @@
       .modal-description= picture.description
     .modal-body.picture-show{id: "show-image-block-#{picture.id}", picture_id: picture.id}
       .row
-        .col-sm-6
+        .col-sm-4
           - if picture.previous_id.present?
-            = link_to "#", data: {toggle: "modal", target: "#picture-modal-#{picture.previous_id}", 'picture-id': "#{picture.id}"}, class: "btn btn-sm btn-primary btn-left" do
-              %span.glyphicon.glyphicon-triangle-left
-        .col-sm-6
+            = link_to '', "#", data: {toggle: "modal", target: "#picture-modal-#{picture.previous_id}", 'picture-id': "#{picture.id}"}, class: "btn-left", title: "Previous image"
+        .col-sm-4
+          = link_to '', "#", data: {'picture-id': "#{picture.id}"}, class: "btn-zoom-loupe", title: "Click to on/off loupe"
+        .col-sm-4
           - if picture.next_id.present?
-            = link_to "#", data: {toggle: "modal", target: "#picture-modal-#{picture.next_id}", 'picture-id': "#{picture.id}" }, class: "btn btn-sm btn-primary btn-right" do
-              %span.glyphicon.glyphicon-triangle-right
+            = link_to '', "#", data: {toggle: "modal", target: "#picture-modal-#{picture.next_id}", 'picture-id': "#{picture.id}" }, class: "btn-right", title: "Next image"
       .row
         = image_tag picture.preview_image_large, { class: "show-picture-image", "data-zoom-image": "#{picture.image.url}"}
     .modal-footer

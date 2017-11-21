@@ -3,7 +3,7 @@ if (block_image.attr('src').indexOf('?timestamp') > -1) {
   <% @picture.image_timestamp= DateTime.now.to_i %>
 }
 
-$("#modal-form").html("<%= escape_javascript (render(partial: 'pictures/modals/show', :locals => { picture: @picture } ).force_encoding("utf-8")) %>");
-$("#modal-form").modal('show');
+$("#picture-modal-form").html("<%= escape_javascript (render(partial: 'pictures/modals/show', :locals => { picture: @picture } ).force_encoding("utf-8")) %>");
+$("#picture-modal-form").modal('show');
 
 

@@ -1,5 +1,6 @@
 class Picture < ActiveRecord::Base
   mount_uploader :image, ImageUploader
+  crop_uploaded :image
   acts_as_paranoid
 
   belongs_to :user
@@ -10,6 +11,7 @@ class Picture < ActiveRecord::Base
 
   cattr_accessor(:with_subcategories) { false }
   attr_accessor :image_encoded, :rotation, :image_timestamp, :previous_id, :next_id
+  attr_accessor :image_crop_x, :image_crop_y, :image_crop_w, :image_crop_h
 
   validates :title, presence: true
   validates_length_of :title, :minimum => 5, :if => proc{|p| p.title.present?}

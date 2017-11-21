@@ -55,6 +55,8 @@ gem 'carrierwave', '~> 0.10.0'
 gem 'carrierwave-imageoptimizer'
 gem 'remotipart', '~> 1.2'
 gem 'mini_magick', '~> 4.3'
+gem 'carrierwave-crop'
+
 gem 'awesome_nested_set'
 gem 'the_sortable_tree', '~> 2.5.0'
 

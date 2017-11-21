@@ -45,6 +45,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   process optimize: [{ quality: 80 }]
+  process :crop
 
   def rotate_img
     manipulate! do |img|
@@ -62,6 +63,19 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   def has_rotation?(options)
     model.rotation.present?
+  end
+
+  def crop
+    if model.image_crop_x.present?
+      manipulate! do |img|
+        x = model.image_crop_x.to_i
+        y = model.image_crop_y.to_i
+        w = model.image_crop_w.to_i
+        h = model.image_crop_h.to_i
+        img.crop("#{w}x#{h}+#{x}+#{y}")
+        img
+      end
+    end
   end
 
   # version :look_large do

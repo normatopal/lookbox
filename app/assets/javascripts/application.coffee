@@ -14,6 +14,7 @@
 #= require jquery-ui
 #= require jquery_ujs
 #= require jquery-tmpl
+#= require jquery.jcrop
 #= require jquery.turbolinks
 #= require turbolinks
 
