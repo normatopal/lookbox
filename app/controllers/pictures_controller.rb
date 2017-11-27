@@ -41,7 +41,6 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
-
   end
 
   # POST /pictures

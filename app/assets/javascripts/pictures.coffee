@@ -2,22 +2,6 @@
 # All this logic will automatically be available in application.coffee.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-setZoomLoupe = (image) ->
-  image.elevateZoom({
-    zoomType: "lens",
-    containLensZoom: true,
-    lensShape: "round", #rectangle
-    lensSize: 150
-  })
-  $('.btn-zoom-loupe').addClass('disable')
-  return
-
-removeZoomLoupe = () ->
-  $(".zoomContainer").remove()
-  $('.show-picture-image').removeData("elevateZoom")
-  $('.btn-zoom-loupe').removeClass('disable')
-  return
-
 ready = ->
 
   $("[id^='picture-modal']").on('shown.bs.modal', ->
@@ -45,22 +29,11 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
 ).on('change.bs.fileinput', '.fileinput', ->
   if $('#picture_title').val() == ''
     $('#picture_title').val($('input[type=file]').val().split('\\').pop().split('.').shift().replace(/_/g, ' '))
-).on('click', '.picture-show .btn-left, .picture-show .btn-right, .btn-back-pictures', (e)->
-  $('#picture-modal-' + $(this).attr('data-picture-id')).modal('hide')
-  $('#picture-modal-form').modal('hide')
-  return false
-).on('shown.bs.modal', '#picture-modal-form', ->
-  new CarrierWaveCropper()
-  return
-).on('click', '.btn-zoom-loupe', ->
-  if ($('.zoomContainer').length)
-    removeZoomLoupe()
-  else
-    image_element = $('#picture-modal-' + $(this).attr('data-picture-id')).find('.show-picture-image')
-    setZoomLoupe(image_element)
-  return false
 )
-
+.on('shown.bs.modal', '#picture-modal-form', ->
+  #new CarrierWaveCropper()
+  return
+)
 
 
 

@@ -31,7 +31,8 @@ module SearchFilter
       else
         [search.result, ITEMS_PER_PAGE]
     end
-    [wrapper(pictures, PictureDecorator), params[:page], per_page]
+    #[wrapper(pictures, PictureDecorator), params[:page], per_page]
+    [pictures, params[:page], per_page]
   end
 
 

@@ -18,7 +18,8 @@
     .row
       = f.label t("pictures.category"), class: "col-sm-2 control-label"
       .col-sm-10
-        = select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: 'select2-select'})
+        -#= select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: 'select2-select'})
+        = select(:picture, :category_ids, @picture.user.categories.collect { |cat| ["#{'-' * cat.level} #{cat.name}", cat.id] }, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: 'select2-select'})
 
   .form-group
     .row
@@ -54,9 +55,10 @@
           .actions
             - if @picture.persisted? && is_remote
               -#= link_to @picture, remote: is_remote, class: "btn" do
-              = link_to "#", data: {toggle: "modal", target: "#picture-modal-#{@picture.id}"}, class: "btn-back-pictures" do
-                %span.glyphicon.glyphicon-chevron-left
-                = t("modal_forms.back_to_show")
+              %span{data: {toggle: "modal", target: "#picture-modal-form"}}
+                = link_to "#", data: {toggle: "modal", target: "#picture-modal-show", picture: @picture}, class: "btn-back-pictures" do
+                  %span.glyphicon.glyphicon-chevron-left
+                  = t("modal_forms.back_to_show")
             = f.submit t("modal_forms.save"), class: 'btn btn-primary', data: { "disable_with" => "Saving..." }
 
 :javascript

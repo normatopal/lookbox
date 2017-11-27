@@ -1,4 +1,7 @@
 ready = ->
+  if (window.location.href.endsWith('#'))
+    history.pushState({}, null, window.location.href.slice(0,-1));
+
   $(".sortable_tree a:not('.edit, .delete')").attr('data-remote', true)
   $("div[id^='flash_']").fadeOut(5000);
 
