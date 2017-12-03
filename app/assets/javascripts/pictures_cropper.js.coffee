@@ -1,7 +1,4 @@
-jQuery ->
-  new CarrierWaveCropper()
-
-class CarrierWaveCropper
+class window.CarrierWaveCropper
   constructor: ->
     $('#picturedecorator_image_cropbox').Jcrop
       aspectRatio: 1
@@ -22,3 +19,5 @@ class CarrierWaveCropper
       height: Math.round(100/coords.h * $('#picturedecorator_image_cropbox').height()) + 'px'
       marginLeft: '-' + Math.round(100/coords.w * coords.x) + 'px'
       marginTop: '-' + Math.round(100/coords.h * coords.y) + 'px'
+
+

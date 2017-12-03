@@ -50,9 +50,9 @@ LookPictures = React.createClass({
         {this.state.pictures_for_remove_count > 0 &&
           <div className="look-pictures-action"><span className="glyphicon glyphicon-remove-circle" title="Clear trash" onClick={ this.clearTrash }></span></div>
         }
-        { this.state.look_pictures.map(function(el, index){
-          return <LookPictureItem key={`lp_${index}`} lp_id={el.id} index = {index}
-                                  picture = {el.picture} position_params = {el.position_params}
+        { this.state.look_pictures.map(function(lp, index){
+          return <LookPictureItem key={`lp_${index}`} lp_id={lp.id} index = {index}
+                                  picture = {lp.picture} position_params = {lp.position_params}
                                   pictures_for_remove_count = {this.state.pictures_for_remove_count}
                                   duplicatePicture = {this.duplicatePicture}
                                   changePositionParams = {this.changePositionParams}

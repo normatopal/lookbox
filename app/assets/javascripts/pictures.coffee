@@ -2,22 +2,6 @@
 # All this logic will automatically be available in application.coffee.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-ready = ->
-
-  $("[id^='picture-modal']").on('shown.bs.modal', ->
-    if ($(this).find('.btn-zoom-loupe.disable').length)
-      removeZoomLoupe()
-      setZoomLoupe($(this).find('.show-picture-image'))
-      return
-  ).on('hidden.bs.modal', ->
-    if (!$('.modal').hasClass('in') && $('.zoomContainer').length)
-      removeZoomLoupe()
-  )
-  return
-
-$(document).ready(ready)
-$(document).on('page:load', ready)
-
 $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .look-picture-block', -> $(this).find('.picture-action').show()
 ).on('mouseleave', '.pictures-list .picture-block, .pictures-list .look-picture-block', -> $(this).find('.picture-action').hide()
 ).on('click', '#rotate_image', ->
@@ -30,8 +14,8 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
   if $('#picture_title').val() == ''
     $('#picture_title').val($('input[type=file]').val().split('\\').pop().split('.').shift().replace(/_/g, ' '))
 )
-.on('shown.bs.modal', '#picture-modal-form', ->
-  #new CarrierWaveCropper()
+.on('click', '.image-crop', ->
+  new CarrierWaveCropper()
   return
 )
 

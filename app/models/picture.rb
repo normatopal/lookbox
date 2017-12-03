@@ -50,13 +50,6 @@ class Picture < ActiveRecord::Base
     self.with_subcategories = search_params.present? && search_params['include_subcategories'] == '1'
   end
 
-  def find_previous_next_pictures(pictures_list)
-    current_index = pictures_list.index(id)
-    return unless current_index
-    self.previous_id = pictures_list[current_index - 1] if current_index > 0
-    self.next_id = pictures_list[current_index + 1] if current_index < pictures_list.size - 1
-  end
-
   private
   def create_image_timetamp
     self.image_timestamp = DateTime.now.to_i

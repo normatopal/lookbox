@@ -1,9 +1,7 @@
 PictureModalShow = React.createClass({
   getInitialState(){
-    return{
-      picture: {...this.props.picture,
-        ['image']: Object.assign({}, {url: 'images/no_image_found_large.jpg'}, this.props.picture.image )
-      }
+    return {
+      picture: this.props.picture
     }
   },
   switchZoomLoupe(e){
@@ -29,7 +27,8 @@ PictureModalShow = React.createClass({
     this.props.changePictureModal(this.props.picture.next_index)
   },
   closeModalShow(){
-    $(".zoomContainer").remove()
+    if ($(".zoomContainer").remove().length > 0)
+      this.props.switchZoomLoupe()
   },
   componentDidUpdate(){
     this.setZoomLoupe()
@@ -53,7 +52,7 @@ PictureModalShow = React.createClass({
             <div className="modal-content">
               <div className="modal-header">
                 <button className="close" aria-label="Close" data-dismiss='modal' type="button">
-                  <span aria-hidden='true' onClick={this.closeModalShow()}>×</span>
+                  <span aria-hidden='true' onClick={this.closeModalShow}>×</span>
                 </button>
                 <h4 className="modal-title"><strong>{this.props.picture.title}</strong></h4>
                 <div className="modal-description">{this.props.picture.description}</div>

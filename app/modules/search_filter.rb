@@ -10,7 +10,6 @@ module SearchFilter
     search_params.try('category_search').try(:sub!, /\b(1)\b/,'1.0')
     search = pictures.search(search_params)
     pictures = paginate(*available_pictures(search, params))
-    session[:picture_ids_list] = pictures.map(&:id) # for modal views navigation
     search_params.try('category_search').try(:sub!, /\b(1.0)\b/,'1')
     [search, pictures]
   end

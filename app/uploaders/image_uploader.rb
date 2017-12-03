@@ -90,8 +90,9 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
+  def filename
   #   "something.jpg" if original_filename
-  # end
+    "image-#{DateTime.now.to_i.to_s}.jpg" if model.rotation.present?
+  end
 
 end

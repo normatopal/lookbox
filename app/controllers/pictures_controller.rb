@@ -8,7 +8,7 @@ class PicturesController < ApplicationController
 
   # GET /pictures
   def index
-    @search, @pictures = filtered_pictures(current_user.pictures, params)
+      @search, @pictures = filtered_pictures(current_user.pictures, params)
     respond_to do |format|
       format.html { flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id) }
       format.js do
@@ -21,7 +21,6 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1
   def show
-    @picture.find_previous_next_pictures(session[:picture_ids_list])
     #if stale?(last_modified: @picture.updated_at.utc, etag: @picture.cache_key)
       respond_to do |format|
         format.html
