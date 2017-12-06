@@ -1,55 +1,70 @@
 = form_for(@picture, remote: is_remote ||= false,authenticity_token: true, html: { multipart: true}) do |f|
 
-  = render 'shared/error_message', entity: @picture
+  %div{class: "#{is_remote ? 'modal-body' : '' }"}
 
-  .form-group
-    .row
-      = f.label :title, class: "col-sm-2 control-label"
-      .col-sm-10
-        = f.text_field :title, class: 'form-control'
+    .picture-form-block
 
-  .form-group
-    .row
-      = f.label :description, class: "col-sm-2 control-label"
-      .col-sm-10
-        = f.text_area :description, class: 'form-control'
+      = render 'shared/error_message', entity: @picture
 
-  .form-group
-    .row
-      = f.label t("pictures.category"), class: "col-sm-2 control-label"
-      .col-sm-10
-        -#= select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: 'select2-select'})
-        = select(:picture, :category_ids, @picture.user.categories.collect { |cat| ["#{'-' * cat.level} #{cat.name}", cat.id] }, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: 'select2-select'})
+      .form-group
+        .row
+          = f.label :title, class: "col-sm-2 control-label"
+          .col-sm-10
+            = f.text_field :title, class: 'form-control'
 
-  .form-group
-    .row
-      = f.label :image, class: "col-sm-2 control-label"
-      -#= f.file_field :image
-      %div{"data-provides": "fileinput", class: "fileinput fileinput-#{@picture.image.present? ? 'exists' : 'new'}"}
-        .col-sm-6
-          = link_to "#", id: "rotate_image", class: "btn btn-default fileinput-exists", title: 'Rotate' do
-            %i.glyphicon.glyphicon-repeat
-          = f.hidden_field :rotation, value: "0"
-          = link_to "#", class: "btn btn-default fileinput-exists", "data-dismiss": "fileinput", title: 'Delete' do
-            %i.glyphicon.glyphicon-remove
-          -#%span.btn.btn-default.btn-file
-          -#  %span.image-crop
-          -#    %i.glyphicon.glyphicon-scissors
-          %span.btn.btn-default.btn-file
-            %span.fileinput-new
-              %i.glyphicon.glyphicon-picture
-            %span.fileinput-exists
-              %i.glyphicon.glyphicon-picture
-            %input{type: "file", name: "picture[image]"}
-        .col-sm-6
-          .fileinput-preview.thumbnail{"data-trigger": "fileinput", style: "width: 150px; height: 150px;"}
-            - if @picture.image.present?
-              = image_tag @picture.preview_image, class: "image-space"
+      .form-group
+        .row
+          = f.label :description, class: "col-sm-2 control-label"
+          .col-sm-10
+            = f.text_area :description, class: 'form-control'
 
-  -#.form-group
-  -#  .row
-  -#    = f.cropbox :image
-  -#    = f.previewbox :image
+      .form-group
+        .row
+          = f.label t("pictures.category"), class: "col-sm-2 control-label"
+          .col-sm-10
+            = select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: 'select2-select'})
+
+      .form-group
+        .row
+          = f.label :image, class: "col-sm-2 control-label"
+          -#= f.file_field :image
+          %div{"data-provides": "fileinput", class: "fileinput fileinput-#{@picture.image.present? ? 'exists' : 'new'}"}
+            .col-sm-6
+              = link_to "#", id: "rotate_image", class: "btn btn-default fileinput-exists", title: 'Rotate' do
+                %i.glyphicon.glyphicon-repeat
+              = f.hidden_field :rotation, value: "0"
+              = link_to "#", class: "btn btn-default fileinput-exists", "data-dismiss": "fileinput", title: 'Delete' do
+                %i.glyphicon.glyphicon-remove
+              %span.btn.btn-default.btn-file
+                %span.image-crop
+                  %i.glyphicon.glyphicon-scissors
+              %span.btn.btn-default.btn-file
+                %span.fileinput-new
+                  %i.glyphicon.glyphicon-picture
+                %span.fileinput-exists
+                  %i.glyphicon.glyphicon-picture
+                %input{type: "file", name: "picture[image]"}
+            .col-sm-6
+              .fileinput-preview.thumbnail{"data-trigger": "fileinput"}
+                .picture-image-preview
+                  = image_tag @picture.preview_image, class: "image-space" if @picture.image.present?
+                .image-crop-previewbox
+                  = f.previewbox :image
+
+    .crop-image-block
+      .form-group
+        .row
+          .col-sm-4
+          .col-sm-4
+          .col-sm-4
+            %span.btn.btn-default.btn-file.image-crop.ok
+              %i.glyphicon.glyphicon-scissors
+              Crop
+            %span.btn.btn-default.btn-file.image-crop.cancel
+              Cancel
+      .form-group
+        .row
+          = f.cropbox :image
 
   %div{class: "#{is_remote ? 'modal-footer':''}"}
     .form-group
@@ -57,7 +72,6 @@
         .col-sm-offset-2.col-sm-10
           .actions
             - if @picture.persisted? && is_remote
-              -#= link_to @picture, remote: is_remote, class: "btn" do
               %span{data: {toggle: "modal", target: "#picture-modal-form"}}
                 = link_to "#", data: {toggle: "modal", target: "#picture-modal-show", picture: @picture}, class: "btn-back-pictures" do
                   %span.glyphicon.glyphicon-chevron-left

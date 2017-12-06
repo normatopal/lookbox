@@ -14,8 +14,16 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
   if $('#picture_title').val() == ''
     $('#picture_title').val($('input[type=file]').val().split('\\').pop().split('.').shift().replace(/_/g, ' '))
 )
-.on('click', '.image-crop', ->
-  new CarrierWaveCropper()
+.on('click', '.image-crop', (e) ->
+  if ($(e.currentTarget).hasClass('ok'))
+    $('.image-crop-previewbox').show()
+    $('.picture-image-preview').hide()
+  else if ($(e.currentTarget).hasClass('cancel'))
+    $('.picture-image-preview').show()
+    $('.image-crop-previewbox').hide()
+  else new CarrierWaveCropper()
+  $('.crop-image-block').toggle()
+  $('.picture-form-block').toggle()
   return
 )
 

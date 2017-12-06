@@ -65,7 +65,10 @@ PictureModalShow = React.createClass({
                     }
                   </div>
                   <div className="col-sm-4">
-                    <a href="#" className={`btn-zoom-loupe ${this.props.zoom_loupe ? 'disable' : ''}`} title="Click to on/off loupe" onClick={this.switchZoomLoupe}> </a>
+                    { this.props.picture.has_image &&
+                    <a href="#" className={`btn-zoom-loupe ${this.props.zoom_loupe ? 'disable' : ''}`}
+                       title="Click to on/off loupe" onClick={this.switchZoomLoupe}> </a>
+                    }
                   </div>
                   <div className="col-sm-4">
                     { this.props.picture.next_index &&

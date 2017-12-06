@@ -32,6 +32,6 @@
 
   #look-canvas.pictures-list
     -#= render 'pictures_list', look_pictures: @look.preloaded_look_pictures, current_child_index: 1, f: f
-    = react_component 'LookPictures', { look_pictures: @look.preloaded_look_pictures.to_json(include: :picture) }
+    = react_component 'LookPictures', { look_pictures: @look.look_pictures.to_json(include: :picture) }
 
 %div{id: "pictures-modal", class: "modal fade", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}

@@ -1,8 +1,10 @@
 class window.CarrierWaveCropper
   constructor: ->
+    preview_size =  Math.round(($('#picturedecorator_image_cropbox').prop('naturalWidth') - 600)/6)
     $('#picturedecorator_image_cropbox').Jcrop
-      aspectRatio: 1
-      setSelect: [0, 0, 200, 200]
+      boxWidth: 600
+      aspectRatio: 0 # for free resize
+      setSelect: [0, 0, preview_size, preview_size]
       onSelect: @update
       onChange: @update
 
@@ -15,8 +17,8 @@ class window.CarrierWaveCropper
 
   updatePreview: (coords) =>
     $('#picturedecorator_image_previewbox').css
-      width: Math.round(100/coords.w * $('#picturedecorator_image_cropbox').width()) + 'px'
-      height: Math.round(100/coords.h * $('#picturedecorator_image_cropbox').height()) + 'px'
+      width: Math.round(100/coords.w * $('#picturedecorator_image_cropbox').prop('naturalWidth')) + 'px'
+      height: Math.round(100/coords.h * $('#picturedecorator_image_cropbox').prop('naturalHeigh')) + 'px'
       marginLeft: '-' + Math.round(100/coords.w * coords.x) + 'px'
       marginTop: '-' + Math.round(100/coords.h * coords.y) + 'px'
 

@@ -7,20 +7,20 @@ Pictures = React.createClass({
     }
   },
   showModalView(picture){
-    this.setState({modal_picture: this.preloadImage(picture)})
+    this.setState({modal_picture: picture})
   },
   changePictureModal(index){
     picture = this.state.pictures[index]
-    if (picture != undefined)
-      this.setState({modal_picture: this.preloadImage(picture)})
+    this.setState({modal_picture: this.preloadImage(picture)})
   },
   switchZoomLoupe(){
     this.setState({zoom_loupe: !this.state.zoom_loupe})
   },
   preloadImage(picture){
     return{...picture,
-        ['image']: Object.assign({}, picture.image, {url: picture.image.url || 'images/no_image_found_large.jpg',
-          thumb: {url: picture.image.thumb.url || 'images/no_image_found.jpg'}})
+        ['image']: {url: picture.image.url || `images/${ConstantsList.Images.noImageLarge}`,
+          thumb: {url: picture.image.thumb.url || `images/${ConstantsList.Images.noImageSmall}`}},
+        ['has_image']: Boolean(picture.image.url)
       }
   },
   componentWillMount(){
