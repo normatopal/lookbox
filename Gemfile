@@ -53,6 +53,7 @@ gem 'ransack'
 
 gem 'carrierwave', '~> 0.10.0'
 gem 'carrierwave-imageoptimizer'
+gem 'copy_carrierwave_file'
 gem 'remotipart', '~> 1.2'
 gem 'mini_magick', '~> 4.3'
 gem 'carrierwave-crop'

@@ -23,6 +23,7 @@
 
       resources :pictures do
         get 'refresh', on: :collection
+        get 'copy', on: :member
       end
 
       resources :looks do

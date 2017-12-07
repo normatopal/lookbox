@@ -1,6 +1,5 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
-  before_action :search_pictures, only: [:index]
   protect_from_forgery except: :index
   #respond_to :html, :js
 
@@ -8,7 +7,7 @@ class PicturesController < ApplicationController
 
   # GET /pictures
   def index
-      @search, @pictures = filtered_pictures(current_user.pictures, params)
+    @search, @pictures = filtered_pictures(current_user.pictures, params)
     respond_to do |format|
       format.html { flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id) }
       format.js do
@@ -83,24 +82,24 @@ class PicturesController < ApplicationController
     redirect_to pictures_path
   end
 
+  def copy
+    original_picture = current_user.pictures.find(params[:id])
+    new_picture = original_picture.dup.decorate
+    #@picture.image = original_picture.image
+    new_picture.title += ' copy'
+    CopyCarrierwaveFile::CopyFileService.new(original_picture, new_picture, :image).set_file
+    new_picture.save
+    @picture = new_picture
+    respond_to do |format|
+      format.html { render :show }
+      format.js { render :show }
+    end
+  end
+
   private
   
     def set_picture
       @picture = current_user.pictures.find(params[:id]).decorate
-    end
-
-    def search_pictures
-      # search_params = params[:q]
-      # Picture.switch_subcategories_flag(search_params)
-      # @look_id, @category_id = params[:look_id], params[:category_id]
-      # @search = current_user.pictures.search(search_params)
-      # current_pictures = @search.result.where.not(id: cookies[:look_pictures_ids].split(',')) if @look_id
-      # current_pictures = @search.result.available_for_category(@category_id) if @category_id
-      # current_pictures ||= @search.result
-      # #@pictures = Rails.cache.fetch('pictures/' + current_pictures.map(&:id).join(',')) do
-      # @pictures = paginate_pictures(current_pictures, (@look_id || @category_id) ? 5 : @kaminari_per_page)
-      # session[:picture_ids_list] = current_pictures.map(&:id)
-
     end
 
     def paginate_pictures(pictures, per_page)

@@ -10,7 +10,7 @@
         = image_tag look.preview_image_large, { class: "show-picture-image"}
     .modal-footer
       - if look.screen.present?
-        = link_to look.screen.image.url, download: look.screen.title, class: "btn btn-sm btn-primary btn-download", title: 'Download'  do
+        = link_to look.screen.image.url, download: look.screen.title, class: "btn btn-sm btn-primary btn-footer-left", title: 'Download'  do
           %span.glyphicon.glyphicon-download-alt
           Download
       = link_to edit_look_path(look), class: "btn btn-sm btn-primary", title: 'Edit'  do

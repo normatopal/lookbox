@@ -81,6 +81,7 @@ PictureModalShow = React.createClass({
                 </div>
               </div>
               <div className="modal-footer">
+                <a href={`/pictures/${this.props.picture.id}/copy`} className="btn btn-sm btn-primary btn-footer-left" data-remote="true" data-toggle="modal" data-target={`#picture-modal-show`}><span className="glyphicon glyphicon-copy"></span>Make a copy</a>
                 <a href={`/pictures/${this.props.picture.id}/edit`} className="btn btn-sm btn-primary" data-remote="true" data-toggle="modal" data-target={`#picture-modal-show`}><span className="glyphicon glyphicon-pencil"></span>Edit</a>
                 <a href={`/pictures/${this.props.picture.id}`} className="btn btn-sm btn-danger" data-method="delete" data-confirm="Are you sure?"><span className="glyphicon glyphicon-trash"></span>Delete</a>
               </div>
@@ -89,7 +90,6 @@ PictureModalShow = React.createClass({
     )
   }
 })
-
 
 
 

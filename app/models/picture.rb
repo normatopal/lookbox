@@ -1,4 +1,5 @@
 class Picture < ActiveRecord::Base
+  include CopyCarrierwaveFile
   mount_uploader :image, ImageUploader
   crop_uploaded :image
   acts_as_paranoid
@@ -48,6 +49,11 @@ class Picture < ActiveRecord::Base
 
   def self.switch_subcategories_flag(search_params)
     self.with_subcategories = search_params.present? && search_params['include_subcategories'] == '1'
+  end
+
+  def duplicate_file(original)
+    copy_carrierwave_file(original, self, :content_file)
+    self.save!
   end
 
   private
