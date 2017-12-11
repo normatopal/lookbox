@@ -6,5 +6,8 @@
 //}
 
 $("#picture-modal-form").html("<%= escape_javascript (render('pictures/modals/form').force_encoding("utf-8")) %>");
+var timestamp = $('.show-picture-image')[0].src.split('?')[1]
+if (timestamp != undefined) $('.picture-image-preview .image-space')[0].src += "?" + timestamp
+window.PictureCropper = new window.CarrierWaveImageCropper()
 $("#modal-label").html("<%= t('pictures.edit_picture')%>");
 $("#picture-modal-form").modal('show');

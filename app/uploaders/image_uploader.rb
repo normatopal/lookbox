@@ -62,7 +62,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def has_rotation?(options)
-    model.rotation.present?
+    model.rotation.present? && model.rotation.to_i > 0
   end
 
   def crop
@@ -90,9 +90,10 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  def filename
-  #   "something.jpg" if original_filename
-    "image-#{DateTime.now.to_i.to_s}.jpg" if model.rotation.present?
-  end
+  # def filename
+  # #   "something.jpg" if original_filename
+  #   has_rotation?({}) ? "image_#{model.image_timestamp}.#{file.extension}" : original_filename if original_filename
+  #   #original_filename if original_filename
+  # end
 
 end

@@ -2,6 +2,13 @@
 # All this logic will automatically be available in application.coffee.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+PictureCropperSwitch = (opts={}) ->
+  $('.picture-image-preview')[opts['image'] || 'children']()
+  $('.image-crop-previewbox')[opts['crop'] || 'children']()
+  if (opts['switch'])
+    ['.picture-form-block', '.crop-image-block'].forEach((el) -> $(el).toggle() )
+  return
+
 $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .look-picture-block', -> $(this).find('.picture-action').show()
 ).on('mouseleave', '.pictures-list .picture-block, .pictures-list .look-picture-block', -> $(this).find('.picture-action').hide()
 ).on('click', '#rotate_image', ->
@@ -16,16 +23,25 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
 )
 .on('click', '.image-crop', (e) ->
   if ($(e.currentTarget).hasClass('ok'))
-    $('.image-crop-previewbox').show()
-    $('.picture-image-preview').hide()
+    PictureCropperSwitch({'image': 'hide', 'crop': 'show', 'switch': true})
   else if ($(e.currentTarget).hasClass('cancel'))
-    $('.picture-image-preview').show()
-    $('.image-crop-previewbox').hide()
-  else new CarrierWaveCropper()
-  $('.crop-image-block').toggle()
-  $('.picture-form-block').toggle()
+    PictureCropperSwitch({'switch': true})
+  else
+    preview_image_src = $('.fileinput-preview.thumbnail img').attr('src')
+    crop_image_scr = $('#picturedecorator_image_cropbox').attr('src')
+    if ($('.picture-image-preview').is(":visible") && preview_image_src != crop_image_scr)
+      window.PictureCropper.changeImage(preview_image_src)
+    PictureCropperSwitch({'switch': true})
   return
+).on('click', '.fileinput-exists', ->
+  PictureCropperSwitch({'image': 'show', 'crop': 'hide', 'switch': false})
+).on('click', '.image-refresh', ->
+  $('.fileinput-preview.thumbnail').empty().append("<img src='#{$('.show-picture-image').attr('src')}'>")
+  PictureCropperSwitch({'image': 'show', 'crop': 'hide', 'switch': false})
 )
+
+
+
 
 
 

@@ -23,6 +23,12 @@ Pictures = React.createClass({
         ['has_image']: Boolean(picture.image.url)
       }
   },
+  setImageTimeStamp(picture){
+    if (picture.image_timestamp)
+      if (picture.image.url) picture.image.url += '?v=' + picture.image_timestamp
+      if (picture.image.thumb.url) picture.image.thumb.url += '?v=' + picture.image_timestamp
+    return picture
+  },
   componentWillMount(){
     window.Picture = {
       updatePicture: function (data = '') {
@@ -31,7 +37,7 @@ Pictures = React.createClass({
         index = this.state.pictures.findIndex((p) => p.id == picture.id)
         if (index < 0) return
         new_pictures = this.state.pictures
-        new_pictures[index] = Object.assign({}, this.state.pictures[index], picture)
+        new_pictures[index] = Object.assign({}, this.state.pictures[index], this.setImageTimeStamp(picture))
         this.setState({pictures: new_pictures})
       }.bind(this)
     }

@@ -20,7 +20,7 @@
 
       .form-group
         .row
-          = f.label t("pictures.category"), class: "col-sm-2 control-label"
+          = f.label t('pictures.category'), class: "col-sm-2 control-label"
           .col-sm-10
             = select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: 'select2-select'})
 
@@ -28,28 +28,31 @@
         .row
           = f.label :image, class: "col-sm-2 control-label"
           -#= f.file_field :image
+          = link_to '#', id: 'rotate_image', class: "btn btn-default fileinput-exists", title: 'Rotate' do
+            %i.glyphicon.glyphicon-repeat
+          = f.hidden_field :rotation, value: '0'
+          = link_to '#', class: "btn btn-default fileinput-exists", 'data-dismiss': 'fileinput', title: 'Delete' do
+            %i.glyphicon.glyphicon-remove
+          %span.btn.btn-default.btn-file
+            %span.image-crop
+              %i.glyphicon.glyphicon-scissors{'title': 'Crop'}
+          %span.btn.btn-default.btn-file
+            %span.image-refresh{'title': 'Refresh'}
+              %i.glyphicon.glyphicon-refresh
           %div{"data-provides": "fileinput", class: "fileinput fileinput-#{@picture.image.present? ? 'exists' : 'new'}"}
             .col-sm-6
-              = link_to "#", id: "rotate_image", class: "btn btn-default fileinput-exists", title: 'Rotate' do
-                %i.glyphicon.glyphicon-repeat
-              = f.hidden_field :rotation, value: "0"
-              = link_to "#", class: "btn btn-default fileinput-exists", "data-dismiss": "fileinput", title: 'Delete' do
-                %i.glyphicon.glyphicon-remove
               %span.btn.btn-default.btn-file
-                %span.image-crop
-                  %i.glyphicon.glyphicon-scissors
-              %span.btn.btn-default.btn-file
-                %span.fileinput-new
+                %span.fileinput-new{'title': 'Load'}
                   %i.glyphicon.glyphicon-picture
-                %span.fileinput-exists
+                %span.fileinput-exists{'title': 'Refresh'}
                   %i.glyphicon.glyphicon-picture
-                %input{type: "file", name: "picture[image]"}
+                %input{type: 'file', name: 'picture[image]'}
             .col-sm-6
-              .fileinput-preview.thumbnail{"data-trigger": "fileinput"}
-                .picture-image-preview
+              .picture-image-preview
+                .fileinput-preview.thumbnail{'data-trigger': 'fileinput'}
                   = image_tag @picture.preview_image, class: "image-space" if @picture.image.present?
-                .image-crop-previewbox
-                  = f.previewbox :image
+              .image-crop-previewbox
+                = f.previewbox :image
 
     .crop-image-block
       .form-group
@@ -57,11 +60,14 @@
           .col-sm-4
           .col-sm-4
           .col-sm-4
-            %span.btn.btn-default.btn-file.image-crop.ok
-              %i.glyphicon.glyphicon-scissors
-              Crop
-            %span.btn.btn-default.btn-file.image-crop.cancel
-              Cancel
+            .row
+              .image-crop.ok
+                %span.btn.btn-default.btn-file
+                  %i.glyphicon.glyphicon-scissors
+                  Crop
+              .image-crop.cancel
+                %span.btn.btn-default.btn-file
+                  Cancel
       .form-group
         .row
           = f.cropbox :image
@@ -72,13 +78,13 @@
         .col-sm-offset-2.col-sm-10
           .actions
             - if @picture.persisted? && is_remote
-              %span{data: {toggle: "modal", target: "#picture-modal-form"}}
-                = link_to "#", data: {toggle: "modal", target: "#picture-modal-show", picture: @picture}, class: "btn-back-pictures" do
+              %span{data: {toggle: 'modal', target: '#picture-modal-form'}}
+                = link_to '#', data: {toggle: 'modal', target: '#picture-modal-show', picture: @picture}, class: "btn-back-pictures" do
                   %span.glyphicon.glyphicon-chevron-left
-                  = t("modal_forms.back_to_show")
-            = f.submit t("modal_forms.save"), class: 'btn btn-primary', data: { "disable_with" => "Saving..." }
+                  = t('modal_forms.back_to_show')
+            = f.submit t('modal_forms.save'), class: 'btn btn-primary', data: { 'disable_with': 'Saving...' }
 
 :javascript
   $('.select2-select').select2({
-  theme: "bootstrap"
+    theme: "bootstrap"
   });

@@ -33,13 +33,21 @@ class Picture < ActiveRecord::Base
   scope :include_subcategories, -> {}
 
   after_update :recreate_image, if: ->(obj){ obj.rotation.present? and obj.rotation.to_i > 0 }
-  after_update :create_image_timetamp, if: ->(obj){ obj.image_changed? }
+  after_update :create_image_timetamp, if: ->(obj){ obj.model.image_crop_x.present? }
 
   def recreate_image
     # image.cache_stored_file!
     # image.retrieve_from_cache!(image.cache_name)
     image.recreate_versions!
     create_image_timetamp
+    #image.recreate_versions!
+    # sql = "UPDATE pictures SET image = '#{image.file.filename}', updated_at = '#{DateTime.now.to_s(:db)}' WHERE id = #{id}"
+    # begin
+    #   ActiveRecord::Base.connection.execute(sql)
+    #   old_images_path.each{|path_to_file| File.delete(path_to_file) if File.exist?(path_to_file)}
+    # rescue
+    #
+    # end
   end
 
   # whitelist the scope
