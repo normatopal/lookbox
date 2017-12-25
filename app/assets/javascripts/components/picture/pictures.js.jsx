@@ -1,5 +1,5 @@
-#cl = cloudinary.Cloudinary.new({cloud_name: "lookbox"})
-#cl.responsive()
+//cl = cloudinary.Cloudinary.new({cloud_name: "lookbox"})
+//cl.responsive()
 
 Pictures = React.createClass({
   getInitialState(){
