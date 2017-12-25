@@ -31,6 +31,8 @@
 #= require_tree ./expandable_tree
 #= require_tree ./lib
 
+#= require cloudinary
+
 #= require react
 #= require react_ujs
 #= require components

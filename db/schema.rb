@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614180654) do
+ActiveRecord::Schema.define(version: 20171219172047) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
-    t.text     "description", limit: 65535
+    t.text     "description", limit: 16777215
     t.integer  "user_id",     limit: 4
     t.integer  "parent_id",   limit: 4
-    t.integer  "lft",         limit: 4,                 null: false
-    t.integer  "rgt",         limit: 4,                 null: false
-    t.integer  "depth",       limit: 4,     default: 0, null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.integer  "lft",         limit: 4,                    null: false
+    t.integer  "rgt",         limit: 4,                    null: false
+    t.integer  "depth",       limit: 4,        default: 0, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "categories", ["lft"], name: "index_categories_on_lft", using: :btree
@@ -60,21 +60,22 @@ ActiveRecord::Schema.define(version: 20170614180654) do
   create_table "looks", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.integer  "user_id",     limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.datetime "deleted_at"
     t.integer  "picture_id",  limit: 4
+    t.integer  "user_id",     limit: 4
   end
 
   create_table "pictures", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "description", limit: 65535
-    t.integer  "user_id",     limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "image",       limit: 255
+    t.string   "title",                 limit: 255
+    t.text     "description",           limit: 16777215
+    t.integer  "user_id",               limit: 4
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "image",                 limit: 255
     t.datetime "deleted_at"
+    t.text     "transformation_params", limit: 65535
   end
 
   create_table "user_looks", force: :cascade do |t|
@@ -84,6 +85,8 @@ ActiveRecord::Schema.define(version: 20170614180654) do
     t.datetime "updated_at",                            null: false
     t.boolean  "is_approved",           default: false
   end
+
+  add_index "user_looks", ["look_id", "user_id"], name: "index_user_looks_on_look_id_and_user_id_and_is_owner", unique: true, using: :btree
 
   create_table "user_settings", force: :cascade do |t|
     t.string  "time_zone", limit: 255

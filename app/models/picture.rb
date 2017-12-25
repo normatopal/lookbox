@@ -11,8 +11,9 @@ class Picture < ActiveRecord::Base
   has_many :looks, -> { uniq }, :through => :look_pictures
 
   cattr_accessor(:with_subcategories) { false }
-  attr_accessor :image_encoded, :rotation, :image_timestamp, :previous_id, :next_id
-  attr_accessor :image_crop_x, :image_crop_y, :image_crop_w, :image_crop_h
+  attr_accessor :image_encoded
+  serialize :transformation_params, Hash
+  store_accessor :transformation_params, :rotation, :crop_x, :crop_y, :crop_w, :crop_h
 
   validates :title, presence: true
   validates_length_of :title, :minimum => 5, :if => proc{|p| p.title.present?}
@@ -32,23 +33,15 @@ class Picture < ActiveRecord::Base
   end
   scope :include_subcategories, -> {}
 
-  after_update :recreate_image, if: ->(obj){ obj.rotation.present? and obj.rotation.to_i > 0 }
-  after_update :create_image_timetamp, if: ->(obj){ obj.model.image_crop_x.present? }
+  #after_update :recreate_image, if: ->(obj){ obj.rotation.present? and obj.rotation.to_i > 0 }
+  #after_update :create_image_timetamp, if: ->(obj){ obj.crop_x.present? }
 
-  def recreate_image
-    # image.cache_stored_file!
-    # image.retrieve_from_cache!(image.cache_name)
-    image.recreate_versions!
-    create_image_timetamp
-    #image.recreate_versions!
-    # sql = "UPDATE pictures SET image = '#{image.file.filename}', updated_at = '#{DateTime.now.to_s(:db)}' WHERE id = #{id}"
-    # begin
-    #   ActiveRecord::Base.connection.execute(sql)
-    #   old_images_path.each{|path_to_file| File.delete(path_to_file) if File.exist?(path_to_file)}
-    # rescue
-    #
-    # end
-  end
+  # def recreate_image
+  #   # image.cache_stored_file!
+  #   # image.retrieve_from_cache!(image.cache_name)
+  #   image.recreate_versions!
+  #   create_image_timetamp
+  # end
 
   # whitelist the scope
   def self.ransackable_scopes(auth_object = nil)
@@ -62,11 +55,6 @@ class Picture < ActiveRecord::Base
   def duplicate_file(original)
     copy_carrierwave_file(original, self, :content_file)
     self.save!
-  end
-
-  private
-  def create_image_timetamp
-    self.image_timestamp = DateTime.now.to_i
   end
 
 end

@@ -58,7 +58,7 @@ class PicturesController < ApplicationController
   # PATCH/PUT /pictures/1
   def update
     respond_to do |format|
-      if @picture.update(picture_params)
+      if @picture.update(picture_params) #update_attributes
         flash[:notice] = 'You have successfully updated the picture'
         format.html { redirect_to pictures_path, notice: 'Picture was successfully updated.' }
         format.js { render :update }
@@ -108,7 +108,7 @@ class PicturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
-      params.require(:picture).permit(:image_crop_x, :image_crop_y, :image_crop_w, :image_crop_h, :title, :description, :rotation, :user_id, :image, category_ids: [])
+      params.require(:picture).transform_keys{|k| k.sub('image_crop', 'crop')}.permit(:crop_x, :crop_y, :crop_w, :crop_h, :title, :description, :rotation, :user_id, :image, category_ids: [])
     end
 
 end

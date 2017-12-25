@@ -77,7 +77,7 @@ PictureModalShow = React.createClass({
                   </div>
                 </div>
                 <div className="row">
-                  <img className="show-picture-image" src={this.props.picture.image.url} data-zoom-image={this.props.picture.image.url} alt="No image"/>
+                  <img className="show-picture-image" src={this.props.picture.image.large.url} data-zoom-image={this.props.picture.image.large.url} alt="No image"/>
                 </div>
               </div>
               <div className="modal-footer">

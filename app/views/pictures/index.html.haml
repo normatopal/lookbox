@@ -21,5 +21,7 @@
 
   %div{class: "modal fade", id: "picture-modal-form", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
 
+  -#= cl_image_tag(Picture.last.image, :transformation=>[{:angle=>-30, :width=>100, :height=>100, :gravity=>"north", :page=>2, :effect=>"saturation:100", :crop=>"fill"}, {:effect=>"sharpen"},
+      {:border=>"1px_solid_rgb:bbb"}, {:effect=>"shadow"} ])
 
 

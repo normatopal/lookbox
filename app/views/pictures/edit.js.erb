@@ -1,13 +1,4 @@
-//$("div[id^='picture-modal']" ).modal('hide');
-
-//block_image = $("#image-block-<%= @picture.id%> img.image-space")
-//if (block_image.attr('src').indexOf('?timestamp') > -1) {
-  <!--<% @picture.image_timestamp= DateTime.now.to_i %>-->
-//}
-
 $("#picture-modal-form").html("<%= escape_javascript (render('pictures/modals/form').force_encoding("utf-8")) %>");
-var timestamp = $('.show-picture-image')[0].src.split('?')[1]
-if (timestamp != undefined) $('.picture-image-preview .image-space')[0].src += "?" + timestamp
 window.PictureCropper = new window.CarrierWaveImageCropper()
 $("#modal-label").html("<%= t('pictures.edit_picture')%>");
 $("#picture-modal-form").modal('show');

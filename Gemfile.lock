@@ -46,6 +46,7 @@ GEM
       execjs
     awesome_nested_set (3.1.3)
       activerecord (>= 4.0.0, < 5.2)
+    aws_cf_signer (0.1.3)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -78,6 +79,9 @@ GEM
     carrierwave-imageoptimizer (1.4.0)
       carrierwave (>= 0.8, < 2.0)
       image_optimizer (~> 1.6)
+    cloudinary (1.8.2)
+      aws_cf_signer
+      rest-client
     coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -96,6 +100,8 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
     draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -124,6 +130,8 @@ GEM
       haml (>= 4.0, < 6)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     i18n (0.8.6)
     image_optimizer (1.7.0)
     jasny-bootstrap-rails (3.1.3)
@@ -189,6 +197,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     mysql2 (0.3.21)
+    netrc (0.11.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
     oauth2 (1.4.0)
@@ -279,6 +288,10 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     ruby_parser (3.10.1)
       sexp_processor (~> 4.9)
     sass (3.5.1)
@@ -327,6 +340,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
     warden (1.2.7)
       rack (>= 1.0)
     xpath (2.1.0)
@@ -345,6 +361,7 @@ DEPENDENCIES
   carrierwave (~> 0.10.0)
   carrierwave-crop
   carrierwave-imageoptimizer
+  cloudinary
   coffee-rails (~> 4.1.0)
   copy_carrierwave_file
   devise

@@ -22,20 +22,21 @@
         .row
           = f.label t('pictures.category'), class: "col-sm-2 control-label"
           .col-sm-10
-            = select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: 'select2-select'})
+            = select(:picture, :category_ids, @picture.categories_set, { selected: @picture.categories.map(&:id), include_blank: true}, { multiple: true, class: "select2-select"})
 
       .form-group
         .row
           = f.label :image, class: "col-sm-2 control-label"
           -#= f.file_field :image
-          = link_to '#', id: 'rotate_image', class: "btn btn-default fileinput-exists", title: 'Rotate' do
+          = link_to '#', id: 'rotate_image', class: "btn btn-default", title: 'Rotate' do
             %i.glyphicon.glyphicon-repeat
           = f.hidden_field :rotation, value: '0'
+          = hidden_field_tag 'original_image_rotation', @picture.rotation || '0'
+          = hidden_field_tag 'original_image_url', @picture.image.original_size.url
           = link_to '#', class: "btn btn-default fileinput-exists", 'data-dismiss': 'fileinput', title: 'Delete' do
             %i.glyphicon.glyphicon-remove
-          %span.btn.btn-default.btn-file
-            %span.image-crop
-              %i.glyphicon.glyphicon-scissors{'title': 'Crop'}
+          %span.btn.btn-default.btn-file.image-crop
+            %i.glyphicon.glyphicon-scissors{'title': 'Crop'}
           %span.btn.btn-default.btn-file
             %span.image-refresh{'title': 'Refresh'}
               %i.glyphicon.glyphicon-refresh
@@ -44,15 +45,19 @@
               %span.btn.btn-default.btn-file
                 %span.fileinput-new{'title': 'Load'}
                   %i.glyphicon.glyphicon-picture
-                %span.fileinput-exists{'title': 'Refresh'}
+                %span.fileinput-exists{'title': 'Reload'}
                   %i.glyphicon.glyphicon-picture
                 %input{type: 'file', name: 'picture[image]'}
             .col-sm-6
-              .picture-image-preview
+              .file-image-preview
                 .fileinput-preview.thumbnail{'data-trigger': 'fileinput'}
-                  = image_tag @picture.preview_image, class: "image-space" if @picture.image.present?
-              .image-crop-previewbox
-                = f.previewbox :image
+                  -#= image_tag @picture.preview_image, class: "image-space" if @picture.image.present?
+                  = cl_image_tag @picture.image.large, class: 'image-space' if @picture.image.present?
+              .crop-image-preview
+                .crop-previewbox.thumbnail
+                  = f.previewbox :image
+                -#%div{id: 'picturedecorator_image_previewbox_wrapper', style: "width:150px; height:150px; overflow:hidden"}
+                -#  = image_tag @picture.image.large.url, id: "picturedecorator_image_previewbox"
 
     .crop-image-block
       .form-group

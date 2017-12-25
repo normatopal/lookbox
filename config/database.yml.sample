@@ -5,10 +5,8 @@ development:
   database: lookbox
   pool: <%= ENV["RAILS_MAX_THREADS"] || 5 %>
   username: root
-  password: ubuntu
-  #password: root
+  password:
   host: localhost
-  #host: db
 
 test:
   adapter: mysql2
@@ -17,7 +15,7 @@ test:
   database: lookbox_test
   pool: 5
   username: root
-  password: ubuntu
+  password:
   host: localhost
 
 production:
@@ -25,5 +23,3 @@ production:
   encoding: unicode
   database: lookbox
   pool: <%= ENV["RAILS_MAX_THREADS"] || 5 %>
-
-

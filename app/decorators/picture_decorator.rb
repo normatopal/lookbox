@@ -12,11 +12,11 @@ class PictureDecorator < Draper::Decorator
   end
 
   def preview_image
-    object.image.url || 'no_image_found.jpg'
+    object.image.thumb.url || 'no_image_found.jpg'
   end
 
   def preview_image_large
-    object.image.url || 'no_image_found_large.jpg'
+    object.image.large.url || 'no_image_found_large.jpg'
   end
 
 end

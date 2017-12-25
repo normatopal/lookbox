@@ -1,3 +1,6 @@
+#cl = cloudinary.Cloudinary.new({cloud_name: "lookbox"})
+#cl.responsive()
+
 Pictures = React.createClass({
   getInitialState(){
     return{
@@ -18,7 +21,7 @@ Pictures = React.createClass({
   },
   preloadImage(picture){
     return{...picture,
-        ['image']: {url: picture.image.url || `images/${ConstantsList.Images.noImageLarge}`,
+       ['image']: {large: {url: picture.image.large.url || `images/${ConstantsList.Images.noImageLarge}`},
           thumb: {url: picture.image.thumb.url || `images/${ConstantsList.Images.noImageSmall}`}},
         ['has_image']: Boolean(picture.image.url)
       }
@@ -37,7 +40,7 @@ Pictures = React.createClass({
         index = this.state.pictures.findIndex((p) => p.id == picture.id)
         if (index < 0) return
         new_pictures = this.state.pictures
-        new_pictures[index] = Object.assign({}, this.state.pictures[index], this.setImageTimeStamp(picture))
+        new_pictures[index] = Object.assign({}, this.state.pictures[index], picture) // this.setImageTimeStamp(picture) for image refresh from local store
         this.setState({pictures: new_pictures})
       }.bind(this)
     }
@@ -78,6 +81,10 @@ PictureItem = React.createClass({
     this.props.showModalView(this.props.picture)
   },
   render(){
+    //$.cloudinary.image(this.props.picture.image.thumb.url, {angle: -30, opacity: 70})
+    //picture_transformed = cl.imageTag(this.props.picture.file_name, {crop: 'scale', width: 150, height: 150, angle: 0}).toHtml()
+    //<span dangerouslySetInnerHTML={{__html:  picture_transformed}} />
+    //or for simple string cl.url(this.props.picture.file_name, {crop: 'scale', width: 150, height: 150, angle: 0})
     return(
         <div className='picture-block'>
           <div className='image-block'>
