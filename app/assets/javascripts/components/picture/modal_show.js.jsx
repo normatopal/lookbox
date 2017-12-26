@@ -13,7 +13,7 @@ PictureModalShow = React.createClass({
     if(this.props.zoom_loupe){
       $(".zoomContainer").remove()
       image_node.removeData("elevateZoom")
-      image_node.data('zoom-image', this.props.picture.image.url).elevateZoom(ConstantsList.ZoomLoupeOptions)
+      image_node.data('zoom-image', this.props.picture.image.large.url).elevateZoom(ConstantsList.ZoomLoupeOptions)
     }
     else{
       image_node.removeData("elevateZoom")

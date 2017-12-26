@@ -151,7 +151,7 @@ LookPictureItem =  React.createClass({
           { this.state.show_item &&
           <Draggable position={this.props.position_params} canvas_id = { ConstantsList.LookCanvasID }
                      changePositionParams={ this.changePositionParams } increaseZindex={ this.increaseZindex }>
-              <img className="resizable" src={this.props.picture.image.url} title=''
+              <img className="resizable" src={this.props.picture.image.large.url} title=''
                    style={{ width: this.state.position_params.width + 'px', height: this.state.position_params.height + 'px',
                    zIndex: this.state.position_params['order'] }}
                    onClick={this.increaseZindex}
