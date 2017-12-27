@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
         user.password = user_password
         user.skip_confirmation!
       end
-      UserMailer.google_user_site_password(user, user_password).deliver_later if user.persisted?
+      UserMailer.google_user_site_password(user, user_password).deliver if user.persisted?
     end
     user
   end
