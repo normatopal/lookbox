@@ -21,16 +21,14 @@ Pictures = React.createClass({
   },
   preloadImage(picture){
     return{...picture,
-       ['image']: {large: {url: picture.image.large.url || `images/${ConstantsList.Images.noImageLarge}`},
-          thumb: {url: picture.image.thumb.url || `images/${ConstantsList.Images.noImageSmall}`}},
+       ['image']: {large: {url: this.setImageTimeStamp(picture.image.large.url, picture.image_timestamp) || `images/${ConstantsList.Images.noImageLarge}`},
+          thumb: {url: this.setImageTimeStamp(picture.image.thumb.url) || `images/${ConstantsList.Images.noImageSmall}`}},
         ['has_image']: Boolean(picture.image.url)
       }
   },
-  setImageTimeStamp(picture){
-    if (picture.image_timestamp)
-      if (picture.image.url) picture.image.url += '?v=' + picture.image_timestamp
-      if (picture.image.thumb.url) picture.image.thumb.url += '?v=' + picture.image_timestamp
-    return picture
+  setImageTimeStamp(url, image_timestamp){
+    if (image_timestamp && url) url += '?v=' + image_timestamp
+    return url
   },
   componentWillMount(){
     window.Picture = {
@@ -46,14 +44,13 @@ Pictures = React.createClass({
     }
   },
   render(){
-    last_next_index = this.state.pictures.length - 1
     that = this
     return(
         <div>
           {
             this.state.pictures.map(function (pict, index) {
               if (index > 0) pict.previous_index = (index - 1).toString()
-              if (index < last_next_index) pict.next_index = index + 1
+              if (index < that.state.pictures.length - 1) pict.next_index = index + 1
               return <PictureItem key={index} index={index} picture={that.preloadImage(pict)} showModalView={that.showModalView}/>
             })
           }

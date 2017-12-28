@@ -13,6 +13,7 @@ LookPictureScreen = React.createClass({
   encode_image(callback){
     canvas_element = $('#' + ConstantsList.LookCanvasID)
     html2canvas(canvas_element, {
+      useCORS: true, // for cross origin images
       onrendered: function (canvas) {
         callback(canvas.toDataURL(('image/png')))
       }

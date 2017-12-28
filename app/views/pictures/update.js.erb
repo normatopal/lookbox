@@ -1,4 +1,4 @@
-window.Picture.updatePicture("<%= j @picture.to_json(include: :image).html_safe%>")
+window.Picture.updatePicture("<%= j @picture.to_json(include: :image, methods: [:image_timestamp]).html_safe%>")
 $("#picture-modal-form").modal('hide');
 
 

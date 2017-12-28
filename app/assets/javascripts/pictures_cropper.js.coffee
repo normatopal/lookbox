@@ -1,14 +1,14 @@
 class window.CarrierWaveImageCropper
   constructor: ->
-    preview_size =  Math.round(($('#picturedecorator_image_cropbox').prop('naturalWidth') - 600)/6)
-    preview_size = if(preview_size < 150) then 150
+#    preview_size =  Math.round(($('#picturedecorator_image_cropbox').prop('naturalWidth') - 600)/6)
+#    preview_size = if(preview_size < 150) then 150
     that = this
     $('#picturedecorator_image_cropbox').Jcrop {
       rotate: 90
       boxWidth: 600
       minSize: [10, 10]
       aspectRatio: 0 # for free resize
-      setSelect: [0, 0, 150, 'auto']
+      setSelect: [0, 0, 150, 150]
       bgclor: 'white'
       onSelect: @update
       onChange: @update

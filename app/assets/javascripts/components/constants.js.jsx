@@ -9,6 +9,8 @@ ConstantsList = Object.freeze({
   Images: {
     noImageSmall: 'no_image_found.jpg',
     noImageLarge: 'no_image_found_large.jpg',
+    rotationAngle: 90,
+    rotationClasses: 'rotate0 rotate90 rotate180 rotate270'
   }
 });
 

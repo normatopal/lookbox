@@ -29,7 +29,7 @@ class Look < ActiveRecord::Base
     screen_image = Tempfile.new(["image-#{DateTime.now.to_i}",'.jpg'])
     screen_image.binmode  # set to binary mode to avoid UTF-8 conversion errors
     screen_image.write decoded_file
-    self.screen.image = screen_image
+    self.screen.image = screen_image if screen.present?
   end
 
   before_save :set_position_params
