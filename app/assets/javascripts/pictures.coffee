@@ -14,6 +14,14 @@ PictureCropperSwitch = (opts={}) ->
     ['.picture-form-block', '.crop-image-block'].forEach((el) -> $(el).toggle() )
   return
 
+RefreshPictureThumbnail = (original_rotation) ->
+  $('.fileinput-preview.thumbnail').removeClass(ConstantsList.Images.rotationClasses)
+  $('#current_picture_rotation').val(0)
+  $('#picture_rotation').val(original_rotation)
+  $('#original_picture_rotation').val(original_rotation)
+  PictureCropperSwitch({'image': 'show', 'crop': 'hide', 'switch': false})
+  return
+
 $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .look-picture-block', -> $(this).find('.picture-action').show()
 ).on('mouseleave', '.pictures-list .picture-block, .pictures-list .look-picture-block', -> $(this).find('.picture-action').hide()
 ).on('click', '#rotate_image', (e) ->
@@ -43,11 +51,16 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
       PictureCropperSwitch({'switch': true})
   return
 ).on('click', '.fileinput-exists', ->
-  PictureCropperSwitch({'image': 'show', 'crop': 'hide', 'switch': false})
+  $('.fileinput-preview').on("DOMNodeInserted", "img", ->
+    RefreshPictureThumbnail(0)
+  )
 ).on('click', '.image-refresh', ->
-  $('.fileinput-preview.thumbnail').removeClass(ConstantsList.Images.rotationClasses)
-  $('#picture_rotation').val(0)
-  PictureCropperSwitch({'image': 'show', 'crop': 'hide', 'switch': false})
+   RefreshPictureThumbnail($('.show-picture-image').siblings('.original-image-rotation')[0].value)
+   image_preview = $('.fileinput-preview.thumbnail')
+   if (image_preview.is(':empty'))
+     image_preview.append("<img src=" + $('.show-picture-image')[0].src + ">")
+   else
+     image_preview.find('img').attr('src', $('.show-picture-image')[0].src)
 ).on('mouseenter', '.title-input-wrapper', ->
   if ($(this).find($('input:text')).val().length > 0)
     $(this).find($('.clear-input-btn')).css('display', 'inline-block')

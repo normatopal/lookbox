@@ -1,8 +1,7 @@
 module SearchFilter
 
-  CATEGORY_PICTURES_PER_PAGE = 5
-  LOOK_PICTURES_PER_PAGE = 5
-  ITEMS_PER_PAGE = @kaminari_per_page
+  CATEGORY_PICTURES_PER_PAGE = 6
+  LOOK_PICTURES_PER_PAGE = 6
 
   def filtered_pictures(pictures, params)
     search_params = params[:q].try(:clone)
@@ -16,7 +15,7 @@ module SearchFilter
 
   def filtered_looks(looks, params)
     search = looks.search(params[:q])
-    looks = paginate(wrapper(search.result, LookDecorator), params[:page], ITEMS_PER_PAGE)
+    looks = paginate(wrapper(search.result, LookDecorator), params[:page], @kaminari_per_page)
     [search, looks]
   end
 
@@ -28,7 +27,7 @@ module SearchFilter
       elsif params[:category_id]
         [search.result.available_for_category(params[:category_id]), CATEGORY_PICTURES_PER_PAGE]
       else
-        [search.result, ITEMS_PER_PAGE]
+        [search.result, @kaminari_per_page]
     end
     #[wrapper(pictures, PictureDecorator), params[:page], per_page]
     [pictures, params[:page], per_page]

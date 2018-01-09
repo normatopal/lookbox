@@ -6,7 +6,7 @@ class Category < ActiveRecord::Base
   has_many :category_pictures
   has_many :pictures, -> { uniq }, :through => :category_pictures
 
-  attr_accessor :name_with_depth
+  alias_attribute :title, :name
   accepts_nested_attributes_for :category_pictures
   accepts_nested_attributes_for :pictures
 
@@ -32,15 +32,6 @@ class Category < ActiveRecord::Base
       end
     end
     self.reload
-  end
-
-
-  def name_with_depth
-   '-' * depth + ' ' + name.to_s
-  end
-
-  def title
-    name
   end
 
 end

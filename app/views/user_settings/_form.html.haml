@@ -13,6 +13,11 @@
         -#= f.select :time_zone, options_for_select(ActiveSupport::TimeZone.const_get(:MAPPING).map{|t| t[0]}.sort, selected: @user_setting.time_zone || "UTC")
         = time_zone_select('user_setting', 'time_zone', ActiveSupport::TimeZone.us_zones, default: "Pacific Time (US & Canada)")
 
+  .form-group
+    .row
+      = f.label :look_screen_category_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.select :look_screen_category_id, categories_with_depth_name(@user_setting.user.categories), { include_blank: true}, { class: "nested_options" }
 
   .form-group
     .row

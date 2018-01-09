@@ -17,7 +17,8 @@
     .row
       = f.label :parent_id, class: "col-sm-2 control-label"
       .col-sm-10
-        = f.select :parent_id, nested_options(@category.available_categories_as_parent, selected: @category.parent), { include_blank: true }, { class: "nested_options" }
+        -#= f.select :parent_id, nested_options(@category.available_categories_as_parent, selected: @category.parent) {|cat| "#{'-' * cat.depth} #{cat.name}" }, { include_blank: true }, { class: "nested_options" }
+        = f.select :parent_id, categories_with_depth_name(@category.available_categories_as_parent), { include_blank: true }, { class: "nested_options" }
 
   .form-group
     .row

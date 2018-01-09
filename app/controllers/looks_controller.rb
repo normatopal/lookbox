@@ -50,8 +50,10 @@ class LooksController < ApplicationController
 
   def create
     @look = current_user.looks.new(look_params).decorate
-    @look.decode_screen_image(look_params[:screen_attributes][:image_encoded])
     if @look.save
+      @look.decode_screen_image(look_params[:screen_attributes][:image_encoded])
+
+      @look.save if @look.changed?
       redirect_to looks_path, notice: 'Look was successfully created.'
     else
       redirect_to new_look_path

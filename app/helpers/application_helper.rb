@@ -12,4 +12,8 @@ module ApplicationHelper
     return 'active' if pages.any? {|page| current_page? page}
   end
 
+  def categories_with_depth_name(categories)
+    categories.collect{|cat| ["#{'-' * cat.depth} #{cat.name}", cat.id]}
+  end
+
 end

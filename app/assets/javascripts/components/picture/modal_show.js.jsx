@@ -78,6 +78,7 @@ PictureModalShow = React.createClass({
                 </div>
                 <div className="row">
                   <img className="show-picture-image" src={this.props.picture.image.large.url} data-zoom-image={this.props.picture.image.large.url} alt="No image"/>
+                  <input type="hidden" className="original-image-rotation" value={this.props.picture.transformation_params.rotation}/>
                 </div>
               </div>
               <div className="modal-footer">

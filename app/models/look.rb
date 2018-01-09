@@ -9,6 +9,7 @@ class Look < ActiveRecord::Base
   has_many :user_looks, dependent: :destroy
   has_many :shared_users, through: :user_looks, source: :user
 
+  attr_accessor :user_email, :shared_users_ids
   accepts_nested_attributes_for :look_pictures, :allow_destroy => true
   accepts_nested_attributes_for :screen
   accepts_nested_attributes_for :user_looks, :allow_destroy => true
@@ -19,9 +20,13 @@ class Look < ActiveRecord::Base
 
   scope :with_approved, ->(u_id) { includes(:user_looks).where(user_looks: {user_id: u_id}) }
 
-  attr_accessor :user_email, :shared_users_ids
-
   POSITION_PARAMS = [:top, :left, :width, :height]
+
+  after_create do |look|
+    if look.screen.present? && look.user.user_setting.try(:look_screen_category_id)
+      look.screen.categories << look.user.user_setting.look_screen_category
+    end
+  end
 
   def decode_screen_image(encoded_file = nil)
     return unless encoded_file.present?

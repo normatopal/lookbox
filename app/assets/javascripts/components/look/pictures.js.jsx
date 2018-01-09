@@ -147,7 +147,7 @@ LookPictureItem =  React.createClass({
   },
   render: function(){
     return(
-        <div className = 'look-picture-block'>
+        <div className = 'look-picture-block' style={{zIndex: this.state.position_params['order'] }}>
           { this.state.show_item &&
           <Draggable position={this.props.position_params} canvas_id = { ConstantsList.LookCanvasID }
                      changePositionParams={ this.changePositionParams } increaseZindex={ this.increaseZindex }>

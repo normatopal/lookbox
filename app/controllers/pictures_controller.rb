@@ -43,9 +43,11 @@ class PicturesController < ApplicationController
 
   # POST /pictures
   def create
-    @picture = current_user.pictures.new(picture_params).decorate
+    @picture = current_user.pictures.new(picture_params.except(:image)).decorate
     respond_to do |format|
       if @picture.save
+        @picture.image = picture_params[:image] if picture_params[:image].present?
+        @picture.save if @picture.changed?
         format.html { redirect_to pictures_path, notice: 'Picture was successfully added.' }
         format.js { render text: 'window.location.reload()' }
       else
