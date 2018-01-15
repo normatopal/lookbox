@@ -34,8 +34,9 @@ class Picture < ActiveRecord::Base
   scope :include_subcategories, -> {}
 
   after_update :recreate_image, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.rotation.present? }
-  after_update :create_image_timetamp, if: ->(obj){ obj.crop_x.present? }
-  after_destroy :remove_cloud_image, if: ->{ Rails.application.secrets.use_cloudinary }
+  after_update :create_image_timetamp, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.crop_x.present? }
+  after_update :remove_previous_cloud_image, if: ->{ Rails.application.secrets.use_cloudinary }
+  after_destroy :remove_cloud_image, if: ->(obj){ Rails.application.secrets.use_cloudinary && obj.image.url.present?}
 
   # whitelist the scope
   def self.ransackable_scopes(auth_object = nil)
@@ -53,14 +54,18 @@ class Picture < ActiveRecord::Base
 
   private
   def recreate_image
-    # image.cache_stored_file!
-    # image.retrieve_from_cache!(image.cache_name)
     image.recreate_versions!
     create_image_timetamp
   end
 
-  def remove_cloud_image
-    Cloudinary::Uploader.destroy(self.image.public_id) if self.image.url.present?
+  def remove_cloud_image(public_id = self.image.public_id)
+    Cloudinary::Uploader.destroy(public_id)
+  end
+
+  def remove_previous_cloud_image
+    previous_image = self.changes.fetch(:image).try(:first)
+    previous_public_id = CloudinaryUploader::CLOUD_FOLDER + previous_image.url.split(CloudinaryUploader::CLOUD_FOLDER).last.split('.').first if previous_image
+    remove_cloud_image(previous_public_id) if defined? previous_public_id
   end
 
   def create_image_timetamp

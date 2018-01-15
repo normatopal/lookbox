@@ -48,7 +48,7 @@
                   %i.glyphicon.glyphicon-picture
                 %span.fileinput-exists{'title': 'Reload'}
                   %i.glyphicon.glyphicon-picture
-                %input{type: 'file', name: 'picture[image]'}
+                %input{type: 'file', name: 'picture[image]', id: 'file-input'}
             .col-sm-6
               .file-image-preview
                 .fileinput-preview.thumbnail{'data-trigger': 'fileinput'}
@@ -91,3 +91,24 @@
   $('.select2-select').select2({
     theme: "bootstrap"
   });
+
+
+  document.getElementById('file-input').onchange = function (e) { window.LoadImageWithOrientation(e.target.files[0]) }
+
+  //-#document.getElementById('file-input').onchange = function (e) {
+  //-#  var image = e.target.files[0];
+  //-#  window.loadImage(image, function (img) {
+  //-#      if (img.type === "error") {
+  //-#          console.log("couldn't load image:", img);
+  //-#      } else {
+  //-#          window.EXIF.getData(image, function () {
+  //-#              console.log("load image done!");
+  //-#              var orientation = window.EXIF.getTag(this, "Orientation");
+  //-#              var canvas = window.loadImage.scale(img,
+  //-#                  {orientation: orientation || 0, canvas: true, maxWidth: 150});
+  //-#              //document.getElementById("container").appendChild(canvas);
+  //-#              $(".fileinput-preview").empty().append(canvas);
+  //-#          });
+  //-#      }
+  //-#  });
+  //-#};

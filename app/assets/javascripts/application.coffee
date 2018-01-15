@@ -32,6 +32,8 @@
 #= require_tree ./lib
 
 #= require cloudinary
+#= require exif
+#= require blueimp-load-image
 
 #= require react
 #= require react_ujs

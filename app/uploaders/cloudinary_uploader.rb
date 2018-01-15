@@ -8,19 +8,21 @@ class CloudinaryUploader < CarrierWave::Uploader::Base
   include CarrierWave::ImageOptimizer
   include Cloudinary::CarrierWave
 
+  CLOUD_FOLDER = Rails.application.secrets.cloudinary_folder || 'public'
+
   process optimize: [{ quality: 80 }]
 
   def public_id
-    "#{Rails.application.secrets.cloudinary_folder || 'public'}/users/#{model.user.id}/pict_#{model.id}_#{model.updated_at.to_i}"
+    "#{CloudinaryUploader::CLOUD_FOLDER}/users/#{model.user.id}/pict_#{model.id}_#{model.updated_at.to_i}"
   end
 
-  process :generate_on_upload
-
-  def generate_on_upload
-    {
-            transformation: [ cropper, rotation ]
-    }
-  end
+  # process :generate_on_upload
+  #
+  # def generate_on_upload
+  #   {
+  #           transformation: [ cropper, rotation ]
+  #   }
+  # end
 
   def cropper
     if model.crop_x.to_f > 0 || model.crop_y.to_f > 0

@@ -47,6 +47,9 @@ gem 'elevatezoom-rails'
 gem 'jquery-tmpl-rails'
 gem 'jquery-turbolinks'
 
+gem 'exifjs-rails'
+gem 'blueimp-load-image-rails'
+
 gem 'devise'
 gem 'kaminari'
 gem 'ransack'

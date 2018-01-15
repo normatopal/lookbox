@@ -52,6 +52,8 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bcrypt (3.1.11)
+    blueimp-load-image-rails (1.9.1)
+      railties (>= 3.0, < 5.0)
     bootbox-rails (0.5.0)
     bootstrap-datepicker-rails (1.6.4.1)
       railties (>= 3.0)
@@ -110,6 +112,7 @@ GEM
     elevatezoom-rails (1.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
+    exifjs-rails (1.0.0.beta1)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
@@ -355,6 +358,7 @@ DEPENDENCIES
   active_link_to
   autoprefixer-rails (~> 7.1, >= 7.1.6)
   awesome_nested_set
+  blueimp-load-image-rails
   bootbox-rails
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.5)
@@ -367,6 +371,7 @@ DEPENDENCIES
   devise
   draper
   elevatezoom-rails
+  exifjs-rails
   haml
   haml-rails
   jasny-bootstrap-rails

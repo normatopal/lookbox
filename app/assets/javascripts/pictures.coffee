@@ -69,7 +69,21 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
 ).on('click', '.clear-input-btn', ->
   $(this).siblings($('input:text')).val('')
   $(this).hide()
+).on('change', '.image-load', (e) ->
+  image = e.target.files[0]
 )
+
+window.LoadImageWithOrientation = (image) ->
+    window.loadImage(image, (img) ->
+      if (img.type == "error")
+        console.log("couldn't load image:", img)
+      else
+        window.EXIF.getData(image, ->
+          orientation = window.EXIF.getTag(this, "Orientation")
+          canvas = window.loadImage.scale(img,  {orientation: orientation || 0, canvas: true, maxWidth: 150})
+          $(".fileinput-preview").empty().append(canvas))
+    )
+    return
 
 
 
