@@ -10,12 +10,7 @@
   .container
     #content
       #flash_notice
-        - if notice
-          .alert.alert-success
-            = notice
-        - if alert
-          .alert.alert-danger
-            = alert
+        = render 'shared/flash_message', notice: notice, alert: alert
       = yield
 
 

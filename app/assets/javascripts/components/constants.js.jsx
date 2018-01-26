@@ -11,6 +11,10 @@ ConstantsList = Object.freeze({
     noImageLarge: 'no_image_found_large.jpg',
     rotationAngle: 90,
     rotationClasses: 'rotate0 rotate90 rotate180 rotate270'
+  },
+  FlashNotice: {
+    fadeOutTime: 5000,
+    messageClass: '#flash_notice'
   }
 });
 

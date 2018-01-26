@@ -39,10 +39,12 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
 .on('click', '.image-crop', (e) ->
   if ($(e.currentTarget).hasClass('ok'))
     $('#picture_rotation').val(0)
+    $("input[id^='picturedecorator_image_crop']").prop('disabled', false)
     PictureCropperSwitch({'image': 'hide', 'crop': 'show', 'switch': true})
   else if ($(e.currentTarget).hasClass('cancel'))
     PictureCropperSwitch({'switch': true})
   else
+    window.PictureCropper = new window.CarrierWaveImageCropper()
     preview_image_src = $('.fileinput-preview.thumbnail img').attr('src')
     crop_image_scr = $('#picturedecorator_image_cropbox').attr('src')
     if ($('.file-image-preview').is(":visible") && preview_image_src != crop_image_scr)

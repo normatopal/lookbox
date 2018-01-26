@@ -32,6 +32,13 @@ Pictures = React.createClass({
   },
   componentWillMount(){
     window.Picture = {
+      addPicture:function(data = ''){
+        if (data == '') return
+        picture = JSON.parse(data)
+        new_pictures = this.state.pictures
+        new_pictures.unshift(picture)
+        this.setState({pictures: new_pictures})
+      }.bind(this),
       updatePicture: function (data = '') {
         if (data == '') return
         picture = JSON.parse(data)

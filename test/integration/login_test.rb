@@ -54,7 +54,7 @@ class LoginTest < Capybara::Rails::TestCase
     assert page.has_content? 'Sign in with Google'
     click_link 'Sign in with Google'
     assert page.has_link? 'Account'
-    assert_enqueued_jobs 1
+    assert_enqueued_jobs 0
   end
 
   private

@@ -43,3 +43,4 @@ module SearchFilter
   end
 
 end
+

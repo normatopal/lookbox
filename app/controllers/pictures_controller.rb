@@ -8,8 +8,8 @@ class PicturesController < ApplicationController
   # GET /pictures
   def index
     @search, @pictures = filtered_pictures(current_user.pictures, params)
-    respond_to do |format|
-      format.html { flash[:notice] = 'Picture was successfully added.' if params.delete(:created_id) }
+        respond_to do |format|
+      format.html { flash[:notice] = success_action_notice('added') if params.delete(:created_id) }
       format.js do
         @available_pictures = @pictures
         search_view = if params[:look_id] then 'looks/available_pictures' elsif params[:category_id] then 'categories/available_pictures' else {js: 'No results was found'}  end
@@ -48,7 +48,7 @@ class PicturesController < ApplicationController
       if @picture.save
         @picture.image = picture_params[:image] if picture_params[:image].present?
         @picture.save if @picture.changed?
-        format.html { redirect_to pictures_path, notice: 'Picture was successfully added.' }
+        format.html { redirect_to pictures_path, notice: success_action_notice('created') }
         format.js { render text: 'window.location.reload()' }
       else
         format.html { render :new }
@@ -61,9 +61,8 @@ class PicturesController < ApplicationController
   def update
     respond_to do |format|
       if @picture.update(picture_params) #update_attributes
-        flash[:notice] = 'You have successfully updated the picture'
-        format.html { redirect_to pictures_path, notice: 'Picture was successfully updated.' }
-        format.js { render :update }
+        format.html { redirect_to pictures_path, notice: success_action_notice('updated') }
+        format.js { render :update, locals: {notice: success_action_notice('updated')} }
       else
         format.html { render :edit }
         format.js { render :edit }
@@ -75,7 +74,7 @@ class PicturesController < ApplicationController
   def destroy
     @picture.destroy
     respond_to do |format|
-      format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }
+      format.html { redirect_to pictures_url, notice: success_action_notice('destroyed') }
     end
   end
 
@@ -86,20 +85,19 @@ class PicturesController < ApplicationController
 
   def copy
     original_picture = current_user.pictures.find(params[:id])
-    new_picture = original_picture.dup.decorate
-    #@picture.image = original_picture.image
-    new_picture.title += ' copy'
-    CopyCarrierwaveFile::CopyFileService.new(original_picture, new_picture, :image).set_file
-    new_picture.save
-    @picture = new_picture
+    #@picture = original_picture.duplicate
+    @picture = Picture.last
     respond_to do |format|
-      format.html { render :show }
-      format.js { render :show }
+      format.html { render :index, notice: success_action_notice('copied')}
+      format.js { render :copy, locals: {notice: success_action_notice('copied')} }
     end
   end
 
   private
-  
+    def success_action_notice(action)
+      "Picture was successfully #{action}."
+    end
+
     def set_picture
       @picture = current_user.pictures.find(params[:id]).decorate
     end

@@ -7,14 +7,6 @@ class PictureDecorator < Draper::Decorator
     end
   end
 
-  def categories_set
-    object.user.categories.collect { |cat| ["#{'-' * cat.level} #{cat.name}", cat.id] }
-  end
-
-  def preview_image_thumb
-    object.image && object.image.thumb.url || 'no_image_found.jpg'
-  end
-
   def preview_image_large
     object.image && object.image.large.url || 'no_image_found_large.jpg'
   end

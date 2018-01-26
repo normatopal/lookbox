@@ -1,4 +1,4 @@
 $("#picture-modal-form").html("<%= escape_javascript (render('pictures/modals/form').force_encoding("utf-8")) %>");
-window.PictureCropper = new window.CarrierWaveImageCropper()
 $("#modal-label").html("<%= t('pictures.edit_picture')%>");
 $("#picture-modal-form").modal('show');
+$("input[id^='picturedecorator_image_crop']").prop('disabled', true)

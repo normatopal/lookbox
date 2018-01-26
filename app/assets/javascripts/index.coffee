@@ -3,9 +3,13 @@ ready = ->
     history.pushState({}, null, window.location.href.slice(0,-1));
 
   $(".sortable_tree a:not('.edit, .delete')").attr('data-remote', true)
-  $("div[id^='flash_']").fadeOut(5000);
+  $("div[id^='flash_']").fadeOut(ConstantsList.FlashNotice.fadeOutTime);
 
   $('[data-toggle="tooltip"]').tooltip();
+
+  window.FlashMessage = {
+     show: (notice) -> $(ConstantsList.FlashNotice.messageClass).html(notice).show().fadeOut(ConstantsList.FlashNotice.fadeOutTime)
+  }
 
   window.myCustomConfirmBox = (message, success_label, callback) ->
     bootbox.dialog
