@@ -10,7 +10,6 @@ class Picture < ActiveRecord::Base
   has_many :look_pictures, dependent: :destroy
   has_many :looks, -> { uniq }, :through => :look_pictures
 
-  cattr_accessor(:with_subcategories) { false }
   attr_accessor :image_encoded, :image_timestamp
   serialize :transformation_params, Hash
   store_accessor :transformation_params, :rotation, :crop_x, :crop_y, :crop_w, :crop_h
@@ -25,20 +24,14 @@ class Picture < ActiveRecord::Base
   scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) }
   #scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
 
-  scope :category_search, -> (category_id = nil) do
-    #category_id = nil unless category_id.to_i > 0
-    #includes(:categories).where( categories: { id: category_id })
-    ids = Category.find(category_id).self_and_descendants.ids if self.with_subcategories && category_id
-    ids ||= category_id
+  scope :category_search, -> (category_id = nil, include_subcat = nil) do
+    ids = if category_id.to_i > 0
+      include_subcat ? Category.find(category_id).self_and_descendants.ids : category_id
+    else nil end # for uncategorized pictures
     includes(:categories).where( categories: { id: ids })
   end
   
-
-  scope :include_subcategories, -> {}
-#  ->(category_id) do
-#    ids = Category.find(category_id).self_and_descendants.ids if category_id
-#    includes(:categories).where( categories: { id: ids ||= []})
-#  end
+  scope :include_subcategories, -> (include_subcat = nil) { }
 
   after_update :recreate_image, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.rotation.present? }
   after_update :create_image_timetamp, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.crop_x.present? }
@@ -50,28 +43,24 @@ class Picture < ActiveRecord::Base
     [:category_search, :include_subcategories]
   end
 
-  def self.switch_subcategories_flag(search_params)
-    self.with_subcategories = search_params.present? && search_params['include_subcategories'] == '1'
-  end
-
   def duplicate
     Rails.application.secrets.use_cloudinary ? self.make_cloudinary_copy : self.make_carrierwave_copy
   end
 
   def make_carrierwave_copy
-    new_picture = self.dup
-    new_picture.title += ' copy'
-    CopyCarrierwaveFile::CopyFileService.new(self, new_picture, :image).set_file
-    new_picture.save
-    new_picture
+    copy = self.dup
+    copy.title += ' copy'
+    CopyCarrierwaveFile::CopyFileService.new(self, copy, :image).set_file
+    copy.save
+    copy
   end
 
   def make_cloudinary_copy
-    new_picture = Picture.new(self.attributes.except(:image).merge(id: nil, title: "#{self.title} copy"))
-    new_picture.save
-    new_picture.remote_image_url = self.image_url
-    new_picture.save
-    new_picture
+    copy = Picture.new(self.attributes.except(:image).merge(id: nil, title: "#{self.title} copy"))
+    copy.save
+    copy.remote_image_url = self.image_url # to save image path with existing picture id
+    copy.save
+    copy
   end
 
   private

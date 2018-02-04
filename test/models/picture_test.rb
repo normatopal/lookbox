@@ -30,14 +30,4 @@ describe Picture do
     Picture.uncategorized.count.must_equal 3
   end
 
-  it "finds pictures list by category" do
-    Picture.with_subcategories = false
-    Picture.category_search(categories(:main).id).count.must_equal 2
-  end
-
-  it "finds pictures list by category with subcategories" do
-    Picture.with_subcategories = true
-    Picture.category_search(categories(:main).id).count.must_equal 3
-  end
-
 end
