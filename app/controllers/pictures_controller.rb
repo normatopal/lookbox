@@ -49,7 +49,7 @@ class PicturesController < ApplicationController
         @picture.image = picture_params[:image] if picture_params[:image].present?
         @picture.save if @picture.changed?
         format.html { redirect_to pictures_path, notice: success_action_notice('created') }
-        format.js { render text: 'window.location.reload()' }
+        format.js { render :create }
       else
         format.html { render :new }
         format.js { render :new }

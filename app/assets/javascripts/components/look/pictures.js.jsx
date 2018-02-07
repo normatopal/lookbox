@@ -7,7 +7,7 @@ LookPictures = React.createClass({
     let look_pictures = JSON.parse(this.props.look_pictures)
     return {
       look_pictures: look_pictures,
-      max_position_order: look_pictures.length,
+      max_position_order: look_pictures.length + 1,
       pictures_for_remove_count: 0
     }
   },
@@ -70,7 +70,7 @@ LookPictureItem =  React.createClass({
   getInitialState: function () {
     return {
       show_item: true,
-      position_params:  Object.assign({}, {left: '0', top: '0', order: '0', height: 200, width: 'auto'}, this.props.position_params),
+      position_params:  Object.assign({}, {left: '0', top: '0', order: '1', height: 300, width: 'auto'}, this.props.position_params),
       hidden_fields: { 'id': this.props.lp_id, 'picture_id': this.props.picture.id, '_destroy': false }
     }
   },
@@ -151,8 +151,8 @@ LookPictureItem =  React.createClass({
           { this.state.show_item &&
           <Draggable position={this.props.position_params} canvas_id = { ConstantsList.LookCanvasID }
                      changePositionParams={ this.changePositionParams } increaseZindex={ this.increaseZindex }>
-              <img className="resizable" src={this.props.picture.image.large.url} title=''
-                   style={{ width: this.state.position_params.width + 'px', height: this.state.position_params.height + 'px',
+              <img className="resizable" src={this.props.picture.image.large.url.replace(/\/a_(\d*)\//, '/a_90/')} title=''
+                   style={{ width: this.state.position_params.height + 'px', height: this.state.position_params.width + 'px',
                    zIndex: this.state.position_params['order'] }}
                    onClick={this.increaseZindex}
                    ref = {image => { this.handleSize(image) } }

@@ -33,14 +33,27 @@ class Picture < ActiveRecord::Base
   
   scope :include_subcategories, -> (include_subcat = nil) { }
 
-  after_update :recreate_image, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.rotation.present? }
-  after_update :create_image_timetamp, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.crop_x.present? }
-  after_update :remove_previous_cloud_image, if: ->(obj){ Rails.application.secrets.use_cloudinary && obj.changes[:image].present? && !obj.remote_image_url }
+  after_update :update_picture
+  # after_update :recreate_image, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.rotation.present? }
+  # after_update :create_image_timetamp, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.crop_x.present? }
+  # after_update :remove_previous_cloud_image, if: ->(obj){ Rails.application.secrets.use_cloudinary && obj.changes[:image].present? && !obj.remote_image_url }
   after_destroy :remove_cloud_image, if: ->(obj){ Rails.application.secrets.use_cloudinary && obj.image.url.present?}
 
   # whitelist the scope
   def self.ransackable_scopes(auth_object = nil)
     [:category_search, :include_subcategories]
+  end
+
+  def update_picture
+    if Rails.application.secrets.use_cloudinary
+      previous_image = self.changes.fetch(:image, {}).first
+      if previous_image.try(:url) && !self.remote_image_url && !previous_image.try(:filename).eql?(self.image.try(:filename))
+        remove_cloud_image(previous_image_public_id(previous_image))
+      end
+    else
+      recreate_image if self.rotation.present?
+      create_image_timetamp if self.crop_x.present?
+    end
   end
 
   def duplicate
@@ -73,10 +86,8 @@ class Picture < ActiveRecord::Base
     Cloudinary::Uploader.destroy(public_id)
   end
 
-  def remove_previous_cloud_image
-    previous_image = self.changes.fetch(:image).first
-    previous_public_id = CloudinaryUploader::CLOUD_FOLDER + previous_image.url.split(CloudinaryUploader::CLOUD_FOLDER).last.split('.').first
-    remove_cloud_image(previous_public_id)
+  def previous_image_public_id(previous_image)
+    CloudinaryUploader::CLOUD_FOLDER + previous_image.url.split(CloudinaryUploader::CLOUD_FOLDER).last.split('.').first
   end
 
   def create_image_timetamp

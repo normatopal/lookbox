@@ -1,7 +1,7 @@
 module SearchFilter
 
   def filtered_pictures(pictures, params)
-    SearchParams.new(params.dup).search_pictures(pictures)
+    SearchParams.new(params.merge({look_pictures_ids: cookies[:look_pictures_ids]})).search_pictures(pictures)
   end
 
   def filtered_looks(looks, params)
@@ -36,7 +36,7 @@ module SearchFilter
     private
 
     def available_pictures_for_look(pictures)
-      [pictures.where.not(id: cookies[:look_pictures_ids].split(',')), LOOK_PICTURES_PER_PAGE]
+      [pictures.where.not(id: @params[:look_pictures_ids].split(',')), LOOK_PICTURES_PER_PAGE]
     end
 
     def available_pictures_for_category(pictures)
