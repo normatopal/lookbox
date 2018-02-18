@@ -79,6 +79,8 @@ gem 'sidekiq'
 gem 'redis-namespace'
 
 gem 'react-rails'
+gem 'grape'
+gem 'warden'
 
 group :development, :test do
   gem 'pry-byebug'

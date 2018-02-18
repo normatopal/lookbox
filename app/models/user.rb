@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   has_many :user_looks, dependent: :destroy
   has_many :shared_looks, through: :user_looks, source: :look
-  has_one :user_setting
+  has_one :user_setting, :dependent => :destroy
 
   #validates :name, uniqueness: true, if: 'name.present?'
 
@@ -62,4 +62,7 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.find_by_access_token(access_token)
+    ApiKey.find_by_token(access_token).try(:user_setting).try(:user)
+  end
 end

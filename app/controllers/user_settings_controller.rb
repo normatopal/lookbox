@@ -20,7 +20,7 @@ class UserSettingsController < ApplicationController
   end
 
   def user_setting_params
-    params.require(:user_setting).permit(:timezone, :locale_id, :time_zone, :look_screen_category_id)
+    params.require(:user_setting).permit(:timezone, :locale_id, :time_zone, :look_screen_category_id, :api_key_attributes => [:access_token, :active, :user_setting_id])
   end
 
 end

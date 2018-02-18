@@ -1,0 +1,3 @@
+'<%= form_for(@user_setting) do |ff| %>'
+  $("#api-key-block").html("<%= escape_javascript (render(partial: 'api_key_block', :locals => { f: ff, api_key: @api_key } )) %>");
+'<% end %>'

@@ -1,0 +1,6 @@
+= f.fields_for :api_key, api_key do |akf|
+  = akf.hidden_field :access_token
+  = text_field_tag 'access_token', "?access_token=#{api_key.access_token}", class: "api_key_token" #, disabled: true
+  = akf.check_box :active
+  = "Active"
+

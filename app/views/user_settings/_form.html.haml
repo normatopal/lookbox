@@ -21,6 +21,14 @@
 
   .form-group
     .row
+      = f.label 'api_key', class: "col-sm-2 control-label"
+      .col-sm-10
+        #api-key-block
+          = render 'api_keys/api_key_block', f: f, api_key: @user_setting.api_key
+        = link_to 'Generate api key', api_keys_access_token_path, remote: true, class: "btn btn-default"
+
+  .form-group
+    .row
       .col-sm-offset-2.col-sm-10
         .actions
           = f.submit "Save"

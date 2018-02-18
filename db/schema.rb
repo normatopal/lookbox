@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108221614) do
+ActiveRecord::Schema.define(version: 20180214170348) do
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string   "access_token",    limit: 255
+    t.datetime "expires_at"
+    t.integer  "user_setting_id", limit: 4
+    t.boolean  "active",                      default: true
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "api_keys", ["access_token"], name: "index_api_keys_on_access_token", using: :btree
+  add_index "api_keys", ["user_setting_id"], name: "index_api_keys_on_user_setting_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255

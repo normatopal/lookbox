@@ -50,8 +50,13 @@
         end
       end
 
+
+      get 'api_keys/access_token' => 'api_keys#recreate_access_token'
+
       get 'users/profile', as: 'user_root'
       root to: root_path
+
+      mount External::ApiVersion1 => '/'
   end
 
 end

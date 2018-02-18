@@ -1,0 +1,8 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+john_doe_api_key:
+  access_token:
+  expires_at:
+  user_setting_id: john_doe
+  active:
+
