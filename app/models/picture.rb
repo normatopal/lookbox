@@ -10,13 +10,14 @@ class Picture < ActiveRecord::Base
   has_many :look_pictures, dependent: :destroy
   has_many :looks, -> { uniq }, :through => :look_pictures
 
-  attr_accessor :image_encoded, :image_timestamp
+  attr_accessor :image_encoded, :image_timestamp, :direct_image_url
   serialize :transformation_params, Hash
   store_accessor :transformation_params, :rotation, :crop_x, :crop_y, :crop_w, :crop_h
 
   validates :title, presence: true
   validates_length_of :title, :minimum => 5, :if => proc{|p| p.title.present?}
   validates :user, presence: true
+  validate :check_direct_image_url
 
   scope :uncategorized, -> { includes(:categories).where( categories: { id: nil } ) }
 
@@ -33,15 +34,20 @@ class Picture < ActiveRecord::Base
   
   scope :include_subcategories, -> (include_subcat = nil) { }
 
+  before_save :load_image_from_remote_url, if: ->(obj){ obj.direct_image_url.present? }
   after_update :update_picture
-  # after_update :recreate_image, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.rotation.present? }
-  # after_update :create_image_timetamp, if: ->(obj){ !Rails.application.secrets.use_cloudinary && obj.crop_x.present? }
-  # after_update :remove_previous_cloud_image, if: ->(obj){ Rails.application.secrets.use_cloudinary && obj.changes[:image].present? && !obj.remote_image_url }
   after_destroy :remove_cloud_image, if: ->(obj){ Rails.application.secrets.use_cloudinary && obj.image.url.present?}
 
   # whitelist the scope
   def self.ransackable_scopes(auth_object = nil)
     [:category_search, :include_subcategories]
+  end
+
+  def load_image_from_remote_url
+    if valid_direct_url?
+      self.remote_image_url = direct_image_url
+      self.image = nil
+    end
   end
 
   def update_picture
@@ -92,6 +98,14 @@ class Picture < ActiveRecord::Base
 
   def create_image_timetamp
     self.image_timestamp = DateTime.now.to_i
+  end
+
+  def check_direct_image_url
+    self.errors.add(:direct_image_url, :invalid) unless valid_direct_url?
+  end
+
+  def valid_direct_url?
+    direct_image_url.blank? || direct_image_url =~ URI::regexp(%w(http https))
   end
 
 end

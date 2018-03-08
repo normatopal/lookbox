@@ -84,9 +84,7 @@ class PicturesController < ApplicationController
   end
 
   def copy
-    original_picture = current_user.pictures.find(params[:id])
-    #@picture = original_picture.duplicate
-    @picture = Picture.last
+    @picture = current_user.pictures.find(params[:id]).duplicate
     respond_to do |format|
       format.html { render :index, notice: success_action_notice('copied')}
       format.js { render :copy, locals: {notice: success_action_notice('copied')} }
@@ -95,7 +93,7 @@ class PicturesController < ApplicationController
 
   private
     def success_action_notice(action)
-      "Picture was successfully #{action}."
+      "Picture has been successfully #{action}."
     end
 
     def set_picture
@@ -108,7 +106,7 @@ class PicturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
-      params.require(:picture).transform_keys{|k| k.sub('image_crop', 'crop')}.permit(:crop_x, :crop_y, :crop_w, :crop_h, :title, :description, :rotation, :user_id, :image, category_ids: [])
+      params.require(:picture).transform_keys{|k| k.sub('image_crop', 'crop')}.permit(:crop_x, :crop_y, :crop_w, :crop_h, :title, :description, :rotation, :user_id, :image, :direct_image_url, category_ids: [])
     end
 
 end

@@ -69,7 +69,7 @@ $(document).on('mouseenter', '.pictures-list .picture-block, .pictures-list .loo
 ).on('mouseleave', '.title-input-wrapper', ->
   $(this).find($('.clear-input-btn')).hide()
 ).on('click', '.clear-input-btn', ->
-  $(this).siblings($('input:text')).val('')
+  $(this).closest('.title-input-wrapper').find($('input:text')).val('')
   $(this).hide()
 ).on('change', '.image-load', (e) ->
   image = e.target.files[0]
