@@ -4,23 +4,26 @@
   .look-toggler.form-inline
     .row
       .col-sm-12
-        .form-group
-          = f.label :name, class: "control-label"
-          = f.text_field :name, class: "form-control"
+        .div{class: "collapse in", id: "look_options"}
+          .form-group
+            = f.label :name, class: "control-label"
+            = f.text_field :name, class: "form-control"
 
-        .form-group
-          = f.label :description, class: "control-label"
-          = f.text_area :description, class: "form-control"
+          .form-group
+            = f.label :description, class: "control-label"
+            = f.text_area :description, class: "form-control"
 
-        .form-group
-          = f.label "Shared with", class: "control-label"
-          = react_component 'LookUsers', {potential_users: "#{ current_user.potential_shared_users }", shared_users: "#{ @look.user_looks.to_json(only: :id, include: {user: { only: [:id, :email]} })}"}, class: "inline-block"
-          = hidden_field_tag "shared-users-count", @look.shared_users.count
+          .form-group
+            = f.label "Shared with", class: "control-label"
+            = react_component 'LookUsers', {potential_users: "#{ current_user.potential_shared_users }", shared_users: "#{ @look.user_looks.to_json(only: :id, include: {user: { only: [:id, :email]} })}"}, class: "inline-block"
+            = hidden_field_tag "shared-users-count", @look.shared_users.count
 
     .row
-      .col-sm-6
+      .col-sm-9
         = react_component 'LookPictureScreen'
-      .col-sm-6
+      .col-sm-3
+        .div{class: "btn btn-primary btn-look-options", type: "button", :'data-toggle' => "collapse", :'data-target' => "#look_options", :'aria-expanded' => "true", :'aria-controler' => "look_options"}
+          Params...
         = link_to pictures_path(look_id: @look.id || 0), class: "btn btn-add-new", remote: true do
           %i.glyphicon.glyphicon-plus
           Add Picture

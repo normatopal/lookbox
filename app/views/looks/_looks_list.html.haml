@@ -2,7 +2,7 @@
 .pictures-list.clearfix
   - @looks.each do |look|
     .look-info
-      %div{class: "modal fade", id: "look-modal-#{look.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
+      %div{class: "modal fade", id: "look-modal-#{look.id}", tabindex: "-1", role: "dialog", :"aria-labelledby" => "modal-label "}
         = render 'looks/modals/show', look: look
       .look-name.text-short
         = look.name
@@ -11,7 +11,7 @@
       - if is_shared_looks
         .shared-looks-actions
           = link_to "Approve", approve_shared_look_path(look), class: 'btn btn-primary' unless look.user_looks[0].is_approved
-          = link_to "Decline", remove_shared_look_path(look), method: :get, class: 'btn btn-primary', data: { confirm: "You're going to decline watching this look", "confirm-success-label": 'Decline' }
+          = link_to "Decline", remove_shared_look_path(look), method: :get, class: 'btn btn-primary', data: { confirm: "You're going to decline watching this look", :"confirm-success-label" => 'Decline' }
 
 - no_looks = is_shared_looks ? "No one shared with you look has been found." : "No one look has been added yet. Press 'New look' to add the first one."
 = current_user.looks.any? ? "No results found. Refresh to view all items." : no_looks unless @looks.any?

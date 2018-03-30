@@ -56,7 +56,7 @@ class LooksController < ApplicationController
       @look.save if @look.changed?
       redirect_to looks_path, notice: 'Look was successfully created.'
     else
-      redirect_to new_look_path
+      render :new
     end
   end
 
@@ -73,7 +73,7 @@ class LooksController < ApplicationController
     if @look.update(look_params)
       redirect_to looks_path, notice: 'Look was successfully updated.'
     else
-      redirect_to edit_look_path(@look)
+      render :edit
     end
   end
 

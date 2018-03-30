@@ -15,6 +15,10 @@ $(document).on('change', '#category-pictures-filter', ->
   return
 ).on('blur', '#look_name', (e) ->
   $("#preview-image-title").val(e.target.value + ' screen')
+).on('shown.bs.collapse', '#look_options', ->
+  $('.btn-look-options').html('Hide params...')
+).on('hidden.bs.collapse', '#look_options', ->
+  $('.btn-look-options').html('Params...')
 )
 
 
