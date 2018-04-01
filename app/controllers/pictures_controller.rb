@@ -93,7 +93,7 @@ class PicturesController < ApplicationController
 
   private
     def success_action_notice(action)
-      "Picture has been successfully #{action}."
+      "Picture was successfully #{action}."
     end
 
     def set_picture

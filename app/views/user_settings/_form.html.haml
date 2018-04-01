@@ -17,7 +17,7 @@
     .row
       = f.label :look_screen_category_id, class: "col-sm-2 control-label"
       .col-sm-10
-        = f.select :look_screen_category_id, categories_with_depth_name(@user_setting.user.categories), { include_blank: true}, { class: "nested_options" }
+        = f.select :look_screen_category_id, nested_set_options(@user_setting.user.categories) {|cat|  "#{'-' * cat.depth} #{cat.name}" }, { include_blank: true}, { class: "nested_options" }
 
   .form-group
     .row

@@ -25,3 +25,8 @@
 
 .category-row
   %div{class: "modal fade", id: "modal-form", tabindex: "-1", role: "dialog", "aria-labelledby": "modal-label "}
+
+:javascript
+  if ($(ConstantsList.FlashNotice.messageClass).children().length > 0){
+    $(ConstantsList.FlashNotice.messageClass).fadeOut(ConstantsList.FlashNotice.fadeOutTime)
+  }

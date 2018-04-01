@@ -24,7 +24,7 @@
         .row
           = f.label t('pictures.category'), class: "col-sm-2 control-label"
           .col-sm-10
-            = select :picture, :category_ids, categories_with_depth_name(current_user.categories), {}, { multiple: true, class: "select2-select"}
+            = select :picture, :category_ids, nested_set_options(current_user.categories){|cat|  "#{'-' * cat.depth} #{cat.name}" }, { multiple: true, class: "select2-select"}
       .form-group
         .row
           = f.label :image, class: "col-sm-2 control-label"

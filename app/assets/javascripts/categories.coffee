@@ -24,4 +24,7 @@ $(document).on('click', '.add-picture', ->
     picture.css({ opacity: image_opacity })
     chbox.prop('checked', !is_checked)
     return
-  )
+).on('click', '.category-expand', ->
+  $(this).closest('.item').siblings('.nested_set').toggleClass('hide-nested-set')
+  $(this).toggleClass('glyphicon-minus').toggleClass('glyphicon-plus')
+)
