@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214170348) do
+ActiveRecord::Schema.define(version: 20180401205610) do
 
   create_table "api_keys", force: :cascade do |t|
     t.string   "access_token",    limit: 255
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20180214170348) do
     t.string   "image",                 limit: 255
     t.datetime "deleted_at"
     t.text     "transformation_params", limit: 65535
+    t.string   "link",                  limit: 255
   end
 
   create_table "user_looks", force: :cascade do |t|

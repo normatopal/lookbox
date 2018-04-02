@@ -39,6 +39,7 @@ module RenderSortableTreeHelper
       def controls
         node = options[:node]
 
+        new_path = h.url_for(:controller => options[:klass].pluralize, :action => :new, :parent_id => node)
         edit_path = h.url_for(:controller => options[:klass].pluralize, :action => :edit, :id => node)
         destroy_path = h.url_for(:controller => options[:klass].pluralize, :action => :destroy, :id => node)
         available_pictures_path = h.url_for(:controller => 'pictures', :action => :index, :category_id => node)
@@ -47,7 +48,8 @@ module RenderSortableTreeHelper
         "
           <div class='controls'>
             <div class='category-pictures-count' id=#{pictures_count_id} title='Pictures count'>#{node.pictures.length}</div>
-            #{ h.link_to '', available_pictures_path, :title => "Add pictures", :class => :new, :remote => :true }
+            #{ h.link_to '', available_pictures_path, :title => "Add pictures", :class => "glyphicon glyphicon-picture", :remote => :true }
+            #{ h.link_to '', new_path, :title => "Add subcategory", :class => :new, :remote => :true }
             #{ h.link_to '', edit_path, :class => :edit, :remote => :true }
             #{ h.link_to '', destroy_path, :class => :delete, :method => :delete, :data => { :confirm => 'Are you sure?' } }
           </div>

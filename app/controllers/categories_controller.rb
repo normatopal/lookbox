@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @category = current_user.categories.new.decorate
+    @category = current_user.categories.new(parent_id: params[:parent_id]).decorate
     respond_to do |format|
       format.html
       format.js

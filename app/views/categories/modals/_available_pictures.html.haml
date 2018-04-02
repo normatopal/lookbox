@@ -8,11 +8,11 @@
     .modal-body
       .filters
         = search_form_for @search, remote: true, authenticity_token: true, html: { multipart: true, class: "form-inline" } do |f|
-          = hidden_field_tag :category_id, @category_id || 0
+          = hidden_field_tag :category_id, params[:category_id] || 0
           = render "pictures/search_filters", f: f
 
       -#= form_for add_pictures_category_path(@category_id), remote: true, authenticity_token: true,  html: { method: :post } do |fp|
-      = form_tag add_pictures_category_path(@category_id || 0), remote: true, format: :js, authenticity_token: true, method: :post do
+      = form_tag add_pictures_category_path(params[:category_id] || 0), remote: true, format: :js, authenticity_token: true, method: :post do
         -#= hidden_field_tag :name, @category.name, name: 'category[name]'
         - @available_pictures.each do |picture|
           - next unless picture.id

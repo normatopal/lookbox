@@ -97,8 +97,16 @@ PictureItem = React.createClass({
             </a>
           </div>
           <div className="picture-action">
-            <a href="#" data-toggle="modal" data-target={`#picture-modal-show`} onClick={this.showModalView}>
+            { this.props.picture.link &&
+              <a href={this.props.picture.link} target="_blank" title={this.props.picture.link}>
+                <span className="glyphicon glyphicon-link"></span>
+              </a>
+            }
+            <a href="#" title="Show" data-toggle="modal" data-target={`#picture-modal-show`} onClick={this.showModalView}>
               <span className="glyphicon glyphicon-zoom-in"></span>
+            </a>
+            <a href={`/pictures/${this.props.picture.id}/edit`} title="Edit" data-remote="true" data-toggle="modal" data-target={`#picture-modal-form`}>
+              <span className="glyphicon glyphicon-edit"></span>
             </a>
             <a data-confirm="Are you sure?" title="Delete" rel="nofollow" data-method="delete" href={`/pictures/${this.props.picture.id}`}>
               <span className="glyphicon glyphicon-trash"></span>

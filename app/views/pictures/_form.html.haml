@@ -8,7 +8,7 @@
 
       .form-group
         .row
-          = f.label :title, class: "col-sm-2 control-label"
+          = f.label :title, 'Title*', class: "col-sm-2 control-label"
           .col-sm-10
             .title-input-wrapper
               = f.text_field :title, class: 'form-control'
@@ -19,6 +19,14 @@
           = f.label :description, class: "col-sm-2 control-label"
           .col-sm-10
             = f.text_area :description, class: 'form-control'
+
+      .form-group
+        .row
+          = f.label :link, class: "col-sm-2 control-label"
+          .col-sm-5.title-input-wrapper
+            = f.text_field :link, class: 'form-control'
+            %span.clear-input-btn
+              &times;
 
       .form-group
         .row

@@ -19,6 +19,18 @@ describe Picture do
     it "is valid with correct attributes" do
       pictures(:right).valid?.must_equal true
     end
+
+    it "allows correct link" do
+      picture = pictures(:with_correct_link)
+      picture.valid?.must_equal true
+    end
+
+    it "declines incorrect link" do
+      picture = pictures(:with_incorrect_link)
+      picture.valid?.must_equal false
+      picture.errors.count.must_equal 1
+    end
+
   end
 
   it "has categories collection" do
@@ -27,7 +39,7 @@ describe Picture do
   end
 
   it "select uncategorized pictures" do
-    Picture.uncategorized.count.must_equal 3
+    Picture.uncategorized.count.must_equal 5
   end
 
 end

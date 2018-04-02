@@ -17,7 +17,7 @@ class Picture < ActiveRecord::Base
   validates :title, presence: true
   validates_length_of :title, :minimum => 5, :if => proc{|p| p.title.present?}
   validates :user, presence: true
-  validate :check_direct_image_url
+  validates_with UrlValidator, fields: [:direct_image_url, :link]
 
   scope :uncategorized, -> { includes(:categories).where( categories: { id: nil } ) }
 
@@ -98,14 +98,6 @@ class Picture < ActiveRecord::Base
 
   def create_image_timetamp
     self.image_timestamp = DateTime.now.to_i
-  end
-
-  def check_direct_image_url
-    self.errors.add(:direct_image_url, :invalid) unless valid_direct_url?
-  end
-
-  def valid_direct_url?
-    direct_image_url.blank? || direct_image_url =~ URI::regexp(%w(http https))
   end
 
 end
