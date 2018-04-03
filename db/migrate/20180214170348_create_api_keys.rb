@@ -4,7 +4,7 @@ class CreateApiKeys < ActiveRecord::Migration
       t.string :access_token, unique: true
       t.datetime :expires_at
       t.integer :user_setting_id
-      t.boolean :active, default: 1
+      t.boolean :active, default: true
 
       t.timestamps null: false
     end

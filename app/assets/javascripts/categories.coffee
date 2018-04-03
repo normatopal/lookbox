@@ -25,6 +25,14 @@ $(document).on('click', '.add-picture', ->
     chbox.prop('checked', !is_checked)
     return
 ).on('click', '.category-expand', ->
-  $(this).closest('.item').siblings('.nested_set').toggleClass('hide-nested-set')
-  $(this).toggleClass('glyphicon-minus').toggleClass('glyphicon-plus')
+  $(this).closest('.item').siblings('.nested_set').toggle()
+  $(this).toggleClass('glyphicon-minus glyphicon-plus')
+).on('click', '.category-expand-all', ->
+  $('.sortable_tree .category-expand').switchClass('glyphicon-plus', 'glyphicon-minus')
+  $('.sortable_tree .nested_set').show()
+  return false
+).on('click', '.category-hide-all', ->
+  $('.sortable_tree .category-expand').switchClass('glyphicon-minus', 'glyphicon-plus')
+  $('.sortable_tree .nested_set').hide()
+  return false
 )

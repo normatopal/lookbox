@@ -14,11 +14,13 @@ module RenderSortableTreeHelper
       def render_node(h, options)
         @h, @options = h, options
         node = options[:node]
+        expand_element = "<span class='category-expand glyphicon glyphicon-minus'></span>" if node.children.any?
 
         "
           <li data-node-id='#{ node.id }'>
             <div class='item'>
               <i class='handle'></i>
+              #{expand_element || ''}
               #{ show_link }
               #{ controls }
             </div>

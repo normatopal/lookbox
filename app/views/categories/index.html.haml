@@ -10,6 +10,11 @@
           %label Sort:
           = sort_link @search, :name, 'name', {}, { class: '' }
           = sort_link @search, :created_at, 'date', {}, { class: '' }
+      .categories-expansion
+        = link_to 'expand', '#', class: 'category-expand-all'
+        = "/"
+        = link_to 'hide', '#', class: 'category-hide-all'
+        all
     - else
       No one category has been added yet. Press 'New category' button to add the first one.
 
