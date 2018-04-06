@@ -8,7 +8,7 @@ class PicturesController < ApplicationController
   # GET /pictures
   def index
     @search, @pictures = filtered_pictures(current_user.pictures, params)
-        respond_to do |format|
+    respond_to do |format|
       format.html { flash[:notice] = success_action_notice('added') if params.delete(:created_id) }
       format.js do
         @available_pictures = @pictures
@@ -60,6 +60,7 @@ class PicturesController < ApplicationController
   # PATCH/PUT /pictures/1
   def update
     respond_to do |format|
+      binding.pry
       if @picture.update(picture_params) #update_attributes
         format.html { redirect_to pictures_path, notice: success_action_notice('updated') }
         format.js { render :update, locals: {notice: success_action_notice('updated')} }

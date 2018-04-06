@@ -11,7 +11,5 @@
   .draggable.ui-widget-content.look-picture-block{id: "look-picture-#{look_picture.picture.id}", style: "top: #{look_picture.position_params[:top]}px; left: #{look_picture.position_params[:left]}px; z-index: #{look_picture.order_number} " }
     = image_tag look_picture.picture.image.url, class: "resizable image-space", :'data-toggle' => "tooltip", title: "", style: "width:auto; height: 200px;"
     .picture-action
-      -#= link_to(look_picture.picture, {target: '_blank'} ) do
-        %span.glyphicon.glyphicon-zoom-in
       .remove-look-picture-btn
         %span.glyphicon.glyphicon-trash

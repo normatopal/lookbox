@@ -1,7 +1,7 @@
 module SearchFilter
 
   def filtered_pictures(pictures, params)
-    SearchParams.new(params.merge({look_pictures_ids: cookies[:look_pictures_ids]})).search_pictures(pictures)
+    res = SearchParams.new(params.merge({look_pictures_ids: cookies[:look_pictures_ids]})).search_pictures(pictures)
   end
 
   def filtered_looks(looks, params)
@@ -44,9 +44,9 @@ module SearchFilter
     end
 
     def prepared_picture_params
-      #q_attributes[:category_search].try(:sub!, /\b(1)\b/,'1.0')
       params = @params[:q] #.dup
-      params[:category_search] = [params[:category_search]] << params[:include_subcategories]
+      params[:category_search] = [params[:category_search]].prepend(params[:include_subcategories])
+      #params[:category_search].try(:sub!, /\b(1)\b/,'1.0')
     end
 
     def paginate(objects, page, per_page)

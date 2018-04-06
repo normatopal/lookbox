@@ -32,7 +32,7 @@
         .row
           = f.label t('pictures.category'), class: "col-sm-2 control-label"
           .col-sm-10
-            = select :picture, :category_ids, nested_set_options(current_user.categories){|cat|  "#{'-' * cat.depth} #{cat.name}" }, { multiple: true, class: "select2-select"}
+            = select :picture, :category_ids, nested_set_options(current_user.categories){|cat|  "#{'-' * cat.depth} #{cat.name}" }, { include_blank: true }, { multiple: true, class: "select2-select"}
       .form-group
         .row
           = f.label :image, class: "col-sm-2 control-label"
@@ -71,11 +71,11 @@
               -#= link_to '#', class: "btn btn-default fileinput-exists", :'data-dismiss' => 'fileinput', title: 'Delete' do
               .btn.btn-default.fileinput-exists{:'data-dismiss' => 'fileinput', title: 'Delete'}
                 %i.glyphicon.glyphicon-remove
-          -#%span.btn.btn-default.btn-file.image-crop
-          -#  %i.glyphicon.glyphicon-scissors{title: 'Crop'}
-          -#%span.btn.btn-default.btn-file
-          -#  %span.image-refresh{title: 'Refresh'}
-          -#    %i.glyphicon.glyphicon-refresh
+          %span.btn.btn-default.btn-file.image-crop
+            %i.glyphicon.glyphicon-scissors{title: 'Crop'}
+          %span.btn.btn-default.btn-file
+            %span.image-refresh{title: 'Refresh'}
+              %i.glyphicon.glyphicon-refresh
 
         .crop-image-block
           .form-group

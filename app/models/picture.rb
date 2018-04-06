@@ -25,10 +25,9 @@ class Picture < ActiveRecord::Base
   scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) }
   #scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
 
-  scope :category_search, -> (category_id = nil, include_subcat = nil) do
-    ids = if category_id.to_i > 0
-      include_subcat ? Category.find(category_id).self_and_descendants.ids : category_id
-    else nil end # for uncategorized pictures
+  scope :category_search, -> (include_subcat = nil, category_id = nil) do
+    ids = include_subcat.to_i > 0 ? Category.find(category_id).self_and_descendants.ids : category_id if category_id.to_i > 0
+    #else nil end # for uncategorized pictures
     includes(:categories).where( categories: { id: ids })
   end
   
@@ -44,10 +43,10 @@ class Picture < ActiveRecord::Base
   end
 
   def load_image_from_remote_url
-    if valid_direct_url?
+    #if valid_direct_url?
       self.remote_image_url = direct_image_url
       self.image = nil
-    end
+    #end
   end
 
   def update_picture

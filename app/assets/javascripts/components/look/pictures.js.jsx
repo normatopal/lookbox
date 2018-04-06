@@ -8,7 +8,8 @@ LookPictures = React.createClass({
     return {
       look_pictures: look_pictures,
       max_position_order: look_pictures.length + 1,
-      pictures_for_remove_count: 0
+      pictures_for_remove_count: 0,
+      modal_picture: false
     }
   },
   findPictureById: function(look_pictures, picture_id){
@@ -37,6 +38,9 @@ LookPictures = React.createClass({
     new_look_picture.position_params = {left: new_look_picture.position_params.left - 30, top: new_look_picture.position_params.top - 30, order: new_look_picture.position_params.order  }
     this.setState({look_pictures: this.state.look_pictures.concat(new_look_picture)})
   },
+  showModalView(picture){
+    this.setState({modal_picture: picture})
+  },
   componentWillMount(){
     window.Look = {
       addPictures: (data='') => {
@@ -57,7 +61,13 @@ LookPictures = React.createClass({
                                   duplicatePicture = {this.duplicatePicture}
                                   changePositionParams = {this.changePositionParams}
                                   changePicturesForRemoveCount = {this.changePicturesForRemoveCount}
+                                  showModalView={this.showModalView}
                                   changeMaxPositionOrder = {this.changeMaxPositionOrder}/>}.bind(this)) }
+        <div className="modal fade" id="picture-modal-show" tabIndex="-1" role="dialog" aria-labelledby= "modal-label">
+          {this.state.modal_picture &&
+            <PictureModalShow picture={this.state.modal_picture}/>
+          }
+        </div>
       </div>
     )
   }
@@ -117,6 +127,9 @@ LookPictureItem =  React.createClass({
     this.setState({show_item: true})
     this.props.changePicturesForRemoveCount(-1)
   },
+  showModalView(e){
+    this.props.showModalView(this.props.picture)
+  },
   componentDidMount(){
     resizeable_options = {
       handles: 's, e',
@@ -160,7 +173,8 @@ LookPictureItem =  React.createClass({
             <div className="picture-action">
                <span className="glyphicon glyphicon-duplicate" title="Make a copy" style={{zIndex: this.state.position_params['order'] }} onClick={this.duplicatePicture}></span>
                <span className="glyphicon glyphicon-trash" title="Move to trash" style={{zIndex: this.state.position_params['order'] }} onClick={this.removePicture}></span>
-            </div>
+               <span className="glyphicon glyphicon-zoom-in" title="Show" data-toggle="modal" data-target={`#picture-modal-show`} style={{zIndex: this.state.position_params['order'] }} onClick={this.showModalView}></span>
+             </div>
           </Draggable>
           }
           {!this.state.show_item && this.props.pictures_for_remove_count > 0 &&

@@ -17,7 +17,7 @@
           .add-picture.picture-block{id: "picture-block-#{picture.id}"}
             = check_box_tag :picture_ids, picture.id, false, name: 'look[picture_ids][]', class: "mark-picture-chbox"
             .image-block
-              = image_tag picture.image.thumb, class: "image-space", 'data-toggle': "tooltip", title: "Click to select/diselect"
+              = image_tag picture.image.thumb, class: "image-space", :'data-toggle' => "tooltip", title: "Click to select/diselect"
             .picture-action
               = link_to(picture, title: "View image", target: '_blank') do
                 %span.glyphicon.glyphicon-zoom-in
