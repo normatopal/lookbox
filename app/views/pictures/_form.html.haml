@@ -77,23 +77,23 @@
             %span.image-refresh{title: 'Refresh'}
               %i.glyphicon.glyphicon-refresh
 
-        .crop-image-block
-          .form-group
+    .crop-image-block
+      .form-group
+        .row
+          .col-sm-4
+          .col-sm-4
+          .col-sm-4
             .row
-              .col-sm-4
-              .col-sm-4
-              .col-sm-4
-                .row
-                  .image-crop.ok
-                    %span.btn.btn-default.btn-file
-                      %i.glyphicon.glyphicon-scissors
-                      Crop
-                  .image-crop.cancel
-                    %span.btn.btn-default.btn-file
-                      Cancel
-          .form-group
-            .row
-              = f.cropbox :image
+              .image-crop.ok
+                %span.btn.btn-default.btn-file
+                  %i.glyphicon.glyphicon-scissors
+                  Crop
+              .image-crop.cancel
+                %span.btn.btn-default.btn-file
+                  Cancel
+      .form-group
+        .row
+          = f.cropbox :image
 
   %div{class: "#{is_remote ? 'modal-footer':''}"}
     .form-group

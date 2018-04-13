@@ -26,9 +26,32 @@ class Picture < ActiveRecord::Base
   #scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
 
   scope :category_search, -> (include_subcat = nil, category_id = nil) do
-    ids = include_subcat.to_i > 0 ? Category.find(category_id).self_and_descendants.ids : category_id if category_id.to_i > 0
-    #else nil end # for uncategorized pictures
-    includes(:categories).where( categories: { id: ids })
+  #   return includes(:categories) if category_id.blank? # any categories or none
+  #   ids = include_subcat.to_i > 0 ? Category.find(category_id).self_and_descendants.ids : category_id if category_id.to_i > 0
+  #   includes(:categories).where( categories: { id: ids })
+
+  # if category_id.blank?
+  #   includes(:categories)
+  # elsif category_id.to_i < 0
+  #   includes(:categories).where( categories: { id: nil })
+  # else
+  #   ids = include_subcat.to_i > 0 ? Category.find(category_id).self_and_descendants.ids : category_id
+  #   includes(:categories).where( categories: { id: ids })
+  # end
+
+    any_categories = proc(&:blank?)
+    uncategorized = proc{|cat| cat.to_i < 0}
+    cat_ids = proc{ include_subcat.to_i > 0 ? Category.find(category_id).self_and_descendants.ids : category_id }
+
+    case category_id
+      when any_categories
+        includes(:categories)
+      when uncategorized
+        includes(:categories).where( categories: { id: nil })
+      else
+        includes(:categories).where( categories: { id: cat_ids.call })
+    end
+
   end
   
   scope :include_subcategories, -> (include_subcat = nil) { }

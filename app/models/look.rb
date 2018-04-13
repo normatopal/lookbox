@@ -31,10 +31,10 @@ class Look < ActiveRecord::Base
   def decode_screen_image(encoded_file = nil)
     return unless encoded_file.present?
     decoded_file = Base64.decode64(encoded_file['data:image/png;base64,'.length .. -1])
-    screen_image = Tempfile.new(["image-#{DateTime.now.to_i}",'.jpg'])
+    screen_image = Tempfile.new(["image-#{self.user.id}-#{DateTime.now.to_i}",'.jpg'])
     screen_image.binmode  # set to binary mode to avoid UTF-8 conversion errors
     screen_image.write decoded_file
-    self.screen.image = screen_image if screen.present?
+    self.screen.image = screen_image
   end
 
   before_save :set_position_params
