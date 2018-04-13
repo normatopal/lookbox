@@ -60,7 +60,6 @@ class PicturesController < ApplicationController
   # PATCH/PUT /pictures/1
   def update
     respond_to do |format|
-      binding.pry
       if @picture.update(picture_params) #update_attributes
         format.html { redirect_to pictures_path, notice: success_action_notice('updated') }
         format.js { render :update, locals: {notice: success_action_notice('updated')} }
