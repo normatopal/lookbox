@@ -30,23 +30,26 @@ Pictures = React.createClass({
     if (image_timestamp && url) url += '?v=' + image_timestamp
     return url
   },
+  updatePicturesList(picture, index){
+    if ($.isEmptyObject(picture) || index < 0) return
+    new_pictures = this.state.pictures
+    possible_categories = picture.possible_categories || ['-1']
+    current_category = $("#q_category_search :selected").val()
+    if (current_category != '' && $.inArray(parseInt(current_category), possible_categories) == -1) new_pictures.splice(index, 1)
+    else if (index > this.state.pictures) new_pictures.unshift(picture)
+    else new_pictures[index] = picture
+    this.setState({pictures: new_pictures})
+  },
   componentWillMount(){
     window.Picture = {
-      addPicture:function(data = ''){
-        if (data == '') return
+      addPicture:function(data = '{}'){
         picture = JSON.parse(data)
-        new_pictures = this.state.pictures
-        new_pictures.unshift(picture)
-        this.setState({pictures: new_pictures})
+        this.updatePicturesList(picture, this.state.pictures.length + 1)
       }.bind(this),
-      updatePicture: function (data = '') {
-        if (data == '') return
+      updatePicture: function (data = '{}') {
         picture = JSON.parse(data)
         index = this.state.pictures.findIndex((p) => p.id == picture.id)
-        if (index < 0) return
-        new_pictures = this.state.pictures
-        new_pictures[index] = Object.assign({}, this.state.pictures[index], picture) // this.setImageTimeStamp(picture) for image refresh from local store
-        this.setState({pictures: new_pictures})
+        this.updatePicturesList(picture, index)
       }.bind(this)
     }
   },

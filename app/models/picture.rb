@@ -25,7 +25,7 @@ class Picture < ActiveRecord::Base
   scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) }
   #scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
 
-  scope :category_search, -> (include_subcat = nil, category_id = nil) do
+  scope :category_search, -> (include_subcat = nil, category_ids = nil) do
   #   return includes(:categories) if category_id.blank? # any categories or none
   #   ids = include_subcat.to_i > 0 ? Category.find(category_id).self_and_descendants.ids : category_id if category_id.to_i > 0
   #   includes(:categories).where( categories: { id: ids })
@@ -40,16 +40,19 @@ class Picture < ActiveRecord::Base
   # end
 
     any_categories = proc(&:blank?)
-    uncategorized = proc{|cat| cat.to_i < 0}
-    cat_ids = proc{ include_subcat.to_i > 0 ? Category.find(category_id).self_and_descendants.ids : category_id }
+    with_included_subcategories = proc{ include_subcat == '1' }
+    category_ids_with_children = proc{ |cat_ids| cat_ids.concat(Category.where(id: cat_ids).eager_load(:children).map{|cat| cat.children}.flatten).uniq }
 
-    case category_id
+    category_ids.reject!(&:empty?)
+    index = category_ids.index('-1') and category_ids[index] = nil # for uncategorized
+
+    case category_ids
       when any_categories
         includes(:categories)
-      when uncategorized
-        includes(:categories).where( categories: { id: nil })
+      when with_included_subcategories
+        includes(:categories).where( categories: { id: category_ids_with_children.call(category_ids) })
       else
-        includes(:categories).where( categories: { id: cat_ids.call })
+        includes(:categories).where( categories: { id: category_ids })
     end
 
   end
@@ -67,7 +70,7 @@ class Picture < ActiveRecord::Base
 
   def load_image_from_remote_url
     #if valid_direct_url?
-      self.remote_image_url = direct_image_url
+      self.remote_image_url = direct_image_url.strip
       self.image = nil
     #end
   end
@@ -102,6 +105,16 @@ class Picture < ActiveRecord::Base
     copy.remote_image_url = self.image_url # to save image path with existing picture id
     copy.save
     copy
+  end
+
+  #['link', 'direct_image_url'].each { |attribute| define_method(:"#{attribute}=") {|value| super(value.try(:strip))}  }
+
+  def link=(value)
+    super(value.try(:strip))
+  end
+
+  def possible_categories
+    self.categories.map{|cat| cat.self_and_ancestors.ids}.flatten.uniq
   end
 
   private

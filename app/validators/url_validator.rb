@@ -4,7 +4,7 @@ require 'net/https'
 class UrlValidator < ActiveModel::Validator
   def validate(record)
     options[:fields].each do |field|
-      url = record.send(field)
+      url = record.send(field).try(:strip)
       next if url.blank?
       begin
         #url.prepend('http://') unless url =~ URI::regexp(%w(http https))

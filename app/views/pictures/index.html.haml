@@ -8,6 +8,7 @@
       .filters
         = search_form_for @search, enforce_utf8: false, html: {class: "form-inline" } do |f|
           = render 'search_filters', f: f
+        = hidden_field_tag('selected_categories', selected_categories_for_multiselect, {id: 'selected_categories' })
       - unless @pictures.any?
         = current_user.pictures.any? ? t("search_filters.no_results") : t("search_filters.no_items", {item: t('pictures.picture'), button_name: t("pictures.new_picture")})
     .col-md-1

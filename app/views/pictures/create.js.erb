@@ -1,3 +1,2 @@
-//window.location.reload()
-window.Picture.addPicture("<%= j @picture.to_json(include: :image).html_safe%>")
+window.Picture.addPicture("<%= j @picture.to_json(include: :image,  methods: [:possible_categories]).html_safe%>")
 $("#picture-modal-form").modal('hide');

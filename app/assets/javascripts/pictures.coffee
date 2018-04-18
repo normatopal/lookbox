@@ -1,6 +1,17 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.coffee.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+reloadSelectedCategory = ->
+  $('#q_category_search').select2({
+    theme: "bootstrap",
+    placeholder: 'All',
+    maximumSelectionLength: 4
+  })
+
+  selected_categories = $('#selected_categories').val()
+  if (selected_categories != undefined && selected_categories != '')
+    $('#q_category_search').val(selected_categories.split(',')).trigger("change")
+
+  return
+
+$(document).on('turbolinks:load', reloadSelectedCategory)
 
 IncreaseRotationAngle = (preview, thumb, angle) ->
   if ($(preview).is(':visible'))
