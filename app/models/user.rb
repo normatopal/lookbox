@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
-         :omniauth_providers => [:google]
+         :omniauth_providers => [:google], :authentication_keys => [:login], :reset_password_keys => [ :login ], :confirmation_keys => [ :login ]
 
   acts_as_paranoid
 
@@ -15,9 +15,10 @@ class User < ActiveRecord::Base
   has_many :shared_looks, through: :user_looks, source: :look
   has_one :user_setting, :dependent => :destroy
 
-  #validates :name, uniqueness: true, if: 'name.present?'
+  validates :name, length: {maximum: 25}, uniqueness: { case_sensitive: false }, format: { with: /\A[a-zA-Z0-9]*\z/, message: "may only contain letters and numbers." }, if: 'name.present?'
 
   attr_readonly :email
+  attr_accessor :login
 
   def current_user_setting
     user_setting || UserSetting.new(locale: Locale.default_locale, user: self)
@@ -65,4 +66,14 @@ class User < ActiveRecord::Base
   def self.find_by_access_token(access_token)
     ApiKey.find_by_token(access_token).try(:user_setting).try(:user)
   end
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["name = :value OR lower(email) = lower(:value)", { :value => login }]).first
+    else
+      where(conditions).first
+    end
+  end
+
 end

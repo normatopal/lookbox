@@ -7,9 +7,9 @@
     = form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "form-horizontal"}) do |f|
       .form-group
         .row
-          = f.label :email, class: "col-sm-2 control-label"
+          = f.label :login, class: "col-sm-2 control-label"
           .col-sm-10
-            = f.email_field :email, class: "form-control", autofocus: true
+            = f.text_field :login, class: "form-control", autofocus: true
       .form-group
         .row
           = f.label :password, class: "col-sm-2 control-label"
