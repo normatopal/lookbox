@@ -10,12 +10,14 @@
           = f.label :email, class: "col-sm-2 control-label"
           .col-sm-10
             = f.email_field :email, autofocus: true
+            %i.glyphicon.glyphicon-info-sign.infopopover{'data-content' => "Can not be changed after registration"}
 
       .form-group
         .row
           = f.label :name, class: "col-sm-2 control-label"
           .col-sm-10
             = f.text_field :name
+            %i.glyphicon.glyphicon-info-sign.infopopover{'data-content' => "Your preferable login name may only contain letters and numbers, symblols - and _"}
 
       .form-group
         .row
@@ -32,6 +34,7 @@
           = f.label :password_confirmation, class: "col-sm-2 control-label"
           .col-sm-10
             = f.password_field :password_confirmation, autocomplete: "off"
+            %i.glyphicon.glyphicon-info-sign.infopopover{'data-content' => "May only contain letters and numbers"}
 
       .form-group
         .row

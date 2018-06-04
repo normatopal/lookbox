@@ -1,5 +1,5 @@
-window.Picture.updatePicture("<%= j @picture.to_json(include: :image, methods: [:image_timestamp, :possible_categories]).html_safe%>")
 $("#picture-modal-form").modal('hide');
+window.Picture.updatePicture("<%= j @picture.to_json(include: :image, methods: [:image_timestamp, :possible_categories]).html_safe%>")
 window.FlashMessage.show("<%= escape_javascript (render(partial: 'shared/flash_message', locals: {notice: notice}).force_encoding("utf-8")) %>")
 
 

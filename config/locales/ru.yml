@@ -1,4 +1,14 @@
 ru:
+  main_menu:
+    pictures: "Картинки"
+    looks: "Луки"
+    categories: "Категории"
+    my_profile: "Мой профиль"
+    change_password: "Изменить пароль"
+    settings: "Настройки"
+    account: "Аккаунт"
+    log_in: "Вход"
+    log_out: "Выход"
   search_filters:
       sort_by: "Сортировка"
       title: "название"
@@ -20,6 +30,7 @@ ru:
       save: "Сохранить"
       back_to_show: "Вернуться к просмотру"
       new: "Новый"
+      confirm_exit: "Вы действительно хотите выйти?"
   pictures:
       new_picture: "Новая картинка"
       pictures: "Картинки"

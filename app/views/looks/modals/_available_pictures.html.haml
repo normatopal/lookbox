@@ -8,10 +8,10 @@
     .modal-body
       .filters
         = search_form_for @search, remote: true, authenticity_token: true, html: { multipart: true, class: "form-inline" } do |f|
-          = hidden_field_tag :look_id, @look_id || 0
-          = render "pictures/search_filters", f: f
+          = hidden_field_tag :look_id, look_id_for_pictures_search
+          = render "pictures/search_filters", f: f, look_id: look_id_for_pictures_search
 
-      = form_tag add_pictures_look_path(@look_id || 0), remote: true, format: :js, authenticity_token: true, method: :post, class: "available-pictures-list clearfix" do
+      = form_tag add_pictures_look_path(look_id_for_pictures_search), remote: true, format: :js, authenticity_token: true, method: :post, class: "available-pictures-list clearfix" do
         - @available_pictures.each do |picture|
           - next unless picture.id
           .add-picture.picture-block{id: "picture-block-#{picture.id}"}

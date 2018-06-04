@@ -7,9 +7,9 @@
 
       .form-group
         .row
-          = f.label :email, class: "col-sm-2 control-label"
+          = f.label 'Login', class: "col-sm-2 control-label"
           .col-sm-10
-            = f.email_field :email, autofocus: true
+            = f.text_field :login, autofocus: true
 
       .form-group
         .row

@@ -72,3 +72,11 @@ document.addEventListener "turbolinks:before-cache", ->
   $('.modal-backdrop').hide()
   return
 
+$(document).popover({
+  selector: '.infopopover',
+  container: '.container',
+  trigger: 'hover',
+  template: '<div class="popover popover-info"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"></div></div></div>'
+});
+
+

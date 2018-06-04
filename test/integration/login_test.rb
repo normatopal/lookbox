@@ -7,18 +7,18 @@ class LoginTest < Capybara::Rails::TestCase
     @user = users(:john_doe)
   end
 
-  test 'login user' do
+  it 'login user' do
     visit 'users/sign_in'
-    assert page.has_content?('Email')
+    assert page.has_content?('Login')
     assert page.has_content?('Password')
-    fill_in 'Email', with: @user.email
+    fill_in 'Login', with: @user.email
     fill_in 'Password', with: 'password'
     click_button 'Log in'
     assert_current_path "/#{I18n.locale}"
     assert page.has_content? 'Signed in successfully'
   end
 
-  test 'error sign up user with duplicated email and blank password' do
+  it 'error sign up user with duplicated email and blank password' do
     visit '/users/sign_up'
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: ''
@@ -29,7 +29,7 @@ class LoginTest < Capybara::Rails::TestCase
     assert page.has_content? 'Password confirmation doesn\'t match Password'
   end
 
-  test  'error sign up user with short password' do
+  it 'error sign up user with short password' do
     visit '/users/sign_up'
     fill_in 'Email', with: 'test@test.com'
     fill_in 'Password', with: '123'
@@ -38,7 +38,7 @@ class LoginTest < Capybara::Rails::TestCase
     assert page.has_content? 'Password is too short'
   end
 
-  test  'sign up user is successful' do
+  it 'sign up user is successful' do
     visit '/users/sign_up'
     fill_in 'Email', with: 'test@test.com'
     fill_in 'Password', with: '123123'
@@ -48,7 +48,7 @@ class LoginTest < Capybara::Rails::TestCase
     assert page.has_content? 'A message with a confirmation link'
   end
 
-  test 'login user with google account' do
+  it 'login user with google account' do
     stub_omniauth
     visit 'users/sign_in'
     assert page.has_content? 'Sign in with Google'

@@ -1,2 +1,3 @@
 $("#pictures-modal").html("<%= escape_javascript (render(partial: 'looks/modals/available_pictures').force_encoding("utf-8")) %>");
+ReactRailsUJS.mountComponents()
 $("#pictures-modal").modal('show');

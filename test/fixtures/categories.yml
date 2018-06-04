@@ -26,7 +26,6 @@ common:
   rgt: 8
   depth: 0
 
-
 oh:
   name: Oh
   description: short story

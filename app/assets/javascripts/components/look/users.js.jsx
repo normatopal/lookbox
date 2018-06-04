@@ -83,18 +83,18 @@ UserField = React.createClass({
     return {filtered_users: [], current_user: '', potential_users: this.props.potential_users, show_filtered: false}
   },
   filterUsers: function(e) {
-    [ filtered_users, part_name ] = [ [], e.target.value ];
+    [ filtered_users, part_name ] = [ [], e.target.value ]
     this.setState({current_user: part_name})
     if (part_name.length > 1) {
       filtered_users = this.state.potential_users.filter(function (user) {
-        if (user.email.indexOf(part_name) > -1) return user;
-      });
+        if (user.email.indexOf(part_name) > -1 || user.name.indexOf(part_name) > -1) return user
+      })
       this.setState({show_filtered: true, filtered_users: filtered_users});
     } else this.setState({show_filtered: false})
   },
   fillUserField: function(e){
     //this.setState({current_user: e.currentTarget.textContent});
-    this.setState({current_user: '', filtered_users: [], show_filtered: false});
+    this.setState({current_user: '', filtered_users: [], show_filtered: false})
     this.props.addSharedUser(e)
   },
   clearUserField: function(e){
@@ -102,11 +102,11 @@ UserField = React.createClass({
   },
   componentWillMount: function() {
     // add event listener for clicks
-    document.addEventListener('click', this.handleOutsideClick, false);
+    document.addEventListener('click', this.handleOutsideClick, false)
   },
   componentWillUnmount: function() {
     // make sure you remove the listener when the component is destroyed
-    document.removeEventListener('click', this.handleOutsideClick, false);
+    document.removeEventListener('click', this.handleOutsideClick, false)
   },
   handleOutsideClick: function(e){
     if(!ReactDOM.findDOMNode(this).contains(e.target)) {

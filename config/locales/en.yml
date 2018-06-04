@@ -20,6 +20,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  main_menu:
+    pictures: "Pictures"
+    looks: "Looks"
+    categories: "Categories"
+    my_profile: "My profile"
+    change_password: "Change password"
+    settings: "Settings"
+    account: "Account"
+    log_in: "Log in"
+    log_out: "Log out"
   search_filters:
       sort_by: "Sort by:"
       title: "title"
@@ -41,6 +51,7 @@ en:
       save: "Save"
       back_to_show: "Back to show"
       new: "New"
+      confirm_exit: "Do you really want to leave?"
   pictures:
       new_picture: "New Picture"
       pictures: "Pictures"

@@ -21,7 +21,8 @@ module SearchFilter
 
     def search_pictures(user_pictures)
       search = user_pictures.search(@params[:q])
-      pictures, per_page = if @params[:look_id] then available_pictures_for_look(search.result)
+      pictures, per_page = if @params[:look_id] then
+        available_pictures_for_look(search.result)
       elsif @params[:category_id] then available_pictures_for_category(search.result)
       else  [search.result, @kaminari_per_page] end
       [search, paginate(pictures, @params[:page], per_page)]

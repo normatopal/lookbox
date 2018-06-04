@@ -44,10 +44,6 @@ class LooksController < ApplicationController
     end
   end
 
-  def new
-
-  end
-
   def create
     @look = current_user.looks.new(look_params).decorate
     if @look.save
@@ -57,14 +53,6 @@ class LooksController < ApplicationController
     else
       render :new
     end
-  end
-
-  def show
-
-  end
-
-  def edit
-
   end
 
   def update
@@ -85,8 +73,9 @@ class LooksController < ApplicationController
     extra_pictures = current_user.pictures.where("id in (?)", look_params[:picture_ids])
     all_extra_pictures_ids = cookies[:look_pictures_ids].split(",") + extra_pictures.ids
     cookies[:look_pictures_ids] = all_extra_pictures_ids.join(',')
-    @all_extra_pictures_count = all_extra_pictures_ids.count
-    @extra_look_pictures = extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) }
+    @extra_look_pictures = extra_pictures.map{|p| p.look_pictures.build }
+    #@all_extra_pictures_count = all_extra_pictures_ids.count
+    #@extra_look_pictures = extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) }
   end
 
   private
@@ -101,6 +90,7 @@ class LooksController < ApplicationController
 
   def reset_look_pictures
     cookies[:look_pictures_ids] = @look.pictures.ids.join(',')
+    session.delete(:look_pictures_search)
   end
 
   def look_params

@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :shared_looks, through: :user_looks, source: :look
   has_one :user_setting, :dependent => :destroy
 
-  validates :name, length: {maximum: 25}, uniqueness: { case_sensitive: false }, format: { with: /\A[a-zA-Z0-9]*\z/, message: "may only contain letters and numbers." }, if: 'name.present?'
+  validates :name, length: {maximum: 25}, uniqueness: { case_sensitive: false }, format: { with: /\A[a-zA-Z0-9 \- _]*\z/, message: "invalid name format" }, if: 'name.present?'
 
   attr_readonly :email
   attr_accessor :login
@@ -26,21 +26,18 @@ class User < ActiveRecord::Base
 
   def update_password_with_new(params)
     current_password = params.delete(:current_password)
-
-    result =
-      if valid_password?(current_password)
-        update_attributes(params)
-      else
-        self.assign_attributes(params)
-        self.valid?
-        self.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
-        false
-      end
-    result
+    if valid_password?(current_password)
+      update_attributes(params)
+    else
+      self.assign_attributes(params)
+      self.valid?
+      self.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+      false
+    end
   end
 
   def potential_shared_users
-    User.where.not(id: self.id).to_json(only: [:id, :email])
+    User.where.not(id: self.id).to_json(only: [:id, :email, :name])
   end
 
   def self.from_omniauth(auth)
@@ -58,7 +55,7 @@ class User < ActiveRecord::Base
         user.password = user_password
         user.skip_confirmation!
       end
-      UserMailer.google_user_site_password(user, user_password).deliver if user.persisted?
+      UserMailer.google_user_site_password(user, user_password).deliver_now if user.persisted?
     end
     user
   end

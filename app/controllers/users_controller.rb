@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       if @user.update_password_with_new(user_params)
         # Sign in the user by passing validation in case their password changed
         sign_in @user, :bypass => true
-        redirect_to root_path, flash: { success: "Successfully updated password" }
+        redirect_to root_path, notice: "Successfully updated password"
       else
         render "change_password"
       end

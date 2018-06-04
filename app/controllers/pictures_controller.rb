@@ -1,5 +1,6 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  before_action :set_look_pictures_search, only: :index
   protect_from_forgery except: :index
   #respond_to :html, :js
 
@@ -9,7 +10,7 @@ class PicturesController < ApplicationController
   def index
     @search, @pictures = filtered_pictures(current_user.pictures, params)
     respond_to do |format|
-      format.html { flash[:notice] = success_action_notice('added') if params.delete(:created_id) }
+      format.html 
       format.js do
         @available_pictures = @pictures
         search_view = if params[:look_id] then 'looks/available_pictures' elsif params[:category_id] then 'categories/available_pictures' else {js: 'No results was found'}  end
@@ -79,8 +80,16 @@ class PicturesController < ApplicationController
   end
 
   def refresh
-    session.delete(:pictures_filter)
-    redirect_to pictures_path
+    respond_to do |format|
+      format.html do
+        session.delete(:pictures_filter)
+        redirect_to pictures_path
+      end
+      format.js do
+        session.delete :look_pictures_search
+        redirect_to pictures_path(look_id: params[:look_id])
+      end
+    end
   end
 
   def copy
@@ -98,6 +107,13 @@ class PicturesController < ApplicationController
 
     def set_picture
       @picture = current_user.pictures.find(params[:id]).decorate
+    end
+
+    def set_look_pictures_search
+      if params[:look_id]
+        params[:q] = session[:look_pictures_search] if session[:look_pictures_search] && params[:stored_search]
+        session[:look_pictures_search] = params[:q]
+      end  
     end
 
     def paginate_pictures(pictures, per_page)
