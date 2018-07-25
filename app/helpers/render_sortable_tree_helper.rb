@@ -14,7 +14,7 @@ module RenderSortableTreeHelper
       def render_node(h, options)
         @h, @options = h, options
         node = options[:node]
-        expand_element = "<span class='category-expand glyphicon glyphicon-minus'></span>" if node.children.any?
+        expand_element = "<span class='category-expand glyphicon glyphicon-minus'></span>" if children
 
         "
           <li data-node-id='#{ node.id }'>

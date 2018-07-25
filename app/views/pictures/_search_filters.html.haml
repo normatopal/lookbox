@@ -8,7 +8,7 @@
   %label.search-label= t("search_filters.category")
   = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: t("search_filters.include_blank_all") },  { multiple: true, class: "select2-select hidden" }
   -#= f.select :category_search, categories_with_depth_name(current_user.categories).insert(0,  ['Uncategorized', '-1']), { include_blank: t("search_filters.include_blank_all")}, onChange: "$(this.form).submit()", class: 'form-control'
-  = f.check_box :include_subcategories, onChange: "$(this.form).submit()"
+  = f.check_box :include_subcategories #, onChange: "$(this.form).submit()"
   = t("search_filters.include_subcategories")
 = f.submit 'Search', :class => "btn btn-grey"
 - if @pictures.any?

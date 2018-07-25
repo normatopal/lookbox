@@ -1,6 +1,6 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
-  before_action :set_look_pictures_search, only: :index
+  before_action :set_look_pictures_search, only: :index, if: proc{ params[:look_id].present? }
   protect_from_forgery except: :index
   #respond_to :html, :js
 
@@ -110,10 +110,12 @@ class PicturesController < ApplicationController
     end
 
     def set_look_pictures_search
-      if params[:look_id]
-        params[:q] = session[:look_pictures_search] if session[:look_pictures_search] && params[:stored_search]
-        session[:look_pictures_search] = params[:q]
-      end  
+      par = params.dup
+      if par[:q] || par[:page]
+        session[:look_pictures_search] = { page: par[:page] || 1, q: par[:q] }
+      else
+        params.deep_merge!(session[:look_pictures_search]) if session[:look_pictures_search]
+      end
     end
 
     def paginate_pictures(pictures, per_page)

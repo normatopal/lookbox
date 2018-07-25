@@ -35,8 +35,8 @@ Pictures = React.createClass({
     new_pictures = this.state.pictures
     possible_categories = picture.possible_categories || ['-1']
     current_category = $("#q_category_search :selected").val()
-    if (current_category != '' && $.inArray(parseInt(current_category), possible_categories) == -1) new_pictures.splice(index, 1)
-    else if (index > this.state.pictures) new_pictures.unshift(picture)
+    if (current_category != undefined && current_category != '' && $.inArray(parseInt(current_category), possible_categories) == -1) new_pictures.splice(index, 1)
+    else if (index > this.state.pictures.length) new_pictures.unshift(picture)
     else new_pictures[index] = picture
     this.setState({pictures: new_pictures})
   },

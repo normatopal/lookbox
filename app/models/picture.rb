@@ -26,18 +26,6 @@ class Picture < ActiveRecord::Base
   #scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
 
   scope :category_search, -> (include_subcat = nil, category_ids = nil) do
-  #   return includes(:categories) if category_id.blank? # any categories or none
-  #   ids = include_subcat.to_i > 0 ? Category.find(category_id).self_and_descendants.ids : category_id if category_id.to_i > 0
-  #   includes(:categories).where( categories: { id: ids })
-
-  # if category_id.blank?
-  #   includes(:categories)
-  # elsif category_id.to_i < 0
-  #   includes(:categories).where( categories: { id: nil })
-  # else
-  #   ids = include_subcat.to_i > 0 ? Category.find(category_id).self_and_descendants.ids : category_id
-  #   includes(:categories).where( categories: { id: ids })
-  # end
 
     any_categories = proc(&:blank?)
     with_included_subcategories = proc{ include_subcat == '1' }
