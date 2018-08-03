@@ -2,6 +2,7 @@ class LooksController < ApplicationController
 
   before_action :set_look, only: [:new, :show, :edit, :update, :destroy, :add_pictures]
   before_action :set_look_screen, only: [:new, :edit]
+  before_action :add_extra_pictures_to_canvas, only: :add_pictures, if: proc{ params[:look].present? }
   before_action :reset_look_pictures, only: [:new, :edit]
 
   set_tab :looks_list, :only => %w(index)
@@ -70,12 +71,7 @@ class LooksController < ApplicationController
   end
 
   def add_pictures
-    extra_pictures = current_user.pictures.where("id in (?)", look_params[:picture_ids])
-    all_extra_pictures_ids = cookies[:look_pictures_ids].split(",") + extra_pictures.ids
-    cookies[:look_pictures_ids] = all_extra_pictures_ids.join(',')
-    @extra_look_pictures = extra_pictures.map{|p| p.look_pictures.build }
-    #@all_extra_pictures_count = all_extra_pictures_ids.count
-    #@extra_look_pictures = extra_pictures.map{|p| p.look_pictures.build(look_id: params[:id]) }
+    render 'extra_pictures'
   end
 
   private
@@ -91,6 +87,13 @@ class LooksController < ApplicationController
   def reset_look_pictures
     cookies[:look_pictures_ids] = @look.pictures.ids.join(',')
     session.delete(:look_pictures_search)
+  end
+
+  def add_extra_pictures_to_canvas
+    extra_pictures = current_user.pictures.where("id in (?)", look_params[:picture_ids])
+    all_extra_pictures_ids = cookies[:look_pictures_ids].split(",") + extra_pictures.ids
+    cookies[:look_pictures_ids] = all_extra_pictures_ids.join(',')
+    @extra_look_pictures = extra_pictures.map{|p| p.look_pictures.build }
   end
 
   def look_params

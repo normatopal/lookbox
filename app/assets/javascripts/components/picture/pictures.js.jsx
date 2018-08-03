@@ -1,8 +1,7 @@
 //cl = cloudinary.Cloudinary.new({cloud_name: "lookbox"})
 //cl.responsive()
 
-Pictures = React.createClass({
-  getInitialState(){
+Pictures = React.createClass({getInitialState(){
     return{
       pictures: JSON.parse(this.props.pictures),
       modal_picture: false,
@@ -120,4 +119,11 @@ PictureItem = React.createClass({
     )
   }
 })
+
+PictureItem.propTypes = {
+  picture: React.PropTypes.shape({
+            title: React.PropTypes.string.isRequired,
+            link: React.PropTypes.string
+  })
+};
 

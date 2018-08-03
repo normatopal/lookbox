@@ -123,6 +123,9 @@ LookPictureItem =  React.createClass({
   duplicatePicture: function(e){
     this.props.duplicatePicture(this.props.picture.id)
   },
+  goToLink(){
+    window.open(this.props.picture.link, '_blank')
+  },
   undoPictureRemove: function(e){
     this.setState({show_item: true})
     this.props.changePicturesForRemoveCount(-1)
@@ -171,6 +174,10 @@ LookPictureItem =  React.createClass({
                    ref = {image => { this.handleSize(image) } }
               />
             <div className="picture-action">
+               { this.props.picture.link &&
+                 <span className="glyphicon glyphicon-link" title="Go to link"
+                     style={{zIndex: this.state.position_params['order'] }} onClick={this.goToLink}></span>
+               }
                <span className="glyphicon glyphicon-duplicate" title="Make a copy" style={{zIndex: this.state.position_params['order'] }} onClick={this.duplicatePicture}></span>
                <span className="glyphicon glyphicon-trash" title="Move to trash" style={{zIndex: this.state.position_params['order'] }} onClick={this.removePicture}></span>
                <span className="glyphicon glyphicon-zoom-in" title="Show" data-toggle="modal" data-target={`#picture-modal-show`} style={{zIndex: this.state.position_params['order'] }} onClick={this.showModalView}></span>

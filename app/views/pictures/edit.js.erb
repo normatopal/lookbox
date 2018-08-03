@@ -2,3 +2,6 @@ $("#picture-modal-form").html("<%= escape_javascript (render('pictures/modals/fo
 $("#modal-label").html("<%= t('pictures.edit_picture')%>");
 $("#picture-modal-form").modal('show');
 $("input[id^='picturedecorator_image_crop']").prop('disabled', true)
+if ("<%= @picture.id.to_s%>" != $('#picture-modal-show .modal-content').attr('data-picture-id')){
+  $('.back-to-show').hide()
+}

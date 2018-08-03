@@ -1,14 +1,14 @@
 %label= t("search_filters.sort_by")
 - is_remote = defined?(@available_pictures) ? true : false
 = sort_link @search, :title, t("search_filters.title"), {}, { remote: is_remote, class: '' }
-= sort_link @search, :created_at, t("search_filters.date"), {}, { remote: is_remote, class: '' }
+= sort_link @search, :updated_at, t("search_filters.date"), {}, { remote: is_remote, class: '' }
 .form-group
   = f.text_field :title_cont, :class =>"search-query form-control", "placeholder" => t("search_filters.type_title_or_part")
 .form-group.search-filters-category
   %label.search-label= t("search_filters.category")
   = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: t("search_filters.include_blank_all") },  { multiple: true, class: "select2-select hidden" }
   -#= f.select :category_search, categories_with_depth_name(current_user.categories).insert(0,  ['Uncategorized', '-1']), { include_blank: t("search_filters.include_blank_all")}, onChange: "$(this.form).submit()", class: 'form-control'
-  = f.check_box :include_subcategories #, onChange: "$(this.form).submit()"
+  = f.check_box :include_subcategories, onChange: "$(this.form).submit()"
   = t("search_filters.include_subcategories")
 = f.submit 'Search', :class => "btn btn-grey"
 - if @pictures.any?

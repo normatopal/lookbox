@@ -2,22 +2,23 @@
   .row
     .col-md-6
       %h2= t('pictures.pictures')
-
-  .row
-    .col-md-11
-      .filters
-        = search_form_for @search, enforce_utf8: false, html: {class: "form-inline" } do |f|
-          = render 'search_filters', f: f
-      - unless @pictures.any?
-        = current_user.pictures.any? ? t("search_filters.no_results") : t("search_filters.no_items", {item: t('pictures.picture'), button_name: t("pictures.new_picture")})
-    .col-md-1
+    .col-md-6
       = link_to new_picture_path, remote: true, class: "btn btn-add-new" do
         %i.glyphicon.glyphicon-plus
         New Picture
 
-  #pictures-container.pictures-list
-    = react_component 'Pictures', { pictures: @pictures.to_json(include: :image) }
-    = paginate @pictures #, remote: true
+  .row
+    .filters
+      = search_form_for @search, enforce_utf8: false, html: {class: "form-inline" } do |f|
+        = render 'search_filters', f: f
+    - unless @pictures.any?
+      = current_user.pictures.any? ? t("search_filters.no_results") : t("search_filters.no_items", {item: t('pictures.picture'), button_name: t("pictures.new_picture")})
+
+
+  .row
+    #pictures-container.pictures-list
+      = react_component 'Pictures', { pictures: @pictures.to_json(include: :image) }
+      = paginate @pictures #, remote: true
 
   %div{class: "modal fade", id: "picture-modal-form", tabindex: "-1", role: "dialog", :"aria-labelledby" => "modal-label "}
 

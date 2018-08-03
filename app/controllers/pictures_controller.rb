@@ -111,8 +111,8 @@ class PicturesController < ApplicationController
 
     def set_look_pictures_search
       par = params.dup
-      if par[:q] || par[:page]
-        session[:look_pictures_search] = { page: par[:page] || 1, q: par[:q] }
+      if par[:store_page]
+        session[:look_pictures_search] = { page:  par[:page] || 1, q: par[:q]}
       else
         params.deep_merge!(session[:look_pictures_search]) if session[:look_pictures_search]
       end

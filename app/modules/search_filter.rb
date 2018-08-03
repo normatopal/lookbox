@@ -1,6 +1,7 @@
 module SearchFilter
 
   def filtered_pictures(pictures, params)
+    params[:q][:category_search] = [params[:q][:category_search]].prepend(params[:q][:include_subcategories]) if params[:q]
     SearchParams.new(params.merge({look_pictures_ids: cookies[:look_pictures_ids]})).search_pictures(pictures)
   end
 
@@ -12,15 +13,17 @@ module SearchFilter
 
     CATEGORY_PICTURES_PER_PAGE = 6
     LOOK_PICTURES_PER_PAGE = 6
+    DEFAULT_SEARCH_ORDER = 'updated_at desc'
 
     def initialize(params = {})
       @params = params
       @params[:q] ||= {}
-      prepared_picture_params
+      #prepared_picture_params
     end
 
     def search_pictures(user_pictures)
       search = user_pictures.search(@params[:q])
+      search.sorts = 'updated_at desc' if search.sorts.empty?
       pictures, per_page = if @params[:look_id] then
         available_pictures_for_look(search.result)
       elsif @params[:category_id] then available_pictures_for_category(search.result)
@@ -30,6 +33,7 @@ module SearchFilter
 
     def search_looks(user_looks, params = @params[:q])
       search = user_looks.search(params)
+      search.sorts = DEFAULT_SEARCH_ORDER if search.sorts.empty?
       looks = paginate(wrapper(search.result, LookDecorator), @params[:page], @kaminari_per_page)
       [search, looks]
     end
@@ -47,7 +51,6 @@ module SearchFilter
     def prepared_picture_params
       params = @params[:q] #.dup
       params[:category_search] = [params[:category_search]].prepend(params[:include_subcategories])
-      #params[:category_search].try(:sub!, /\b(1)\b/,'1.0')
     end
 
     def paginate(objects, page, per_page)

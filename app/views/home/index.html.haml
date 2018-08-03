@@ -6,4 +6,7 @@
   %p Organize your things once and never let the mess screw up your mood (:
   %p= link_to "Log in here...", new_user_session_path unless user_signed_in?
 
+- if user_signed_in?
+  .menu-links-images
+    = render 'menu_links_btns'
 

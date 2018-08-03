@@ -23,7 +23,7 @@
       .form-group
         .row
           = f.label :link, class: "col-sm-2 control-label"
-          .col-sm-5.title-input-wrapper
+          .col-sm-10.title-input-wrapper
             = f.text_field :link, class: 'form-control'
             %span.clear-input-btn
               &times;
@@ -36,61 +36,55 @@
       .form-group
         .row
           = f.label :image, class: "col-sm-2 control-label"
-          .col-sm-5.title-input-wrapper
+          .col-sm-6.title-input-wrapper
             = f.text_field :direct_image_url, class: 'form-control'
             %span.clear-input-btn
               &times;
-          .col-sm-3
-            direct image url
+          .col-sm-4
+            %i.glyphicon.glyphicon-info-sign.infopopover{'data-content' => 'Past direct image url or upload image'}
       .form-group
         .row
-          .col-sm-2
-          .col-sm-5
-            .file-image-preview
-              .fileinput-preview.thumbnail{:'data-trigger' => 'fileinput'}
-                = image_tag @picture.preview_image_large, class: "image-space"
-            .crop-image-preview
-              .crop-previewbox.thumbnail
-                = f.previewbox :image
-          .col-sm-5
-            .row
-              or image upload
-            .row{:'data-provides' => "fileinput", class: "fileinput fileinput-#{@picture.image.present? ? 'exists' : 'new'}"}
+          .image-uploader{:'data-provides' => "fileinput", class: "fileinput fileinput-#{@picture.image.present? ? 'exists' : 'new'}"}
+            .col-sm-4.col-sm-offset-2
+              .file-image-preview
+                .fileinput-preview.thumbnail{:'data-trigger' => 'fileinput'}
+                  = image_tag @picture.preview_image_large, class: "image-space"
+              .crop-image-preview
+                .crop-previewbox.thumbnail
+                  = f.previewbox :image
+            .col-sm-6
               .btn.btn-default.btn-file
                 %span.fileinput-new{title: 'Load'}
                   %i.glyphicon.glyphicon-picture
                 %span.fileinput-exists{title: 'Reload'}
                   %i.glyphicon.glyphicon-picture
                 %input{type: 'file', name: 'picture[image]', id: 'file-input'}
-                -#= link_to '#', id: 'rotate_image', class: "btn btn-default", title: 'Rotate' do
+              .btn.btn-default.btn-file.fileinput-exists.image-crop
+                %i.glyphicon.glyphicon-scissors{title: 'Crop'}
               .btn.btn-default.fileinput-exists{id: 'rotate_image', title: 'Rotate'}
                 %i.glyphicon.glyphicon-repeat
                 = f.hidden_field :rotation, value: original_image_rotation(@picture.rotation)
                 = hidden_field_tag 'original_picture_rotation', original_image_rotation(@picture.rotation)
                 = hidden_field_tag 'current_picture_rotation', 0
-              -#= link_to '#', class: "btn btn-default fileinput-exists", :'data-dismiss' => 'fileinput', title: 'Delete' do
-              .btn.btn-default.fileinput-exists{:'data-dismiss' => 'fileinput', title: 'Delete'}
+              .btn.btn-default.btn-file.fileinput-new.image-refresh{title: 'Refresh'}
+                %i.glyphicon.glyphicon-refresh
+              .btn.btn-default.btn-file.fileinput-exists.image-refresh{title: 'Refresh'}
+                %i.glyphicon.glyphicon-refresh
+              .btn.btn-default.fileinput-exists.image-delete{:'data-dismiss' => 'fileinput', title: 'Delete'}
                 %i.glyphicon.glyphicon-remove
-          %span.btn.btn-default.btn-file.image-crop
-            %i.glyphicon.glyphicon-scissors{title: 'Crop'}
-          %span.btn.btn-default.btn-file
-            %span.image-refresh{title: 'Refresh'}
-              %i.glyphicon.glyphicon-refresh
 
     .crop-image-block
       .form-group
         .row
-          .col-sm-4
-          .col-sm-4
-          .col-sm-4
-            .row
-              .image-crop.ok
-                %span.btn.btn-default.btn-file
-                  %i.glyphicon.glyphicon-scissors
-                  Crop
-              .image-crop.cancel
-                %span.btn.btn-default.btn-file
-                  Cancel
+          .col-sm-2.col-sm-offset-8
+            .image-crop.ok
+              %span.btn.btn-default.btn-file
+                %i.glyphicon.glyphicon-scissors
+                Crop
+          .col-sm-2
+            .image-crop.cancel
+              %span.btn.btn-default.btn-file
+                Cancel
       .form-group
         .row
           = f.cropbox :image
@@ -101,7 +95,7 @@
         .col-sm-offset-2.col-sm-10
           .actions
             - if @picture.persisted? && is_remote
-              %span{data: {toggle: 'modal', target: '#picture-modal-form'}}
+              %span{data: {toggle: 'modal', target: '#picture-modal-form'}, class: 'back-to-show'}
                 = link_to '#', data: {toggle: 'modal', target: '#picture-modal-show', picture: @picture}, class: "btn-back-pictures" do
                   %span.glyphicon.glyphicon-chevron-left
                   = t('modal_forms.back_to_show')

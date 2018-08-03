@@ -117,7 +117,7 @@ UserField = React.createClass({
     return(
         <div className='potential-users-list'>
           <div className="text-input-wrapper" >
-            <input id="user-autocomplete" type="text" value= {this.state.current_user} onChange={this.filterUsers}/>
+            <input id="user-autocomplete" type="text" autoComplete="off" value= {this.state.current_user} onChange={this.filterUsers}/>
             <span className="clear-input-btn" title="Clear" onClick={ this.clearUserField } style={{visibility: this.props.visibility[this.state.current_user.length === 0]}}>&times;</span>
           </div>
           {this.state.show_filtered &&

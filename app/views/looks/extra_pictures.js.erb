@@ -1,0 +1,7 @@
+$('.btn-add-picture').attr('disabled', true)
+$("#pictures-modal").modal('hide');
+
+"<% if @extra_look_pictures.present? %>"
+  window.Look.addPictures("<%= j @extra_look_pictures.to_json(only: [:picture_id, :position_params], include: :picture).html_safe%>")
+"<% end %>"
+

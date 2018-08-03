@@ -49,7 +49,7 @@ PictureModalShow = React.createClass({
   render(){
     return(
           <div className="modal-dialog" role="document">
-            <div className="modal-content">
+            <div className="modal-content" data-picture-id={this.props.picture.id}>
               <div className="modal-header">
                 <button className="close" aria-label="Close" data-dismiss='modal' type="button">
                   <span aria-hidden='true' onClick={this.closeModalShow}>×</span>

@@ -13,9 +13,10 @@
         = link_to look.screen.image.url, download: look.screen.title, class: "btn btn-sm btn-primary btn-footer-left", title: 'Download'  do
           %span.glyphicon.glyphicon-download-alt
           Download
-      = link_to edit_look_path(look), class: "btn btn-sm btn-primary", title: 'Edit'  do
-        %span.glyphicon.glyphicon-pencil
-        Edit
-      = link_to look, method: :delete, class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' } do
-        %span.glyphicon.glyphicon-trash
-        Delete
+      - if look.user_id.eql? current_user.id
+        = link_to edit_look_path(look), class: "btn btn-sm btn-primary", title: 'Edit'  do
+          %span.glyphicon.glyphicon-pencil
+          Edit
+        = link_to look, method: :delete, class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' } do
+          %span.glyphicon.glyphicon-trash
+          Delete
