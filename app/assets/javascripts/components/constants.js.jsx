@@ -15,6 +15,7 @@ ConstantsList = Object.freeze({
   FlashNotice: {
     fadeOutTime: 5000,
     messageClass: '#flash_notice'
-  }
+  },
+  isMobileDevice: "ontouchstart" in window
 });
 

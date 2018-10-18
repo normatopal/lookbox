@@ -3,7 +3,10 @@
 = sort_link @search, :title, t("search_filters.title"), {}, { remote: is_remote, class: '' }
 = sort_link @search, :updated_at, t("search_filters.date"), {}, { remote: is_remote, class: '' }
 .form-group
-  = f.text_field :title_cont, :class =>"search-query form-control", "placeholder" => t("search_filters.type_title_or_part")
+  .title-input-wrapper
+    = f.text_field :title_cont, class: "search-query form-control", "placeholder" => t("search_filters.type_title_or_part")
+    %span.clear-input-btn
+      &times;
 .form-group.search-filters-category
   %label.search-label= t("search_filters.category")
   = f.select :category_search, nested_set_options(current_user.categories) {|cat| "#{'-' * cat.depth} #{cat.name}" }.insert(0,  ['Uncategorized', '-1']), { include_blank: t("search_filters.include_blank_all") },  { multiple: true, class: "select2-select hidden" }

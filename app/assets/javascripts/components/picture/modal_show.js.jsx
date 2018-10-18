@@ -56,6 +56,9 @@ PictureModalShow = React.createClass({
                 </button>
                 <h4 className="modal-title"><strong>{this.props.picture.title}</strong></h4>
                 <div className="modal-description">{this.props.picture.description}</div>
+                {this.props.picture.categories &&
+                  <div className="modal-categories">Categories: {this.props.picture.categories.map(function(cat){return cat.name }).join(', ')}</div>
+                }
                 { this.props.picture.link &&
                 <div className="modal-link"><a href={this.props.picture.link} target="_blank"
                                                title={this.props.picture.link}>Go to link...</a></div>

@@ -24,12 +24,14 @@ var Draggable = React.createClass({
     return canvas_offset
   },
   componentDidUpdate: function (props, state) {
+    [on_move, on_end] = ConstantsList.isMobileDevice ? ['touchmove', 'touchend' ] : ['mousemove', 'mouseup']
+    current_node = ReactDOM.findDOMNode(this)
     if (this.state.dragging && !state.dragging) {
-      document.addEventListener('mousemove', this.onMouseMove)
-      document.addEventListener('mouseup', this.onMouseUp)
+      current_node.addEventListener(on_move, this.onMouseMove);
+      current_node.addEventListener(on_end, this.onMouseUp);
     } else if (!this.state.dragging && state.dragging) {
-      document.removeEventListener('mousemove', this.onMouseMove)
-      document.removeEventListener('mouseup', this.onMouseUp)
+      current_node.removeEventListener(on_move, this.onMouseMove);
+      current_node.removeEventListener(on_end, this.onMouseUp);
     }
   },
   componentDidMount: function() {
@@ -43,43 +45,42 @@ var Draggable = React.createClass({
   },
   onMouseDown: function (e) {
     // only left mouse button
-    if (e.button !== 0) return
+    //if (e.button !== 0) return
     let pos = ReactDOM.findDOMNode(this).getBoundingClientRect()
+    let [position_page_x, position_page_y] = this.getPagePositions(e)
     this.setState({
       dragging: true,
       rel: {
-        x: e.pageX - pos.left + this.state.canvas_offset.left,
-        y: e.pageY - pos.top + this.state.canvas_offset.top
+        x: position_page_x - pos.left + this.state.canvas_offset.left,
+        y: position_page_y - pos.top + this.state.canvas_offset.top
       }
     })
     this.props.increaseZindex()
-    e.stopPropagation()
-    e.preventDefault()
   },
   onMouseUp: function (e) {
     this.setState({dragging: false})
     this.props.changePositionParams(this.state.position)
-    e.stopPropagation()
-    e.preventDefault()
   },
   onMouseMove: function (e) {
     if (!this.state.dragging) return
     //if (window.getComputedStyle(ReactDOM.findDOMNode(this)).cursor != 'move') return
     if (e.target.width == undefined) return
+    let [position_page_x, position_page_y] = this.getPagePositions(e)
     this.setState({
       position: {
-        left: e.pageX - this.state.rel.x,
-        top: e.pageY - this.state.rel.y
+        left: position_page_x - this.state.rel.x,
+        top: position_page_y - this.state.rel.y
       }
     })
-    e.stopPropagation()
-    e.preventDefault()
+    if (!ConstantsList.isMobileDevice) e.preventDefault()
   },
-
+  getPagePositions(e){
+    return ConstantsList.isMobileDevice ? [e.changedTouches[0].pageX, e.changedTouches[0].pageY] : [e.pageX, e.pageY]
+  },
   render: function () {
     return(
         <div style={{ position: 'absolute', left: this.state.position.left + 'px', top: this.state.position.top + 'px'}}
-             onMouseDown = {this.onMouseDown} >{this.props.children}</div>
+             onMouseDown = {this.onMouseDown} onTouchStart = {this.onMouseDown} >{this.props.children}</div>
     )
   }
 })

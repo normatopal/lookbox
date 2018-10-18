@@ -17,7 +17,7 @@
 
   .row
     #pictures-container.pictures-list
-      = react_component 'Pictures', { pictures: @pictures.to_json(include: :image) }
+      = react_component 'Pictures', { pictures: @pictures.to_json(include: {image: {}, categories: {only: [:id, :name]}}) }
       = paginate @pictures #, remote: true
 
   %div{class: "modal fade", id: "picture-modal-form", tabindex: "-1", role: "dialog", :"aria-labelledby" => "modal-label "}

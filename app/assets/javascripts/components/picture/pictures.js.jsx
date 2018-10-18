@@ -32,7 +32,7 @@ Pictures = React.createClass({getInitialState(){
   updatePicturesList(picture, index){
     if ($.isEmptyObject(picture) || index < 0) return
     new_pictures = this.state.pictures
-    possible_categories = picture.possible_categories || ['-1']
+    possible_categories = picture.possible_categories.length > 0 ? picture.possible_categories : [-1]
     current_category = $("#q_category_search :selected").val()
     if (current_category != undefined && current_category != '' && $.inArray(parseInt(current_category), possible_categories) == -1) new_pictures.splice(index, 1)
     else if (index > this.state.pictures.length) new_pictures.unshift(picture)
