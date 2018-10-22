@@ -32,7 +32,6 @@ config/secret_tokens.yml
 
 .byebug_history
 
-db/schema.rb
 db/structure.sql
 
 test_class.rb
