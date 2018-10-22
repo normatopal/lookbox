@@ -20,15 +20,15 @@ Pictures = React.createClass({getInitialState(){
   },
   preloadImage(picture){
     return{...picture,
-       ['image']: {large: {url: this.setImageTimeStamp(picture.image.large.url, picture.image_timestamp) || `images/${ConstantsList.Images.noImageLarge}`},
-          thumb: {url: this.setImageTimeStamp(picture.image.thumb.url) || `images/${ConstantsList.Images.noImageSmall}`}},
+       ['image']: {large: {url: picture.image.large.url || `images/${ConstantsList.Images.noImageLarge}`},
+          thumb: {url: picture.image.thumb.url || `images/${ConstantsList.Images.noImageSmall}`}},
         ['has_image']: Boolean(picture.image.url)
       }
   },
-  setImageTimeStamp(url, image_timestamp){
-    if (image_timestamp && url) url += '?v=' + image_timestamp
-    return url
-  },
+  //setImageTimeStamp(url, image_timestamp){
+  //  if (image_timestamp && url) url += '?v=' + image_timestamp
+  //  return url
+  //},
   updatePicturesList(picture, index){
     if ($.isEmptyObject(picture) || index < 0) return
     new_pictures = this.state.pictures

@@ -56,7 +56,7 @@ PictureModalShow = React.createClass({
                 </button>
                 <h4 className="modal-title"><strong>{this.props.picture.title}</strong></h4>
                 <div className="modal-description">{this.props.picture.description}</div>
-                {this.props.picture.categories &&
+                { Array.isArray(this.props.picture.categories) && this.props.picture.categories.length > 0 &&
                   <div className="modal-categories">Categories: {this.props.picture.categories.map(function(cat){return cat.name }).join(', ')}</div>
                 }
                 { this.props.picture.link &&

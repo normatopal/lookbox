@@ -1,8 +1,7 @@
 module SearchFilter
 
   def filtered_pictures(pictures, params)
-    params[:q][:category_search] = [params[:q][:category_search]].prepend(params[:q][:include_subcategories]) if params[:q]
-    SearchParams.new(params.merge({look_pictures_ids: cookies[:look_pictures_ids]})).search_pictures(pictures)
+    SearchParams.new(params.dup.merge({look_pictures_ids: cookies[:look_pictures_ids]})).search_pictures(pictures)
   end
 
   def filtered_looks(looks, params)
@@ -18,12 +17,12 @@ module SearchFilter
     def initialize(params = {})
       @params = params
       @params[:q] ||= {}
-      #prepared_picture_params
+      prepared_picture_params
     end
 
     def search_pictures(user_pictures)
       search = user_pictures.search(@params[:q])
-      search.sorts = 'updated_at desc' if search.sorts.empty?
+      search.sorts = DEFAULT_SEARCH_ORDER if search.sorts.empty?
       pictures, per_page = if @params[:look_id] then
         available_pictures_for_look(search.result)
       elsif @params[:category_id] then available_pictures_for_category(search.result)
@@ -49,8 +48,7 @@ module SearchFilter
     end
 
     def prepared_picture_params
-      params = @params[:q] #.dup
-      params[:category_search] = [params[:category_search]].prepend(params[:include_subcategories])
+      @params[:q][:category_search].prepend(@params[:q][:include_subcategories]) if @params[:q].key?(:category_search)
     end
 
     def paginate(objects, page, per_page)

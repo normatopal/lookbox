@@ -25,22 +25,22 @@ class Picture < ActiveRecord::Base
   scope :available_for_category, -> (cat_id) { self.all - includes(:categories).where( categories: { id: cat_id } ) }
   #scope :available_for_look, -> (look_id) { self.all - includes(:looks).where( looks: { id: look_id } ) }
 
-  scope :category_search, -> (include_subcat = nil, category_ids = nil) do
+  scope :category_search, -> (include_subcat, *category_ids) do
 
     any_categories = proc(&:blank?)
     with_included_subcategories = proc{ include_subcat == '1' }
     category_ids_with_children = proc{ |cat_ids| cat_ids.concat(Category.where(id: cat_ids).eager_load(:children).map{|cat| cat.children}.flatten).uniq }
 
     category_ids.reject!(&:empty?)
-    index = category_ids.index('-1') and category_ids[index] = nil # for uncategorized
+    category_ids.push(nil) if category_ids.delete('0') || category_ids.delete('-1') # for uncategorized
 
     case category_ids
       when any_categories
-        includes(:categories)
+        self.eager_load(:categories)
       when with_included_subcategories
-        includes(:categories).where( categories: { id: category_ids_with_children.call(category_ids) })
+        self.eager_load(:categories).where( categories: { id: category_ids_with_children.call(category_ids) })
       else
-        includes(:categories).where( categories: { id: category_ids })
+        self.eager_load(:categories).where( categories: { id: category_ids })
     end
 
   end
@@ -108,7 +108,7 @@ class Picture < ActiveRecord::Base
   private
   def recreate_image
     image.recreate_versions!
-    create_image_timetamp
+    #create_image_timetamp #for local image storage
   end
 
   def remove_cloud_image(public_id = self.image.public_id)
