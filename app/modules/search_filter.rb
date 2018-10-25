@@ -21,7 +21,7 @@ module SearchFilter
     end
 
     def search_pictures(user_pictures)
-      search = user_pictures.search(@params[:q])
+      search = user_pictures.preload_categories.search(@params[:q])
       search.sorts = DEFAULT_SEARCH_ORDER if search.sorts.empty?
       pictures, per_page = if @params[:look_id] then
         available_pictures_for_look(search.result)

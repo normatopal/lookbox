@@ -19,6 +19,7 @@ class Picture < ActiveRecord::Base
   validates :user, presence: true
   validates_with UrlValidator, fields: [:direct_image_url, :link]
 
+  scope :preload_categories, -> { eager_load(:categories) }
   scope :uncategorized, -> { includes(:categories).where( categories: { id: nil } ) }
 
   # a bit odd, but of many-to-many category and picture
