@@ -8,10 +8,19 @@ jobs:
     docker:
       # specify the version you desire here
        - image: circleci/ruby:2.3-browsers
+         environment:
+           RAILS_ENV: test
+           RACK_ENV: test
+           #PGHOST: 127.0.0.1
+           #PGUSER: lookbox_user
+           DATABASE_URL: postgresql://lookbox_user@127.0.0.1:5432/lookbox_test
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+       - image: circleci/postgres:9.6-postgis
+         environment:
+           POSTGRES_DB: lookbox_test
+           POSTGRES_USER: lookbox_user
 
     working_directory: ~/lookbox
 
@@ -21,9 +30,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - lookbox-dependencies-{{ checksum "Gemfile.lock" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          - lookbox-dependencies-
 
       - run:
           name: install dependencies
@@ -34,26 +43,32 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          key: lookbox-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - restore_cache:
+          keys:
+            - v1-asset-cache-{{ arch }}-{{ .Branch }}
+            - v1-asset-cache-
+
+      - run: bundle exec rake assets:precompile
+
+      - save_cache:
+          key: v1-asset-cache-{{ arch }}-{{ .Branch }}-{{ epoch }}
+          paths:
+            - public/assets
+            - tmp/cache/assets/sprockets
         
       # Database setup
       - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bundle exec rake db:schema:load --trace
 
       # run tests!
       - run:
           name: run tests
           command: |
             mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)"
-            
-            bundle exec rake test
-                            --out /tmp/test-results/test.xml \
-                            --format progress \
-                            $TEST_FILES
-
-        #--format progress \
-        #--format RspecJunitFormatter \
+            bundle exec rake test \
+                         $(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
 
       # collect reports
       - store_test_results:

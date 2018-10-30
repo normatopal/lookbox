@@ -95,6 +95,8 @@ end
 group :test do
   gem 'minitest-spec-rails'
   gem 'minitest-rails-capybara'
+  gem 'execjs'
+  gem 'therubyracer'
 end
 
 
