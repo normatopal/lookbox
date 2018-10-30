@@ -76,3 +76,11 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+
+  deploy:
+      steps:
+        - checkout
+        - run:
+            name: Deploy Master to Heroku
+            command: |
+              git push https://heroku:6d15573e-6e54-473b-b5d5-30ed9e5a1743@git.heroku.com/lookbox.git master
