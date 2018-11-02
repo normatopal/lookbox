@@ -80,7 +80,7 @@ jobs:
   deploy:
     machine:
         enabled: true
-    working_directory: ~/circleci-demo-workflows
+    working_directory: ~/lookbox
     environment:
       HEROKU_APP: "lookbox"
     steps:
@@ -88,7 +88,7 @@ jobs:
       - run:
         name: Deploy Master to Heroku
         command: |
-          git push https://heroku:6d15573e-6e54-473b-b5d5-30ed9e5a1743@git.heroku.com/$HEROKU_APP.git master
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP.git master
 
 workflows:
   version: 2
