@@ -110,12 +110,14 @@ class PicturesController < ApplicationController
     end
 
     def set_look_pictures_search
-      par = params.dup
-      if par[:store_page]
-        session[:look_pictures_search] = { page:  par[:page] || 1, q: par[:q]}
-      else
-        params.deep_merge!(session[:look_pictures_search]) if session[:look_pictures_search]
-      end
+      #par = params.dup
+      # if par[:store_page]
+      #   session[:look_pictures_search] = { page:  par[:page] || 1, q: par[:q]}
+      # else
+      #   params.deep_merge!(session[:look_pictures_search]) if session[:look_pictures_search]
+      # end
+      session[:look_pictures_search] = { page:  params[:page], q: params[:q]} if params[:page]
+      params.deep_merge!(session[:look_pictures_search]) if params[:restore_page].present? && session[:look_pictures_search]
     end
 
     def paginate_pictures(pictures, per_page)

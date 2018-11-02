@@ -1,7 +1,8 @@
 module SearchFilter
 
   def filtered_pictures(pictures, params)
-    SearchParams.new(params.dup.merge({look_pictures_ids: cookies[:look_pictures_ids]})).search_pictures(pictures)
+    merged_params = params.dup.merge({look_pictures_ids: cookies[:look_pictures_ids]})
+    SearchParams.new(merged_params).search_pictures(pictures)
   end
 
   def filtered_looks(looks, params)
