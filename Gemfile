@@ -82,6 +82,8 @@ gem 'react-rails'
 gem 'grape'
 gem 'warden'
 
+gem 'bugsnag'
+
 group :development, :test do
   gem 'pry-byebug'
 
