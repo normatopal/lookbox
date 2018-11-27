@@ -33,8 +33,9 @@
     = fs.hidden_field :user_id
     = fs.hidden_field :id
 
-  #look-canvas.pictures-list
-    = react_component 'LookPictures', { look_pictures: @look.look_pictures.to_json(include: :picture) }
+  .look-canvas-container
+    #look-canvas.pictures-list
+      = react_component 'LookPictures', { look_pictures: @look.look_pictures.to_json(include: :picture) }
 
 %div{id: "pictures-modal", class: "modal fade", tabindex: "-1", role: "dialog", :'aria-labelledby' => "modal-label " }
 %div{id: "picture-modal-form", class: "modal fade", tabindex: "-1", role: "dialog", :"aria-labelledby" => "modal-label "}

@@ -1,12 +1,14 @@
 %b
   %p= "Hello, #{current_user_name}"
-  %p You're in a place, where your collage of pictures can be created.
-  %p Just use this service to put together sketches for clothes looks, foto comparing, etc...
-  %p Divide your images by nested multilevel categories. Share looks with friends or save them locally.
-  %p Organize your things once and never let the mess screw up your mood (:
+  %p You're in a space, where collages of pictures can be created and stored.
+  %p Just use this app to sort out your sketches, clothes pictures, fotos, etc...
+  %p Divide images by nested multilevel categories. Download from other resources, saving outer links.
+  %p Quick search images with filters. Compare with each other and stay focused on better ones.
+  %p Share looks with friends or save them locally on your device.
+  %p Effortlessly organize all your stuff and never let a mess screw up your mood (:
   %p= link_to "Log in here...", new_user_session_path unless user_signed_in?
 
 - if user_signed_in?
-  .menu-links-images
+  .menu-links-images.clearfix
     = render 'menu_links_btns'
 
