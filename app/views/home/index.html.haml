@@ -1,11 +1,12 @@
 %b
   %p= "Hello, #{current_user_name}"
-  %p You're in a space, where collages of pictures can be created and stored.
-  %p Just use this app to sort out your sketches, clothes pictures, fotos, etc...
-  %p Divide images by nested multilevel categories. Download from other resources, saving outer links.
-  %p Quick search images with filters. Compare with each other and stay focused on better ones.
-  %p Share looks with friends or save them locally on your device.
-  %p Effortlessly organize all your stuff and never let a mess screw up your mood (:
+  %p You're in the space, where your collages can be created and stored.
+  %p Just use lookbox to sort out your sketches, images, fotos, etc...
+  %p Divide them by nested multilevel categories. Download pictures from other resources, save outer links.
+  %p Search images with using filters. Compare with each other on special look canvas, drag and resize and stay focused on better ones.
+  %p Share looks with others or save them locally on your device.
+  %p Organize all your stuff just ones and never let a mess screw up your mood (:
+  %p P.S Watch video first to dive into details and follow inner steps
   %p= link_to "Log in here...", new_user_session_path unless user_signed_in?
 
 - if user_signed_in?
