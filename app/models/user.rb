@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_user_by_access_token(access_token)
-    User.eager_load(:user_setting => :api_key).where("api_keys.access_token = ? and api_keys.active = ?", access_token, true).find(1)
+    User.eager_load(:user_setting => :api_key).where("api_keys.access_token = ? and api_keys.active = ?", access_token, 1).first
   end
 
   def self.find_first_by_auth_conditions(warden_conditions)
