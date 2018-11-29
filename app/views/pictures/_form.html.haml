@@ -41,7 +41,7 @@
             %span.clear-input-btn
               &times;
           .col-sm-4
-            %i.glyphicon.glyphicon-info-sign.infopopover{'data-content' => 'Insert image url from other resource or upload image from your device'}
+            %i.glyphicon.glyphicon-info-sign.infopopover{'data-content' => 'Insert direct image url from other resource or upload image from your device'}
       .form-group
         .row
           .image-uploader{:'data-provides' => "fileinput", class: "fileinput fileinput-#{@picture.image.present? ? 'exists' : 'new'}"}
@@ -80,7 +80,7 @@
             .image-crop.ok
               %span.btn.btn-default.btn-file
                 %i.glyphicon.glyphicon-scissors
-                Crop
+                Crop Image
           .col-sm-2
             .image-crop.cancel
               %span.btn.btn-default.btn-file
