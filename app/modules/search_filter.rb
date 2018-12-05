@@ -50,7 +50,7 @@ module SearchFilter
 
     def prepared_picture_params
       @params[:q][:category_search].prepend(@params[:q][:include_subcategories]) if @params[:q].key?(:category_search)
-      @params[:q][:title_or_description_cont_any] = @params[:q][:title_or_description_cont_any].try(:split) if @params[:q].key?(:title_or_description_cont_any)# for full text search
+      #@params[:q][:title_or_description_cont_any] = @params[:q][:title_or_description_cont_any].try(:split) if @params[:q].key?(:title_or_description_cont_any)# for full text search
     end
 
     def paginate(objects, page, per_page)

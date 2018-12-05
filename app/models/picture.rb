@@ -48,8 +48,8 @@ class Picture < ActiveRecord::Base
   
   scope :include_subcategories, -> (include_subcat = nil) { }
 
-  scope :title_description_search, -> do
-
+  scope :title_description_search, -> (search_text) do
+    self.ransack(title_or_description_cont_any: search_text.split).result
   end
 
   before_save :load_image_from_remote_url, if: ->(obj){ obj.direct_image_url.present? }
@@ -58,7 +58,7 @@ class Picture < ActiveRecord::Base
 
   # whitelist the scope
   def self.ransackable_scopes(auth_object = nil)
-    [:category_search, :include_subcategories]
+    [:category_search, :include_subcategories, :title_description_search]
   end
 
   def load_image_from_remote_url

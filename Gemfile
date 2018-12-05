@@ -47,12 +47,19 @@ gem 'elevatezoom-rails'
 gem 'jquery-tmpl-rails'
 gem 'jquery-turbolinks'
 
-gem 'exifjs-rails'
-gem 'blueimp-load-image-rails'
+gem 'react-rails'
 
 gem 'devise'
+gem 'warden'
+
 gem 'kaminari'
 gem 'ransack'
+
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
+gem 'sidekiq'
+gem 'redis-namespace'
 
 gem 'carrierwave', '~> 0.10.0'
 gem 'carrierwave-imageoptimizer'
@@ -60,6 +67,8 @@ gem 'copy_carrierwave_file'
 gem 'remotipart', '~> 1.2'
 gem 'mini_magick', '~> 4.3'
 gem 'carrierwave-crop'
+gem 'blueimp-load-image-rails'
+gem 'exifjs-rails'
 
 gem 'cloudinary'
 
@@ -72,15 +81,7 @@ gem 'draper'
 gem 'active_link_to'
 gem 'tabs_on_rails'
 
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-
-gem 'sidekiq'
-gem 'redis-namespace'
-
-gem 'react-rails'
 gem 'grape'
-gem 'warden'
 
 gem 'bugsnag'
 
@@ -101,10 +102,10 @@ group :test do
   gem 'therubyracer'
 end
 
-
 group :production do
   gem 'pg'
 end
+
 
 ruby '2.3.8'
 

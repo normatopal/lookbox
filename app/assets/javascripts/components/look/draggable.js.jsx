@@ -44,7 +44,7 @@ var Draggable = React.createClass({
   },
   onMouseDown: function (e) {
     // only left mouse button
-    //if (e.button !== 0) return
+    if (e.button !== 0) return
     let pos = ReactDOM.findDOMNode(this).getBoundingClientRect()
     let [position_page_x, position_page_y] = this.getPagePositions(e)
     this.setState({
@@ -55,6 +55,8 @@ var Draggable = React.createClass({
       }
     })
     this.props.increaseZindex()
+    e.stopPropagation()
+    e.preventDefault()
   },
   onMouseUp: function (e) {
     this.setState({dragging: false})
