@@ -43,13 +43,11 @@ module External
 
     desc "Return pictures list"
     get :categories_list do
-      authenticated
       current_user.categories.to_json(:only => [:id, :title, :description, :created_at, :updated_at])
     end
 
     desc "Return pictures list"
     get :looks_list do
-      authenticated
       current_user.looks.to_json(:only => [:id, :name, :description, :parent_id, :created_at, :updated_at])
     end
 

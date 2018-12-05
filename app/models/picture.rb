@@ -48,6 +48,10 @@ class Picture < ActiveRecord::Base
   
   scope :include_subcategories, -> (include_subcat = nil) { }
 
+  scope :title_description_search, -> do
+
+  end
+
   before_save :load_image_from_remote_url, if: ->(obj){ obj.direct_image_url.present? }
   after_update :update_picture
   after_destroy :remove_cloud_image, if: ->(obj){ Rails.application.secrets.use_cloudinary && obj.image.url.present?}
