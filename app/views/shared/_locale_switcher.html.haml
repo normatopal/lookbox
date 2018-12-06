@@ -8,4 +8,4 @@
       %li
         = link_to params.merge(locale: loc.locale) do
           %span.badge #{loc.locale}
-          = t(loc.name, {locale: loc.locale})
+          = t(loc.locale, {locale: loc.locale})
