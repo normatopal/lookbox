@@ -9,7 +9,7 @@
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+  scope '(:locale)', locale: /#{Locale.routes_locales}/ do
 
     devise_scope :user do
       get 'omniauth/:provider' => 'omniauth_callbacks#localized', as: :localized_omniauth
