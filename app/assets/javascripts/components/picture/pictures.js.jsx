@@ -35,7 +35,7 @@ Pictures = React.createClass({getInitialState(){
     possible_categories = picture.possible_categories.length > 0 ? picture.possible_categories : [-1]
     selected_categories = Array.from(document.getElementById("q_category_search").options).filter(option => option.selected).map(option => option.value)
     has_intersection = possible_categories.some(cat => selected_categories.indexOf(String(cat)) >= 0)
-    if (selected_categories != [] && !has_intersection) new_pictures.splice(index, 1)
+    if (selected_categories.length > 0 && !has_intersection) new_pictures.splice(index, 1)
     else if (index > this.state.pictures.length) new_pictures.unshift(picture)
     else new_pictures[index] = picture
     this.setState({pictures: new_pictures})

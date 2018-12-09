@@ -10,8 +10,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -21,15 +19,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 
 gem 'haml'
@@ -51,12 +40,11 @@ gem 'react-rails'
 
 gem 'devise'
 gem 'warden'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 
 gem 'kaminari'
 gem 'ransack'
-
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
 
 gem 'sidekiq'
 gem 'redis-namespace'
@@ -70,7 +58,6 @@ gem 'carrierwave-crop'
 gem 'blueimp-load-image-rails'
 gem 'exifjs-rails'
 
-gem 'cloudinary'
 
 gem 'awesome_nested_set'
 gem 'the_sortable_tree', '~> 2.5.0'
@@ -81,6 +68,7 @@ gem 'draper'
 gem 'active_link_to'
 gem 'tabs_on_rails'
 
+gem 'cloudinary'
 gem 'grape'
 
 gem 'bugsnag'
@@ -105,7 +93,6 @@ end
 group :production do
   gem 'pg'
 end
-
 
 ruby '2.3.8'
 
