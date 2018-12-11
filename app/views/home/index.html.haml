@@ -6,11 +6,14 @@
   %p Search images withing filters. Compare with each other on the special look canvas, drag, resize.
   %p Share looks with other users, save screenshots locally and stay focused on the better ones.
   %p Organize all your stuff just one time and never let a mess screw up your mood (:
-  %p P.S Watch introduction video first. It'll help you follow the steps, dive into details and eximine the system.
-  %p= link_to "Log in here...", new_user_session_path unless user_signed_in?
-
-- if user_signed_in?
-  .menu-links-images.clearfix
-    = render 'menu_links_btns'
-
-%iframe{class: 'intro_video', src: 'https://www.youtube.com/embed/VPSbXuLBrY8?rel=0&autoplay=0 %>', frameborder: '1', allowfullscreen: '1'}
+  %br
+  - unless user_signed_in?
+    %p= link_to "Log in here...", new_user_session_path unless user_signed_in?
+  - else
+    .menu-links-images.clearfix
+      = render 'menu_links_btns'
+  - if (video_link = introduction_video_link).present?
+    %br
+    %p P.S Watch introduction video first. It'll help you follow the steps, dive into details and eximine the system.
+    %br
+    %iframe{class: 'intro_video', src: video_link, frameborder: '1', allowfullscreen: '1'}

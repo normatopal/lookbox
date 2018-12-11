@@ -26,3 +26,44 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+## **Technological stack**
+
+* ruby version: 2.3.8
+* rails version: 4.2.8
+
+* database: mysql/postgresql
+* authorization: omniauth, devise
+* image store(CDN): locally/cloudinary
+* image processing: carrierwave
+* front-end frameworks/libs: react.js/jquery
+* frontend preprocessors: coffee, haml, sass
+* css: bootsrap
+* delayed jobs: sidekiq
+* debugging: pry-byebug
+
+* build, deploy: circleci
+* docker container: lookbox(not published)
+
+* tests unit/integration: minitest/capybara
+* api: grape
+
+* application platform: heroku
+* domain: lookbox.herokuapp.com
+* project store github/bitbucket:
+
+
+### Rake tasks
+rake settings:add_locales
+rake settings:locales_visibility LOCALES='es,ru' VISIBLE=false
+
+Keeping secrets: secret_tokens.yml
+USE_CLOUDINARY: "true"  - use cloudinary instead of local image store
+
+### Api examples
+
+lookbox.herokuapp.com/api/v1/categories?access_token=<your access token from settings>
+lookbox.herokuapp.com/api/v1/pictures?access_token=<your access token>
+lookbox.herokuapp.com/api/v1/looks?access_token=<your access token>
+
+
