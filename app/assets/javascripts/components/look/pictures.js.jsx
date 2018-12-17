@@ -45,9 +45,9 @@ LookPictures = React.createClass({
     window.Look = {
       addPictures: (data='') => {
         added_pictures = JSON.parse(data)
-        const merge = (a, b, key = 'picture_id') => a.filter(elem => !b.find(subElem => subElem[key] === elem[key])).concat(b)
-        new_pictures = merge(this.state.look_pictures, added_pictures)
-        this.setState({look_pictures: new_pictures})
+        //const merge = (a, b, key = 'picture_id') => a.filter(elem => !b.find(subElem => subElem[key] === elem[key])).concat(b)
+        //new_pictures = merge(this.state.look_pictures, added_pictures)
+        this.setState({look_pictures: this.state.look_pictures.concat(added_pictures)})
       }
     }
   },

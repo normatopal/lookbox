@@ -33,7 +33,8 @@ class Picture < ActiveRecord::Base
     category_ids_with_children = proc{ |cat_ids| cat_ids.concat(Category.where(id: cat_ids).eager_load(:children).map{|cat| cat.children}.flatten).uniq }
 
     category_ids.reject!(&:empty?)
-    category_ids.push(nil) if category_ids.delete('0') || category_ids.delete('-1') # for uncategorized
+    category_ids.delete('0') || category_ids.delete_at(category_ids.index('1') || category_ids.length)
+    category_ids.push(nil) if category_ids.delete('-1') # for uncategorized
 
     case category_ids
       when any_categories
