@@ -30,7 +30,7 @@ Visit and try https://lookbox.herokuapp.com
 
 * application platform: heroku
 * site url: lookbox.herokuapp.com
-* project store github/bitbucket:
+* project store github/bitbucket: github.com/normatopal/lookbox
 
 === Rake tasks
 rake settings:add_locales
@@ -45,7 +45,11 @@ lookbox.herokuapp.com/api/v1/categories?access_token=<your access token from set
 lookbox.herokuapp.com/api/v1/pictures?access_token=<your access token>
 lookbox.herokuapp.com/api/v1/looks?access_token=<your access token>
 
-=== Use Case Diagram  
-![Lookbox use case](https://drive.google.com/open?id=1fwloMLrVS7cSrke030L5-Xmmx3TTdRAK)
+=== Use Case Diagram
+
+![Use Case](images/diagram_diagram.jpg)
+
+=== Classes Diagram
+![Classes](images/classes_diagram.jpg)
 
 
