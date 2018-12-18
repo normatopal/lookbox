@@ -45,4 +45,7 @@ lookbox.herokuapp.com/api/v1/categories?access_token=<your access token from set
 lookbox.herokuapp.com/api/v1/pictures?access_token=<your access token>
 lookbox.herokuapp.com/api/v1/looks?access_token=<your access token>
 
+=== Use Case Diagram  
+![Lookbox use case](https://drive.google.com/open?id=1fwloMLrVS7cSrke030L5-Xmmx3TTdRAK)
+
 
