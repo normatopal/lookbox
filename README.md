@@ -3,7 +3,7 @@
 Lookbox app helps you to store, sort out, compare and combine your images, photos, etc..
 Visit and try https://lookbox.herokuapp.com
 
-=== Technological stack
+=== Technical stack
 
 * ruby version: 2.3.8
 * rails version: 4.2.8
