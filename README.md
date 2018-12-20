@@ -1,9 +1,9 @@
-== README
+## README
 
 Lookbox app helps you to store, sort out, compare and combine your images, photos, etc..
 Visit and try https://lookbox.herokuapp.com
 
-=== Technical stack
+### Technical stack
 
 * ruby version: 2.3.8
 * rails version: 4.2.8
@@ -32,24 +32,24 @@ Visit and try https://lookbox.herokuapp.com
 * site url: lookbox.herokuapp.com
 * project store github/bitbucket: github.com/normatopal/lookbox
 
-=== Rake tasks
+### Rake tasks
 rake settings:add_locales
 rake settings:locales_visibility LOCALES='es,ru' VISIBLE=false
 
 Keeping secrets: secret_tokens.yml
 USE_CLOUDINARY: "true"  - use cloudinary instead of local image store
 
-=== Api examples
+### Api examples
 
 lookbox.herokuapp.com/api/v1/categories?access_token=<your access token from settings>
 lookbox.herokuapp.com/api/v1/pictures?access_token=<your access token>
 lookbox.herokuapp.com/api/v1/looks?access_token=<your access token>
 
-=== Use Case Diagram
+### Use Case Diagram
 
-![Use Case](images/diagram_diagram.jpg)
+![Use Case](public/images/usecase_diagram.jpg)
 
-=== Classes Diagram
-![Classes](images/classes_diagram.jpg)
+### Classes Diagram
+![Classes](public/images/classes_diagram.jpg)
 
 
