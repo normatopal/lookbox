@@ -46,6 +46,8 @@ gem 'omniauth-google-oauth2'
 gem 'kaminari'
 gem 'ransack'
 
+gem 'activeadmin'
+
 gem 'sidekiq'
 gem 'redis-namespace'
 

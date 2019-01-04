@@ -1,5 +1,6 @@
   Rails.application.routes.draw do
 
+  ActiveAdmin.routes(self)
   root_path = 'home#index'
 
   devise_for :users, skip: [:session, :password, :registration, :confirmation], controllers: { omniauth_callbacks: 'omniauth_callbacks' }
