@@ -24,6 +24,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def logout_active_admin_user!
+    sign_out(current_user)
+  end
+
   def after_sign_in_path_for(resource_or_scope)
     session[:previous_url] || root_path
   end

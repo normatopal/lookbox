@@ -1,9 +1,9 @@
   Rails.application.routes.draw do
 
+  devise_for :users, skip: [:session, :password, :registration, :confirmation], controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
   ActiveAdmin.routes(self)
   root_path = 'home#index'
-
-  devise_for :users, skip: [:session, :password, :registration, :confirmation], controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   get '/users/auth/:provider' => 'omniauth_sessions#create', as: 'omniauth_authorize'
 

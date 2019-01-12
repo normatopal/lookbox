@@ -28,6 +28,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'jasny-bootstrap-rails' # rotate image before download
 gem 'autoprefixer-rails', '~> 7.1', '>= 7.1.6'
 
+gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootbox-rails'
 gem 'rails-jquery-autocomplete'
@@ -46,7 +47,7 @@ gem 'omniauth-google-oauth2'
 gem 'kaminari'
 gem 'ransack'
 
-gem 'activeadmin'
+gem 'activeadmin', '~> 1.3.0'
 
 gem 'sidekiq'
 gem 'redis-namespace'

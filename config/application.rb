@@ -44,5 +44,11 @@ module Lookbox
         YAML.load(File.open(env_file)).try(:each) { |key, value| ENV[key.to_s] = value } if File.exists?(env_file) && !File.zero?(env_file)
     end
 
+    # assets pipeline config to work on Heroku
+    config.assets.initialize_on_precompile = false
+
+    # add active admin assets to precompile list, loaded from vendor/assets
+    config.assets.precompile += %w( active_admin.js active_admin.css.scss )
+
   end
 end
